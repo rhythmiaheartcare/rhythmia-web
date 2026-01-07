@@ -5,6 +5,7 @@ import WhoWeAre from '../components/WhoWeAre'
 import OurStory from '../components/OurStory'
 import EveryHeartbeat from '../components/EveryHeartbeat'
 import Product from '../components/Product'
+import ContactUs from '../components/ContactUs'
 import Footer from '../components/Footer'
 import { useLocation } from 'react-router-dom'
 
@@ -28,6 +29,7 @@ export default function Home() {
             <WhoWeAre />
             <EveryHeartbeat />
             <OurStory />
+            <ContactUs />
 
             <Footer />
         </main>
