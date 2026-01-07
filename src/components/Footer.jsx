@@ -42,6 +42,7 @@ export default function Footer() {
                             <span className="detail-label">Headquarters</span>
                             <address className="detail-value address">
                                 71-75 Shelton Street<br />
+                                Covent Garden<br />
                                 London, England<br />
                                 WC2H 9JQ
                             </address>

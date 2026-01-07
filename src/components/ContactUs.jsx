@@ -121,11 +121,11 @@ export default function ContactUs() {
                     position: absolute;
                     top: 0;
                     right: 0;
-                    width: 50%;
+                    width: 100%;
                     height: 100%;
                     background-image: url('/assets/pattern/Rhythmia_Care_Pattern_Red.svg');
                     background-repeat: no-repeat;
-                    background-position: center right;
+                    background-position: center center;
                     background-size: cover;
                     opacity: 0.05;
                     pointer-events: none;
