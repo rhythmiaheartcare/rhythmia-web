@@ -61,6 +61,7 @@ export default function Navbar() {
                     <li onClick={() => scrollToSection('who-we-are')}>Who We Are</li>
                     <li onClick={() => scrollToSection('every-heartbeat')}>Rhythm</li>
                     <li onClick={() => scrollToSection('our-story')}>Our Story</li>
+                    <li onClick={() => scrollToSection('contact')}>Contact</li>
                     <li>
                         <Link to="/product" className="nav-cta-btn">
                             Buy Now
@@ -92,6 +93,7 @@ export default function Navbar() {
                             <li onClick={() => scrollToSection('who-we-are')}>Who We Are</li>
                             <li onClick={() => scrollToSection('every-heartbeat')}>Rhythm</li>
                             <li onClick={() => scrollToSection('our-story')}>Our Story</li>
+                            <li onClick={() => scrollToSection('contact')}>Contact</li>
                             <li>
                                 <Link to="/product" onClick={() => setMobileMenuOpen(false)} className="mobile-cta-btn">
                                     Buy Now
@@ -103,6 +105,10 @@ export default function Navbar() {
             </AnimatePresence>
 
             <style>{`
+                .nav-links {
+                    align-items: center; /* Ensure vertical alignment */
+                }
+                
                 .nav-cta-btn {
                     background-color: var(--color-secondary);
                     color: white;
@@ -111,6 +117,7 @@ export default function Navbar() {
                     text-decoration: none;
                     font-weight: 600;
                     transition: transform 0.2s, background-color 0.2s;
+                    display: inline-block;
                 }
                 .nav-cta-btn:hover {
                     background-color: #ff1f1f;
@@ -118,6 +125,7 @@ export default function Navbar() {
                     color: white;
                     padding: 0.5rem 1.5rem;
                 }
+
                 .mobile-cta-btn {
                     display: inline-block;
                     margin-top: 1rem;
