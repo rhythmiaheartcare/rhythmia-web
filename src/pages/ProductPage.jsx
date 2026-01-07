@@ -3,6 +3,7 @@ import { ArrowLeft, Check, ShieldCheck, Zap, Lock } from 'lucide-react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import ProductJar from '../components/3d/ProductJar'
+import ProductReviews from '../components/ProductReviews'
 import Footer from '../components/Footer'
 
 export default function ProductPage() {
@@ -19,6 +20,7 @@ export default function ProductPage() {
     };
 
     const [purchaseType, setPurchaseType] = React.useState('onetime');
+    const [activeTab, setActiveTab] = React.useState('reviews');
 
     const handleCheckout = () => {
         // Open appropriate Stripe Payment Link based on selection
@@ -175,24 +177,103 @@ export default function ProductPage() {
                     </div>
                 </div>
 
-                {/* Product Info Section - Full Width */}
+                {/* Tabbed Info Section - Full Width */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
                     className="product-info-section"
                 >
-                    <div className="info-content">
-                        <h3 className="info-section-title">Full ingredients</h3>
-                        <p className="info-section-text">
-                            Magnesium (Magnesium Bisglycinate Chelate Buffered), Taurine, Coenzyme Q10 (Ubiquinone), Zinc (Zinc Picolinate), Vitamin B1 (Thiamine Hydrochloride), Vitamin B6 (Pyridoxine Hydrochloride), Vitamin B12 (Methylcobalamin), Capsule Shell (Hydroxypropylmethylcellulose)
-                        </p>
+                    <div className="tab-header">
+                        <button
+                            className={`tab-btn ${activeTab === 'reviews' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('reviews')}
+                        >
+                            Reviews
+                        </button>
+                        <button
+                            className={`tab-btn ${activeTab === 'ingredients' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('ingredients')}
+                        >
+                            Full Ingredients
+                        </button>
+                    </div>
+
+                    <div className="tab-content">
+                        {activeTab === 'ingredients' && (
+                            <motion.div
+                                key="ingredients"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.3 }}
+                                className="info-content"
+                            >
+                                <p className="info-section-text">
+                                    Magnesium (Magnesium Bisglycinate Chelate Buffered), Taurine, Coenzyme Q10 (Ubiquinone), Zinc (Zinc Picolinate), Vitamin B1 (Thiamine Hydrochloride), Vitamin B6 (Pyridoxine Hydrochloride), Vitamin B12 (Methylcobalamin), Capsule Shell (Hydroxypropylmethylcellulose)
+                                </p>
+                            </motion.div>
+                        )}
+
+                        {activeTab === 'reviews' && (
+                            <motion.div
+                                key="reviews"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <ProductReviews />
+                            </motion.div>
+                        )}
                     </div>
                 </motion.div>
             </div>
             <Footer />
 
             <style>{`
+                /* Tab Styles */
+                .tab-header {
+                    display: flex;
+                    gap: 2rem;
+                    margin-bottom: 2rem;
+                    border-bottom: 1px solid rgba(255,255,255,0.1);
+                    padding-bottom: 1rem;
+                }
+                .tab-btn {
+                    background: none;
+                    border: none;
+                    color: rgba(255,255,255,0.4);
+                    font-family: var(--font-main);
+                    font-size: 1.1rem;
+                    text-transform: uppercase;
+                    letter-spacing: 0.1em;
+                    cursor: pointer;
+                    padding-bottom: 0.5rem;
+                    position: relative;
+                    transition: all 0.3s;
+                    font-weight: 600; /* Fixed weight to prevent wiggle */
+                }
+                .tab-btn:hover {
+                    color: rgba(255,255,255,0.8);
+                }
+                .tab-btn.active {
+                    color: white;
+                    /* font-weight removed to prevent layout shift */
+                }
+                .tab-btn.active::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -1.1rem; /* align with border bottom */
+                    left: 0;
+                    width: 100%;
+                    height: 2px;
+                    background: var(--color-secondary);
+                    box-shadow: 0 -2px 10px var(--color-secondary);
+                }
+                .tab-content {
+                    min-height: 200px;
+                }
+                /* End Tab Styles */
+
                 .product-page-root {
                     min-height: 100vh;
                     background-color: var(--color-quaternary);
