@@ -4,32 +4,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import { reviewService } from '../services/reviewService';
 
-export default function ProductReviews() {
+export default function ProductReviews({ reviews = [], loading = false }) {
     const [isWriting, setIsWriting] = useState(false);
     const [rating, setRating] = useState(5);
     const [hoverRating, setHoverRating] = useState(0);
     const [formData, setFormData] = useState({ name: '', email: '', review: '' });
     const [submitted, setSubmitted] = useState(false);
-    const [reviews, setReviews] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    // Load reviews
-    React.useEffect(() => {
-        const loadReviews = async () => {
-            const data = await reviewService.getApprovedReviews();
-            if (data && data.length > 0) {
-                setReviews(data);
-            } else {
-                // Keep some mock data for display if DB is empty or fails? 
-                // Better to show empty state or fallback mocks if we want to impress.
-                // For now, let's just use the server data or empty array.
-                // UNCOMMENT below to use mocks when DB is empty:
-                // setReviews(MOCK_REVIEWS);
-            }
-            setLoading(false);
-        };
-        loadReviews();
-    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -56,34 +36,47 @@ export default function ProductReviews() {
     };
 
     // Calculate rating
-    const averageRating = reviews.length > 0
-        ? (reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length).toFixed(1)
-        : "5.0";
+    const averageRating = loading
+        ? null
+        : (reviews.length > 0
+            ? (reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length).toFixed(1)
+            : "5.0");
 
     return (
         <div className="reviews-wrapper">
             <div className="reviews-header">
                 <div className="rating-summary-group">
                     <div className="overall-score">
-                        <span className="score-number">{averageRating}</span>
+                        {loading ? (
+                            <span className="score-number" style={{ opacity: 0.5 }}>...</span>
+                        ) : (
+                            <span className="score-number">{averageRating}</span>
+                        )}
                         <div className="stars-row">
-                            {[1, 2, 3, 4, 5].map(star => {
-                                const score = parseFloat(averageRating);
-                                if (score >= star) {
-                                    return <Star key={star} size={20} fill="#D50F0F" color="#D50F0F" />;
-                                } else if (score >= star - 0.5) {
-                                    return (
-                                        <div key={star} style={{ position: 'relative', display: 'flex' }}>
-                                            <Star size={20} color="#666" fill="transparent" />
-                                            <div style={{ position: 'absolute', left: 0, top: 0 }}>
-                                                <StarHalf size={20} fill="#D50F0F" color="#D50F0F" />
+                            {loading ? (
+                                // Show skeletal or empty stars while loading
+                                [1, 2, 3, 4, 5].map(star => (
+                                    <Star key={star} size={20} fill="transparent" color="rgba(255,255,255,0.2)" />
+                                ))
+                            ) : (
+                                [1, 2, 3, 4, 5].map(star => {
+                                    const score = parseFloat(averageRating);
+                                    if (score >= star) {
+                                        return <Star key={star} size={20} fill="#D50F0F" color="#D50F0F" />;
+                                    } else if (score >= star - 0.5) {
+                                        return (
+                                            <div key={star} style={{ position: 'relative', display: 'flex' }}>
+                                                <Star size={20} color="#666" fill="transparent" />
+                                                <div style={{ position: 'absolute', left: 0, top: 0 }}>
+                                                    <StarHalf size={20} fill="#D50F0F" color="#D50F0F" />
+                                                </div>
                                             </div>
-                                        </div>
-                                    );
-                                } else {
-                                    return <Star key={star} size={20} fill="transparent" color="#666" />;
-                                }
-                            })}
+                                        );
+                                    } else {
+                                        return <Star key={star} size={20} fill="transparent" color="#666" />;
+                                    }
+                                })
+                            )}
                         </div>
                     </div>
                     <p className="review-count">Based on {reviews.length} reviews</p>

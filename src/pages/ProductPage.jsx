@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import ProductJar from '../components/3d/ProductJar'
 import ProductReviews from '../components/ProductReviews'
 import Footer from '../components/Footer'
+import { reviewService } from '../services/reviewService'
 
 export default function ProductPage() {
     const navigate = useNavigate();
@@ -21,6 +22,19 @@ export default function ProductPage() {
 
     const [purchaseType, setPurchaseType] = React.useState('onetime');
     const [activeTab, setActiveTab] = React.useState('reviews');
+    const [reviews, setReviews] = React.useState([]);
+    const [reviewsLoading, setReviewsLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        const loadReviews = async () => {
+            const data = await reviewService.getApprovedReviews();
+            if (data && data.length > 0) {
+                setReviews(data);
+            }
+            setReviewsLoading(false);
+        };
+        loadReviews();
+    }, []);
 
     const handleCheckout = () => {
         // Open appropriate Stripe Payment Link based on selection
@@ -221,7 +235,7 @@ export default function ProductPage() {
                                 animate={{ opacity: 1 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <ProductReviews />
+                                <ProductReviews reviews={reviews} loading={reviewsLoading} />
                             </motion.div>
                         )}
                     </div>
