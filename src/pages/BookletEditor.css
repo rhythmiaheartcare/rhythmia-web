@@ -1,0 +1,74 @@
+/* Editor Layout */
+.editor-layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: #111;
+    color: #eee;
+    font-family: sans-serif;
+}
+
+.editor-sidebar {
+    width: 400px;
+    padding: 20px;
+    border-right: 1px solid #333;
+    overflow-y: auto;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    background-color: #1a1a1a;
+}
+
+.editor-preview-wrapper {
+    margin-left: 400px;
+    /* Moves content to right of fixed sidebar */
+    flex-grow: 1;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+    /* Enable scrolling if content is too wide */
+}
+
+.editor-preview-scaler {
+    transform: scale(0.9);
+    transform-origin: top center;
+}
+
+/* Print Overrides */
+@media print {
+
+    /* Reset Layout for Print */
+    .editor-layout {
+        display: block;
+        background: none;
+        height: auto;
+    }
+
+    /* Verify removal of Sidebar is already handled by .no-print utility or add here */
+    .editor-sidebar {
+        display: none !important;
+    }
+
+    .editor-preview-wrapper {
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+        width: 100% !important;
+    }
+
+    .editor-preview-scaler {
+        transform: none !important;
+        width: 100% !important;
+    }
+
+    /* Hide any other potential clutter */
+    html,
+    body {
+        background: white;
+        color: black;
+        overflow: visible;
+        /* Allow multi-page */
+    }
+}

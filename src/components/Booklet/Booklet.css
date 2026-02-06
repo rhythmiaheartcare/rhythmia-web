@@ -1,0 +1,376 @@
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap');
+
+.booklet-root {
+    --color-primary: #D9D9D9;
+    --color-secondary: #D50F0F;
+    --color-tertiary: #860000;
+    --color-quaternary: #4D0D12;
+    --font-main: 'Clash Display', sans-serif;
+    --sheet-width: 297mm;
+    /* A4 Landscape Width */
+    --sheet-height: 210mm;
+    /* A4 Landscape Height */
+    --half-width: 148.5mm;
+    /* A5 Width */
+
+    font-family: var(--font-main);
+    color: var(--color-primary);
+    box-sizing: border-box;
+    letter-spacing: normal;
+}
+
+.booklet-root * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* The Sheet represents one side of an A4 piece of paper */
+.booklet-root .sheet {
+    width: var(--sheet-width);
+    height: var(--sheet-height);
+    background-color: var(--color-quaternary);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Split into two A5 pages */
+    margin-bottom: 40px;
+    /* Gap between sheets in preview */
+}
+
+.booklet-root .bg-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/pattern/Rhythmia_Care_Pattern_Red.svg');
+    background-size: cover;
+    opacity: 0.1;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* --- Page Containers (A5 Slots) --- */
+.booklet-root .page-slot {
+    position: relative;
+    z-index: 10;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.booklet-root .page-slot.left {
+    border-right: 1px dashed rgba(255, 255, 255, 0.1);
+    /* Fold line guide */
+}
+
+/* --- Layout Utilities --- */
+.booklet-root h1 {
+    font-size: 2.5rem;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    letter-spacing: normal;
+    /* Override globally set 0.05em */
+}
+
+.booklet-root h2 {
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+    color: var(--color-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.booklet-root h3 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-secondary);
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+}
+
+.booklet-root p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0.8rem;
+    letter-spacing: normal;
+    /* Override globally set 0.02em */
+}
+
+.booklet-root .logo-main {
+    width: 180px;
+    max-width: 80%;
+}
+
+.booklet-root .logo-small {
+    width: 100px;
+}
+
+/* FRONT COVER (Sheet 1, Right) */
+.booklet-root .front-cover {
+    background: radial-gradient(circle at 50% 30%, #6e151b 0%, var(--color-quaternary) 70%);
+    padding: 2.5rem;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+}
+
+.booklet-root .front-visual {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.booklet-root .heart-logo-large {
+    width: 160px;
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+    opacity: 0.9;
+}
+
+.booklet-root .glow-effect {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(213, 15, 15, 0.4) 0%, transparent 70%);
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* BACK COVER (Sheet 1, Left) */
+.booklet-root .back-cover {
+    background-color: #1a0507;
+    padding: 2rem 2.5rem;
+    justify-content: space-between;
+}
+
+.booklet-root .ingredients-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.2rem;
+    border-radius: 12px;
+    margin-bottom: auto;
+}
+
+.booklet-root .ingredients-list {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.4;
+}
+
+.booklet-root .contact-section {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1rem;
+    margin-top: 1rem;
+}
+
+.booklet-root .contact-detail {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.booklet-root .contact-icon {
+    width: 16px;
+    height: 16px;
+    fill: var(--color-secondary);
+}
+
+/* INSIDE LEFT (Sheet 2, Left) */
+.booklet-root .inside-left {
+    padding: 0;
+    position: relative;
+}
+
+.booklet-root .photo-upper {
+    width: 100%;
+    height: 32%;
+    object-fit: cover;
+    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+}
+
+.booklet-root .inside-content-wrapper {
+    padding: 2.5rem;
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* INSIDE RIGHT (Sheet 2, Right) */
+.booklet-root .inside-right {
+    padding: 2.5rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
+}
+
+.booklet-root .benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+}
+
+.booklet-root .benefit-item {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+}
+
+.booklet-root .check-icon {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    fill: var(--color-secondary);
+    margin-top: 2px;
+}
+
+.booklet-root .benefit-text h4 {
+    font-size: 0.95rem;
+    color: #fff;
+    margin-bottom: 0.2rem;
+    font-weight: 600;
+}
+
+.booklet-root .trust-badges {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: flex-start;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.booklet-root .badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.booklet-root .badge-icon {
+    width: 32px;
+    height: 32px;
+    stroke: var(--color-secondary);
+    stroke-width: 1.5;
+    fill: none;
+}
+
+.booklet-root .evidence-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.65rem;
+    margin-bottom: 0.8rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.booklet-root .evidence-table th {
+    text-align: left;
+    border-bottom: 1px solid var(--color-secondary);
+    padding: 4px;
+    color: var(--color-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.6rem;
+    vertical-align: bottom;
+}
+
+.booklet-root .evidence-table td {
+    padding: 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    vertical-align: top;
+    line-height: 1.3;
+}
+
+.booklet-root .evidence-table tr:last-child td {
+    border-bottom: none;
+}
+
+.booklet-root .ref-list {
+    font-size: 0.5rem;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.3;
+    margin-bottom: 0.8rem;
+    letter-spacing: 0.02em;
+}
+
+.booklet-root .disclaimer-text {
+    font-size: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 5px 8px;
+    border-radius: 4px;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    text-align: justify;
+    letter-spacing: 0.02em;
+}
+
+/* Print Overrides */
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+        background: none;
+    }
+
+    /* Hide the editor UI (Assuming it's outside .print-only or similar) */
+    .no-print {
+        display: none !important;
+    }
+
+    .booklet-root .sheet {
+        box-shadow: none;
+        break-after: page;
+        margin: 0;
+        width: 100%;
+        height: 100vh;
+        border: none;
+    }
+
+    /* Prevent blank 3rd page */
+    .booklet-root .sheet:last-child {
+        break-after: auto;
+    }
+
+    @page {
+        size: A4 landscape;
+        margin: 0;
+    }
+
+    /* Force full width but allow height to grow for multiple pages */
+    html,
+    body {
+        width: 297mm;
+        height: auto;
+        overflow: visible;
+    }
+
+    .booklet-root {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}
