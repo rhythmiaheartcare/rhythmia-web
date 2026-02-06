@@ -5,6 +5,7 @@ import ProductPage from './pages/ProductPage'
 import Success from './pages/Success'
 import Cancel from './pages/Cancel'
 import ApproveReview from './pages/ApproveReview'
+import BookletEditor from './pages/BookletEditor'
 import './index.css'
 import ScrollToTop from './components/ScrollToTop'
 import SmoothScroll from './components/SmoothScroll'
@@ -20,6 +21,7 @@ export default function App() {
                     <Route path="/success" element={<Success />} />
                     <Route path="/cancel" element={<Cancel />} />
                     <Route path="/approve-review" element={<ApproveReview />} />
+                    <Route path="/booklet-editor" element={<BookletEditor />} />
                 </Routes>
             </SmoothScroll>
         </Router>
