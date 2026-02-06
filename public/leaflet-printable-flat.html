@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rhythmia Heart Care Leaflet</title>
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #D9D9D9;
+            --color-secondary: #D50F0F;
+            --color-tertiary: #860000;
+            --color-quaternary: #4D0D12;
+            --font-main: 'Clash Display', sans-serif;
+            --page-width: 210mm;
+            --page-height: 297mm;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: #333;
+            /* Dark bg for browser view */
+            color: var(--color-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .page {
+            width: var(--page-width);
+            height: var(--page-height);
+            background-color: var(--color-quaternary);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('assets/pattern/Rhythmia_Care_Pattern_Red.svg');
+            background-size: cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        /* --- Front Page Styles --- */
+        .page-front {
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            padding: 4rem;
+            background: radial-gradient(circle at 50% 30%, #6e151b 0%, var(--color-quaternary) 70%);
+        }
+
+        .front-header {
+            z-index: 10;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo-main {
+            width: 300px;
+            max-width: 80%;
+        }
+
+        .main-visual {
+            z-index: 10;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 100%;
+        }
+
+        .heart-logo-large {
+            width: 250px;
+            filter: drop-shadow(0 10px 40px rgba(0, 0, 0, 0.5));
+            opacity: 0.9;
+        }
+
+        /* Floating abstract circles similar to product card */
+        .glow-effect {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(213, 15, 15, 0.4) 0%, transparent 70%);
+            z-index: -1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .front-content {
+            z-index: 10;
+            margin-bottom: 4rem;
+        }
+
+        .headline {
+            font-size: 3.5rem;
+            font-weight: 600;
+            line-height: 1.1;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            letter-spacing: 0.05em;
+        }
+
+        .subheadline {
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--color-primary);
+            max-width: 80%;
+            margin: 0 auto;
+            line-height: 1.4;
+            opacity: 0.9;
+        }
+
+        .front-footer {
+            z-index: 10;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--color-secondary);
+            font-weight: 600;
+        }
+
+        /* --- Back Page Styles --- */
+        .page-back {
+            background-color: #1a0507;
+            /* Slightly darker than quaternary */
+            color: var(--color-primary);
+            padding: 4rem 3rem;
+        }
+
+        .back-header {
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(213, 15, 15, 0.3);
+            padding-bottom: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .logo-small {
+            width: 120px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--color-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .content-block {
+            z-index: 10;
+            margin-bottom: 3rem;
+        }
+
+        .text-body {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            z-index: 10;
+            margin-bottom: 3rem;
+        }
+
+        .benefit-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .check-icon {
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            fill: var(--color-secondary);
+            margin-top: 4px;
+        }
+
+        .benefit-text h4 {
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+
+        .benefit-text p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.4;
+        }
+
+        .ingredients-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            z-index: 10;
+            margin-bottom: auto;
+            /* Push footer down */
+        }
+
+        .ingredients-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .ingredients-list {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .contact-section {
+            z-index: 10;
+            margin-top: 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-info h3 {
+            font-size: 1.4rem;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            color: var(--color-primary);
+        }
+
+        .contact-icon {
+            width: 18px;
+            height: 18px;
+            fill: var(--color-secondary);
+        }
+
+        .qr-placeholder {
+            width: 100px;
+            height: 100px;
+            background: white;
+            padding: 5px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Print Settings */
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+                gap: 0;
+                display: block;
+            }
+
+            .page {
+                box-shadow: none;
+                break-after: page;
+                margin: 0;
+                width: 100%;
+                height: 100vh;
+                /* Ensure it fills the page */
+                border: none;
+            }
+
+            /* Ensure background colors print */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Page 1: Front -->
+    <div class="page page-front">
+        <div class="bg-pattern"></div>
+
+        <header class="front-header">
+            <img src="assets/logo/Rhythmia_Care_Logo_Wordmark_White_RGB.svg" alt="Rhythmia Heart Care"
+                class="logo-main">
+        </header>
+
+        <div class="main-visual">
+            <div class="glow-effect"></div>
+            <img src="assets/just_heart_logo/Rhythmia_Care_Logo_Heart_Red_RGB.svg" alt="Heart Logo"
+                class="heart-logo-large">
+        </div>
+
+        <div class="front-content">
+            <h1 class="headline">Empowering Your<br>Heart Health</h1>
+            <p class="subheadline">Daily support for the electrical rhythm of your heart.</p>
+        </div>
+
+        <div class="front-footer">
+            www.rhythmiaheartcare.com
+        </div>
+    </div>
+
+    <!-- Page 2: Back -->
+    <div class="page page-back">
+        <div class="bg-pattern" style="opacity: 0.05;"></div>
+
+        <header class="back-header">
+            <img src="assets/logo/Rhythmia_Care_Logo_Wordmark_White_RGB.svg" alt="Rhythmia Heart Care"
+                class="logo-small">
+            <span
+                style="text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.6); font-size: 0.9rem;">Product
+                Information</span>
+        </header>
+
+        <section class="content-block">
+            <h2 class="section-title">About Rhythmia</h2>
+            <p class="text-body">
+                Rhythmia Heart Care is an all-in-one supplement created specifically to support the electrical function
+                of the heart. Clinically formulated with natural, vegan ingredients to promote cardiac stability and
+                metabolic health.
+            </p>
+        </section>
+
+        <section class="content-block">
+            <h2 class="section-title">Key Benefits</h2>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <svg class="check-icon" viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                    </svg>
+                    <div class="benefit-text">
+                        <h4>Magnesium Bisglycinate</h4>
+                        <p>Regulates electrical signalling</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <svg class="check-icon" viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                    </svg>
+                    <div class="benefit-text">
+                        <h4>L-Taurine</h4>
+                        <p>Supports cardiac membrane stability</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <svg class="check-icon" viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                    </svg>
+                    <div class="benefit-text">
+                        <h4>Coenzyme Q10</h4>
+                        <p>Promotes mitochondrial function</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <svg class="check-icon" viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                    </svg>
+                    <div class="benefit-text">
+                        <h4>Vitamin B Complex + Zinc</h4>
+                        <p>Metabolic & neurological support</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ingredients-box">
+            <h3 class="ingredients-title">Full Ingredients</h3>
+            <p class="ingredients-list">
+                Magnesium (Magnesium Bisglycinate Chelate Buffered), Taurine, Coenzyme Q10 (Ubiquinone), Zinc (Zinc
+                Picolinate), Vitamin B1 (Thiamine Hydrochloride), Vitamin B6 (Pyridoxine Hydrochloride), Vitamin B12
+                (Methylcobalamin), Capsule Shell (Hydroxypropylmethylcellulose).
+            </p>
+        </section>
+
+        <footer class="contact-section">
+            <div class="contact-info">
+                <h3>Contact Us</h3>
+                <div class="contact-detail">
+                    <svg class="contact-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                    </svg>
+                    <span>info@rhythmiaheartcare.com</span>
+                </div>
+                <div class="contact-detail">
+                    <svg class="contact-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                    </svg>
+                    <span>www.rhythmiaheartcare.com</span>
+                </div>
+            </div>
+            <!-- Optional QR Code placeholder or just text -->
+            <div class="contact-detail" style="flex-direction: column; align-items: flex-end; opacity: 0.6;">
+                <span style="font-size: 0.8rem;">FOLLOW US</span>
+                <span style="font-weight: 600;">@rhythmiaheartcare</span>
+            </div>
+        </footer>
+    </div>
+
+</body>
+
+</html>
