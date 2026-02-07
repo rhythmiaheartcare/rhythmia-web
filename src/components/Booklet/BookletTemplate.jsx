@@ -96,11 +96,11 @@ export default function BookletTemplate({ data = defaultBookletData }) {
                             </tbody>
                         </table>
 
-                        <div className="ref-list">
+                        <div className="ref-list" style={{ columnCount: 2, columnGap: '1rem', marginTop: '0.2rem' }}>
                             {d.backCover.references.map((ref, idx) => (
-                                <React.Fragment key={idx}>
-                                    {ref} <br />
-                                </React.Fragment>
+                                <div key={idx} style={{ breakInside: 'avoid', marginBottom: '0.1rem' }}>
+                                    {ref}
+                                </div>
                             ))}
                         </div>
 
@@ -127,10 +127,19 @@ export default function BookletTemplate({ data = defaultBookletData }) {
                                 </svg>
                                 <span>{d.backCover.contactWeb}</span>
                             </div>
+                            <div className="contact-detail">
+                                <svg className="contact-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M12,6.8A5.2,5.2 0 0,1 17.2,12A5.2,5.2 0 0,1 12,17.2A5.2,5.2 0 0,1 6.8,12A5.2,5.2 0 0,1 12,6.8M12,8.8A3.2,3.2 0 0,0 8.8,12A3.2,3.2 0 0,0 12,15.2A3.2,3.2 0 0,0 15.2,12A3.2,3.2 0 0,0 12,8.8M18,5A1,1 0 0,1 19,6A1,1 0 0,1 18,7A1,1 0 0,1 17,6A1,1 0 0,1 18,5Z" />
+                                </svg>
+                                <span>{d.backCover.contactSocial}</span>
+                            </div>
                         </div>
-                        {/* Social moved to bottom right */}
-                        <div style={{ fontSize: '0.9rem', fontWeight: 600, color: '#fff', marginBottom: '0.5rem' }}>
-                            {d.backCover.contactSocial}
+                        {/* QR Code in bottom right with Logo Overlay */}
+                        <div style={{ marginBottom: '0.5rem', position: 'relative', width: '100px', height: '100px' }}>
+                            <img src="/assets/qr_code.svg" alt="Scan to Visit" style={{ width: '100%', height: '100%', display: 'block' }} />
+                            <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '25px', height: '25px', backgroundColor: '#00000000', padding: '2px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <img src="/assets/logo/Rhythmia_Care_Logo_Heart_Red_RGB.svg" alt="Logo" style={{ width: '100%', height: 'auto' }} />
+                            </div>
                         </div>
                     </footer>
                 </div>
@@ -234,7 +243,7 @@ export default function BookletTemplate({ data = defaultBookletData }) {
                         ))}
                     </div>
 
-                    <div className="trust-badges">
+                    <div className="trust-badges" style={{ justifyContent: 'center', gap: '20px' }}>
                         <div className="badge">
                             <svg className="badge-icon" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round"
@@ -255,9 +264,9 @@ export default function BookletTemplate({ data = defaultBookletData }) {
                         </div>
                         <div className="badge">
                             <svg className="badge-icon" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            <span>Fast<br />Effect</span>
+                            <span>GMP<br />Certified</span>
                         </div>
                         <div className="badge">
                             <svg className="badge-icon" viewBox="0 0 24 24">
