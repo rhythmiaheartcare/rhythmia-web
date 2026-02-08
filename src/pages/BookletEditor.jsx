@@ -7,6 +7,8 @@ export default function BookletEditor() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [zoom, setZoom] = useState(0.8);
 
+    const [showSidebar, setShowSidebar] = useState(true);
+
     // Load from LocalStorage on mount
     useEffect(() => {
         const saved = localStorage.getItem('rhythmia_booklet_data');
@@ -85,7 +87,7 @@ export default function BookletEditor() {
     const handleZoomIn = () => setZoom(prev => Math.min(prev + 0.1, 2.0));
     const handleZoomOut = () => setZoom(prev => Math.max(prev - 0.1, 0.3));
     const handleFitWidth = () => {
-        const availableWidth = window.innerWidth - 480;
+        const availableWidth = window.innerWidth - (showSidebar ? 480 : 80);
         const fitScale = Math.min(Math.max(availableWidth / 1150, 0.4), 1.2);
         setZoom(fitScale);
     };
@@ -139,90 +141,141 @@ export default function BookletEditor() {
         <div className="editor-layout">
 
             {/* EDITOR SIDEBAR (Left) */}
-            <div className="editor-sidebar no-print">
-                <h2 style={{ marginBottom: '20px', color: '#D50F0F' }}>Booklet Editor</h2>
+            <div className="editor-sidebar no-print" style={{
+                width: showSidebar ? '400px' : '0px',
+                padding: showSidebar ? '20px' : '0px',
+                overflowY: 'auto',
+                borderRight: showSidebar ? '1px solid #333' : 'none',
+                transition: 'all 0.3s ease',
+                opacity: showSidebar ? 1 : 0,
+                pointerEvents: showSidebar ? 'auto' : 'none',
+                // Keep background color consistent if defined in class, otherwise ensure it here
+                backgroundColor: '#111'
+            }}>
+                <div style={{ minWidth: '360px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
+                        <button
+                            onClick={() => setShowSidebar(false)}
+                            style={{ background: 'transparent', border: '1px solid #333', color: '#888', borderRadius: '4px', cursor: 'pointer', padding: '4px 8px' }}
+                            title="Hide Sidebar"
+                        >
+                            «
+                        </button>
+                        <h2 style={{ color: '#D50F0F', margin: 0 }}>Booklet Editor</h2>
+                    </div>
 
-                {/* Main Actions */}
-                <div style={{ display: 'flex', gap: '10px', marginBottom: '15px' }}>
-                    <button onClick={handlePrint} style={{ flexGrow: 1, padding: '12px', backgroundColor: '#D50F0F', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold' }}>
-                        PRINT / SAVE PDF
-                    </button>
-                    <button onClick={resetToDefault} style={{ padding: '12px', backgroundColor: '#333', color: '#888', border: '1px solid #555', borderRadius: '6px', cursor: 'pointer' }} title="Reset to Defaults">
-                        ↺
-                    </button>
+                    {/* Main Actions */}
+                    <div style={{ display: 'flex', gap: '10px', marginBottom: '15px' }}>
+                        <button onClick={handlePrint} style={{ flexGrow: 1, padding: '12px', backgroundColor: '#D50F0F', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold' }}>
+                            PRINT / SAVE PDF
+                        </button>
+                        <button onClick={resetToDefault} style={{ padding: '12px', backgroundColor: '#333', color: '#888', border: '1px solid #555', borderRadius: '6px', cursor: 'pointer' }} title="Reset to Defaults">
+                            ↺
+                        </button>
+                    </div>
+
+                    {/* Import/Export Actions */}
+                    <div style={{ display: 'flex', gap: '10px', marginBottom: '30px' }}>
+                        <button onClick={handleExport} style={{ flex: 1, padding: '8px', backgroundColor: '#222', color: '#ccc', border: '1px solid #444', borderRadius: '4px', cursor: 'pointer', fontSize: '0.85rem' }}>
+                            ↓ Export
+                        </button>
+                        <label style={{ flex: 1, padding: '8px', backgroundColor: '#222', color: '#ccc', border: '1px solid #444', borderRadius: '4px', cursor: 'pointer', fontSize: '0.85rem', textAlign: 'center' }}>
+                            ↑ Import
+                            <input type="file" accept=".json" onChange={handleImport} style={{ display: 'none' }} />
+                        </label>
+                    </div>
+
+                    {/* Form Sections */}
+                    <Section title="Front Cover">
+                        <Input label="Title (Use <br/> for new line)" value={data.frontCover.title} onChange={v => updateField('frontCover.title', v)} textarea />
+                        <Input label="Subtitle" value={data.frontCover.subtitle} onChange={v => updateField('frontCover.subtitle', v)} textarea />
+                        <Input label="Badge Text" value={data.frontCover.badge} onChange={v => updateField('frontCover.badge', v)} />
+                    </Section>
+
+                    <Section title="Inside Left (Page 2)">
+                        <Input label="Title" value={data.insideLeft.title} onChange={v => updateField('insideLeft.title', v)} />
+                        <Input label="Intro Text" value={data.insideLeft.intro} onChange={v => updateField('insideLeft.intro', v)} textarea />
+                        <Input label="Science Header" value={data.insideLeft.scienceTitle} onChange={v => updateField('insideLeft.scienceTitle', v)} />
+                        <Input label="Science Text" value={data.insideLeft.scienceText} onChange={v => updateField('insideLeft.scienceText', v)} textarea />
+                        <Input label="Nature Image Overlay" value={data.insideLeft.natureImageText} onChange={v => updateField('insideLeft.natureImageText', v)} />
+                    </Section>
+
+                    <Section title="Inside Right (Page 3)">
+                        <Input label="Benefits Title" value={data.insideRight.keyBenefitsTitle} onChange={v => updateField('insideRight.keyBenefitsTitle', v)} />
+                        <h4 style={{ marginTop: '10px', fontSize: '0.9rem', color: '#888' }}>Benefits List</h4>
+                        {data.insideRight.benefits.map((benefit, idx) => (
+                            <div key={idx} style={{ marginBottom: '10px', padding: '10px', background: '#222', borderRadius: '4px' }}>
+                                <Input label={`Item ${idx + 1} Title`} value={benefit.title} onChange={v => updateObjectArrayItem('insideRight.benefits', idx, 'title', v)} />
+                                <Input label={`Item ${idx + 1} Text`} value={benefit.text} onChange={v => updateObjectArrayItem('insideRight.benefits', idx, 'text', v)} />
+                            </div>
+                        ))}
+                    </Section>
+
+                    <Section title="Back Cover - Copy">
+                        <Input label="Developed By" value={data.backCover.developedBy} onChange={v => updateField('backCover.developedBy', v)} />
+                        <Input label="Evidence Title" value={data.backCover.evidenceTitle} onChange={v => updateField('backCover.evidenceTitle', v)} />
+                        <Input label="Evidence Intro" value={data.backCover.evidenceIntro} onChange={v => updateField('backCover.evidenceIntro', v)} textarea />
+                    </Section>
+
+                    <Section title="Back Cover - Ingredients">
+                        {data.backCover.ingredients.map((ing, idx) => (
+                            <div key={idx} style={{ marginBottom: '10px', padding: '10px', background: '#222', borderRadius: '4px' }}>
+                                <Input label="Name" value={ing.name} onChange={v => updateObjectArrayItem('backCover.ingredients', idx, 'name', v)} />
+                                <Input label="Role" value={ing.role} onChange={v => updateObjectArrayItem('backCover.ingredients', idx, 'role', v)} />
+                                <Input label="Research" value={ing.research} onChange={v => updateObjectArrayItem('backCover.ingredients', idx, 'research', v)} textarea />
+                            </div>
+                        ))}
+                    </Section>
+
+                    <Section title="Back Cover - Contact & Legal">
+                        <Input label="Disclaimer" value={data.backCover.disclaimer} onChange={v => updateField('backCover.disclaimer', v)} textarea />
+                        <Input label="Email" value={data.backCover.contactEmail} onChange={v => updateField('backCover.contactEmail', v)} />
+                        <Input label="Website" value={data.backCover.contactWeb} onChange={v => updateField('backCover.contactWeb', v)} />
+                        <Input label="Social Handle" value={data.backCover.contactSocial} onChange={v => updateField('backCover.contactSocial', v)} />
+                    </Section>
+
+                    <Section title="References">
+                        {data.backCover.references.map((ref, idx) => (
+                            <div key={idx} style={{ marginBottom: '10px' }}>
+                                <Input label={`Ref ${idx + 1} `} value={ref} onChange={v => updateArrayItem('backCover.references', idx, v)} />
+                            </div>
+                        ))}
+                    </Section>
                 </div>
-
-                {/* Import/Export Actions */}
-                <div style={{ display: 'flex', gap: '10px', marginBottom: '30px' }}>
-                    <button onClick={handleExport} style={{ flex: 1, padding: '8px', backgroundColor: '#222', color: '#ccc', border: '1px solid #444', borderRadius: '4px', cursor: 'pointer', fontSize: '0.85rem' }}>
-                        ↓ Export
-                    </button>
-                    <label style={{ flex: 1, padding: '8px', backgroundColor: '#222', color: '#ccc', border: '1px solid #444', borderRadius: '4px', cursor: 'pointer', fontSize: '0.85rem', textAlign: 'center' }}>
-                        ↑ Import
-                        <input type="file" accept=".json" onChange={handleImport} style={{ display: 'none' }} />
-                    </label>
-                </div>
-
-                {/* Form Sections */}
-                <Section title="Front Cover">
-                    <Input label="Title (Use <br/> for new line)" value={data.frontCover.title} onChange={v => updateField('frontCover.title', v)} textarea />
-                    <Input label="Subtitle" value={data.frontCover.subtitle} onChange={v => updateField('frontCover.subtitle', v)} textarea />
-                    <Input label="Badge Text" value={data.frontCover.badge} onChange={v => updateField('frontCover.badge', v)} />
-                </Section>
-
-                <Section title="Inside Left (Page 2)">
-                    <Input label="Title" value={data.insideLeft.title} onChange={v => updateField('insideLeft.title', v)} />
-                    <Input label="Intro Text" value={data.insideLeft.intro} onChange={v => updateField('insideLeft.intro', v)} textarea />
-                    <Input label="Science Header" value={data.insideLeft.scienceTitle} onChange={v => updateField('insideLeft.scienceTitle', v)} />
-                    <Input label="Science Text" value={data.insideLeft.scienceText} onChange={v => updateField('insideLeft.scienceText', v)} textarea />
-                    <Input label="Nature Image Overlay" value={data.insideLeft.natureImageText} onChange={v => updateField('insideLeft.natureImageText', v)} />
-                </Section>
-
-                <Section title="Inside Right (Page 3)">
-                    <Input label="Benefits Title" value={data.insideRight.keyBenefitsTitle} onChange={v => updateField('insideRight.keyBenefitsTitle', v)} />
-                    <h4 style={{ marginTop: '10px', fontSize: '0.9rem', color: '#888' }}>Benefits List</h4>
-                    {data.insideRight.benefits.map((benefit, idx) => (
-                        <div key={idx} style={{ marginBottom: '10px', padding: '10px', background: '#222', borderRadius: '4px' }}>
-                            <Input label={`Item ${idx + 1} Title`} value={benefit.title} onChange={v => updateObjectArrayItem('insideRight.benefits', idx, 'title', v)} />
-                            <Input label={`Item ${idx + 1} Text`} value={benefit.text} onChange={v => updateObjectArrayItem('insideRight.benefits', idx, 'text', v)} />
-                        </div>
-                    ))}
-                </Section>
-
-                <Section title="Back Cover - Copy">
-                    <Input label="Developed By" value={data.backCover.developedBy} onChange={v => updateField('backCover.developedBy', v)} />
-                    <Input label="Evidence Title" value={data.backCover.evidenceTitle} onChange={v => updateField('backCover.evidenceTitle', v)} />
-                    <Input label="Evidence Intro" value={data.backCover.evidenceIntro} onChange={v => updateField('backCover.evidenceIntro', v)} textarea />
-                </Section>
-
-                <Section title="Back Cover - Ingredients">
-                    {data.backCover.ingredients.map((ing, idx) => (
-                        <div key={idx} style={{ marginBottom: '10px', padding: '10px', background: '#222', borderRadius: '4px' }}>
-                            <Input label="Name" value={ing.name} onChange={v => updateObjectArrayItem('backCover.ingredients', idx, 'name', v)} />
-                            <Input label="Role" value={ing.role} onChange={v => updateObjectArrayItem('backCover.ingredients', idx, 'role', v)} />
-                            <Input label="Research" value={ing.research} onChange={v => updateObjectArrayItem('backCover.ingredients', idx, 'research', v)} textarea />
-                        </div>
-                    ))}
-                </Section>
-
-                <Section title="Back Cover - Contact & Legal">
-                    <Input label="Disclaimer" value={data.backCover.disclaimer} onChange={v => updateField('backCover.disclaimer', v)} textarea />
-                    <Input label="Email" value={data.backCover.contactEmail} onChange={v => updateField('backCover.contactEmail', v)} />
-                    <Input label="Website" value={data.backCover.contactWeb} onChange={v => updateField('backCover.contactWeb', v)} />
-                    <Input label="Social Handle" value={data.backCover.contactSocial} onChange={v => updateField('backCover.contactSocial', v)} />
-                </Section>
-
-                <Section title="References">
-                    {data.backCover.references.map((ref, idx) => (
-                        <div key={idx} style={{ marginBottom: '10px' }}>
-                            <Input label={`Ref ${idx + 1} `} value={ref} onChange={v => updateArrayItem('backCover.references', idx, v)} />
-                        </div>
-                    ))}
-                </Section>
             </div>
 
             {/* PREVIEW AREA (Right) */}
-            <div className="editor-preview-wrapper" style={{ position: 'relative' }}>
+            <div className="editor-preview-wrapper" style={{
+                position: 'relative',
+                marginLeft: showSidebar ? '400px' : '0px',
+                width: showSidebar ? 'calc(100% - 400px)' : '100%',
+                transition: 'all 0.3s ease'
+            }}>
+
+                {/* SHOW SIDEBAR TRIGGER (Only visible when hidden) */}
+                {!showSidebar && (
+                    <button
+                        onClick={() => setShowSidebar(true)}
+                        className="no-print"
+                        style={{
+                            position: 'fixed',
+                            top: '20px',
+                            left: '20px',
+                            zIndex: 200,
+                            background: '#333',
+                            color: 'white',
+                            border: '1px solid #555',
+                            borderRadius: '4px',
+                            padding: '8px 12px',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '5px'
+                        }}
+                    >
+                        »
+                    </button>
+                )}
 
                 {/* ZOOM CONTROLS */}
                 <div className="zoom-controls no-print" style={{ position: 'fixed', top: '20px', right: '30px', zIndex: 200, display: 'flex', gap: '8px', background: 'rgba(0,0,0,0.8)', padding: '8px', borderRadius: '8px', backdropFilter: 'blur(10px)' }}>

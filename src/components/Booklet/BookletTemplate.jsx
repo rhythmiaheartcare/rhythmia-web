@@ -5,14 +5,38 @@ export const defaultBookletData = {
     backCover: {
         developedBy: "Developed by cardiologists and made in the UK to the highest standards.",
         evidenceTitle: "Key Evidence",
-        evidenceIntro: "Each ingredient in Rhythmia was selected based on peer-reviewed research published in journals including the Journal of the American College of Cardiology and Circulation.",
+        evidenceIntro: "Each ingredient in Rhythmia Heart Care was selected based on peer-reviewed research published in journals including the Journal of the American College of Cardiology and Circulation.",
         ingredients: [
-            { name: "Magnesium", role: "Supports electrical signaling", research: "Lower magnesium status associated with increased cardiovascular concerns in the Framingham Heart Study²" },
-            { name: "CoQ10", role: "Supports cellular energy production", research: "The Q-SYMBIO trial found CoQ10 supplementation supported cardiovascular outcomes in those with existing heart concerns³" },
-            { name: "Taurine", role: "Supports cell membrane stability", research: "Meta-analysis of 20 trials found taurine supplementation associated with healthy blood pressure already in normal range⁴" },
-            { name: "Thiamine (B1)", role: "Supports cardiac energy metabolism", research: "Thiamine is essential for ATP production in heart muscle cells⁵" },
-            { name: "Zinc", role: "Supports ion channel function", research: "Zinc helps regulate calcium channels involved in heart rhythm⁶" },
-            { name: "Vitamin B12", role: "Supports autonomic nerve function", research: "B12 status is associated with healthy heart rate variability⁷" }
+            {
+                name: "Magnesium",
+                role: "Supports electrical signalling",
+                research: "Lower magnesium status is associated with increased cardiovascular risks ¹`²"
+            },
+            {
+                name: "CoQ10",
+                role: "Supports cellular energy production",
+                research: "Long-term CoQ10 supplementation improves cardiovascular symptoms and reduces major adverse events ³"
+            },
+            {
+                name: "Taurine",
+                role: "Supports cell membrane stability",
+                research: "A meta-analysis of 20 trials showed that taurine helps to prevent hypertension and can enhance cardiac function⁴"
+            },
+            {
+                name: "Thiamine (B1)",
+                role: "Supports cardiac energy metabolism",
+                research: "Thiamine supplementation in 2 randomised, double-blind trials resulted in a significant improvement in cardiac function⁵"
+            },
+            {
+                name: "Zinc",
+                role: "Supports ion channel function",
+                research: "Zinc helps regulate the electrolyte channels essential for cardiac rhythm⁶"
+            },
+            {
+                name: "Vitamin B12",
+                role: "Supports autonomic nerve function",
+                research: "B12 supports the nerves that help to regulate heart rhythm⁷"
+            }
         ],
         references: [
             "¹ Rosanoff A, et al. Nutr Rev. 2012;70(3):153-164.",
@@ -23,30 +47,42 @@ export const defaultBookletData = {
             "⁶ Kokhabi P, et al. Curr Cardiol Rev. 2025;21(2).",
             "⁷ Aytemir K, et al. Pacing Clin Electrophysiol. 2000;23(6):975-978."
         ],
-        disclaimer: "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Consult your healthcare provider before starting any supplement, especially if you have a medical condition or take medications.",
+        disclaimer: "Food supplements should not be used as a substitute for a varied and balanced diet and healthy lifestyle. Do not exceed the stated recommended daily dose. Consult your doctor before use if you are pregnant or breastfeeding. Keep out of reach of children.",
         contactEmail: "info@rhythmiaheartcare.com",
         contactWeb: "www.rhythmiaheartcare.com",
         contactSocial: "@rhythmiaheartcare"
     },
     frontCover: {
-        title: "Empowering Your\nHeart Health",
-        subtitle: "Scientifically-formulated support for your heart's natural electrical rhythm and muscle function.",
-        badge: "Cardiologist-led heart care"
+        title: "Confidence in Every Beat",
+        subtitle: "Support for your heart's electrical rhythm and muscle function",
+        badge: "Formulated by experts"
     },
     insideLeft: {
-        title: "WHY RHYTHMIA HEART CARE",
-        intro: "Rhythmia Heart Care is an evidence-based formulation designed to support the electrical conduction system and muscle function of your heart.",
-        scienceTitle: "The Science Behind Our Formula:",
-        scienceText: "Your heart beats 100,000 times a day! It's your hardest-working muscle. Each beat requires precise electrical signals, cellular energy for contraction, membrane stability, and healthy nerve function to regulate rhythm. Rhythmia supports every aspect.",
-        natureImageText: "Trusted by experts for cardiac stability"
+        title: "WHY RHYTHMIA HEART CARE?",
+        intro: "\n\nRhythmia Heart Care is an evidence-based formulation designed to support the electrical conduction system and muscle function of your heart.\n\n",
+        scienceTitle: "What your heart needs ",
+        scienceText: "Your heart beats 100,000 times a day. It's your hardest-working muscle. Each beat demands precise electrical signals, cellular energy, stable membranes, and healthy nerve function.\n\nOur bespoke formula is the only evidence-based supplement formulated to address each aspect of your heart's health and function. ",
+        natureImageText: "Give your heart the support it deserves "
     },
     insideRight: {
-        keyBenefitsTitle: "Key Benefits",
+        keyBenefitsTitle: "",
         benefits: [
-            { title: "Maximum Absorption & Regulation¹ ²", text: "Magnesium Bisglycinate Chelate for optimal bioavailability." },
-            { title: "Stabilises Heart Cells⁴", text: "L-Taurine stabilises cell membranes in the heart." },
-            { title: "Fuels Cardiac Contraction³", text: "Coenzyme Q10 powers the mitochondria (energy centre) of the heart." },
-            { title: "Regulates Nervous System⁵ ⁶ ⁷", text: "Vitamin B Complex + Zinc helps regulate the nervous system to maintain a steady heart rhythm." }
+            {
+                title: "Comprehensive Formula",
+                text: "Developed by cardiologists "
+            },
+            {
+                title: "Backed by Evidence",
+                text: "Based on peer-reviewed research"
+            },
+            {
+                title: " Holistic Approach",
+                text: "Nutrients that synergise to support both muscle and electrical function"
+            },
+            {
+                title: "UK Quality Standards",
+                text: "Manufactured to the highest UK standards"
+            }
         ]
     }
 };
@@ -223,8 +259,10 @@ export default function BookletTemplate({ data = defaultBookletData }) {
                     {/* Lab Researcher Photo (Incorporated nicely) */}
                     <div
                         style={{ width: '100%', height: '180px', overflow: 'hidden', marginBottom: '2rem', borderRadius: '8px', position: 'relative' }}>
-                        <img src="/assets/photos/young-lab-researcher.png" alt="Research"
-                            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+                        <img src="/assets/photos/authentic-cardiologist.png" alt="Research"
+                            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 50%' }} />
+                        {/* Gradient Overlay for Blending */}
+                        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: '-1px', background: 'linear-gradient(to bottom, rgba(26,5,7,0) 40%, rgba(26,5,7,1) 98%)' }}></div>
                     </div>
 
                     <h2>{d.insideRight.keyBenefitsTitle}</h2>
@@ -243,7 +281,7 @@ export default function BookletTemplate({ data = defaultBookletData }) {
                         ))}
                     </div>
 
-                    <div className="trust-badges" style={{ justifyContent: 'center', gap: '20px' }}>
+                    <div className="trust-badges" style={{ justifyContent: 'center', gap: '20px', marginTop: 'auto', height: '125px', borderTop: '1px solid rgba(255,255,255,0.2)', alignItems: 'center', display: 'flex' }}>
                         <div className="badge">
                             <svg className="badge-icon" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round"
