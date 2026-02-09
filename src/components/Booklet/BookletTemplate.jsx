@@ -20,7 +20,7 @@ export const defaultBookletData = {
             {
                 name: "Taurine",
                 role: "Supports cell membrane stability",
-                research: "A meta-analysis of 20 trials showed that taurine helps to prevent hypertension and can enhance cardiac function⁴"
+                research: "A meta-analysis of 20 trials showed that Taurine helps to prevent hypertension and can enhance cardiac function⁴"
             },
             {
                 name: "Thiamine (B1)",
