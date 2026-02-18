@@ -7,6 +7,7 @@ import Cancel from './pages/Cancel'
 import ApproveReview from './pages/ApproveReview'
 import BookletEditor from './pages/BookletEditor'
 import BusinessCardEditor from './pages/BusinessCardEditor'
+import LeafletEditor from './pages/LeafletEditor'
 import './index.css'
 import ScrollToTop from './components/ScrollToTop'
 import SmoothScroll from './components/SmoothScroll'
@@ -24,6 +25,7 @@ export default function App() {
                     <Route path="/approve-review" element={<ApproveReview />} />
                     <Route path="/booklet-editor" element={<BookletEditor />} />
                     <Route path="/business-card-editor" element={<BusinessCardEditor />} />
+                    <Route path="/leaflet-editor" element={<LeafletEditor />} />
                 </Routes>
             </SmoothScroll>
         </Router>

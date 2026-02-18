@@ -326,24 +326,35 @@
 
 /* Print Overrides */
 @media print {
-    body {
+    @page booklet-page {
+        size: A4 landscape;
         margin: 0;
-        padding: 0;
-        background: none;
+        width: 297mm;
+        height: 210mm;
     }
 
-    /* Hide the editor UI (Assuming it's outside .print-only or similar) */
-    .no-print {
-        display: none !important;
+    /* Allow body to adapt, but force 297mm for Booklet to match legacy pixels */
+    html:has(.booklet-root),
+    body:has(.booklet-root) {
+        width: 297mm;
+        height: auto;
+        overflow: visible;
     }
+
+    /* Fallback for browsers regarding body width if :has isn't supported, 
+       though primarily reliance is on .sheet sizing for them. 
+       This restores the "exact" layout context for modern browsers. */
 
     .booklet-root .sheet {
+        page: booklet-page;
         box-shadow: none;
         break-after: page;
         margin: 0;
         width: 100%;
         height: 100vh;
         border: none;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
     }
 
     /* Prevent blank 3rd page */
@@ -351,25 +362,13 @@
         break-after: auto;
     }
 
-    @page {
-        size: A4 landscape;
-        margin: 0;
-    }
-
-    /* Force full width but allow height to grow for multiple pages */
-    html,
-    body {
-        width: 297mm;
-        height: auto;
-        overflow: visible;
-    }
-
     .booklet-root {
         width: 100% !important;
         margin: 0 !important;
+        display: block !important;
     }
 
-    * {
+    .booklet-root * {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
     }
