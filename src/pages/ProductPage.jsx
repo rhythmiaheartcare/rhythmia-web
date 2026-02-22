@@ -1,5 +1,5 @@
 import React from 'react'
-import { ArrowLeft, Check, ShieldCheck, Zap, Lock } from 'lucide-react'
+import { ArrowLeft, Check, ShieldCheck, Zap, Lock, Truck } from 'lucide-react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import ProductJar from '../components/3d/ProductJar'
@@ -186,6 +186,7 @@ export default function ProductPage() {
                             <div className="trust-badges">
                                 <span><ShieldCheck size={16} /> 30-Day Guarantee</span>
                                 <span><Zap size={16} /> Fast Shipping</span>
+                                <span><Truck size={16} /> Free UK Delivery</span>
                             </div>
                         </div>
                     </div>
