@@ -12,6 +12,8 @@ import './index.css'
 import ScrollToTop from './components/ScrollToTop'
 import SmoothScroll from './components/SmoothScroll'
 
+import CduEditor from './pages/CduEditor'
+
 export default function App() {
     return (
         <Router>
@@ -26,6 +28,7 @@ export default function App() {
                     <Route path="/booklet-editor" element={<BookletEditor />} />
                     <Route path="/business-card-editor" element={<BusinessCardEditor />} />
                     <Route path="/leaflet-editor" element={<LeafletEditor />} />
+                    <Route path="/stand-editor" element={<CduEditor />} />
                 </Routes>
             </SmoothScroll>
         </Router>

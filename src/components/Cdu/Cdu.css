@@ -1,0 +1,504 @@
+.cdu-root {
+    --color-primary: #D9D9D9;
+    --color-secondary: #D50F0F;
+    --color-tertiary: #860000;
+    --color-quaternary: #4D0D12;
+    --font-main: 'Clash Display', sans-serif;
+
+    font-family: var(--font-main);
+    color: var(--color-primary);
+    box-sizing: border-box;
+}
+
+.cdu-root * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.cdu-page {
+    position: relative;
+    width: 3177px;
+    height: 2830px;
+    background-color: transparent;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    background: white;
+}
+
+.cdu-template-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    opacity: 1;
+}
+
+.cdu-overlays {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.cdu-root .bg-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/pattern/Rhythmia_Care_Pattern_Red.svg');
+    background-size: cover;
+    background-position: 0 0;
+    opacity: 0.1;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* 
+  Rough coordinate approximations from the 3177x2830 template 
+  These values will need fine-tuning after visually inspecting the cut lines
+*/
+
+/* Header Overlay (Back board) */
+.cdu-header-overlay {
+    position: absolute;
+    top: 128.5px;
+    left: 1116.5px;
+    width: 990.5px;
+    height: 1607.3px;
+    /* Extended to bottom */
+    background: radial-gradient(circle at 30% 70%, #6e151b 0%, var(--color-quaternary) 70%);
+    overflow: hidden;
+}
+
+.cdu-header-overlay .header-photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 900px;
+    object-fit: cover;
+    object-position: top center;
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+    z-index: 1;
+}
+
+.cdu-header-overlay .header-content {
+    position: absolute;
+    /* top: 480px; */
+    /* Pushed down to overlap the faded part of the photo */
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    z-index: 5;
+}
+
+.cdu-header-overlay h1 {
+    font-size: 50px;
+    line-height: 1.1;
+    color: #fff;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.cdu-header-overlay .subtitle {
+    font-size: 32px;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 40px;
+    max-width: 90%;
+    line-height: 1.3;
+}
+
+.cdu-header-overlay .badge-pill {
+    display: inline-block;
+    border: 3px solid var(--color-secondary);
+    padding: 15px 30px;
+    border-radius: 60px;
+    color: var(--color-secondary);
+    font-weight: 700;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.cdu-header-overlay .header-visual {
+    margin-bottom: 40px;
+    margin-top: 257px;
+    position: relative;
+    display: inline-block;
+}
+
+.cdu-header-overlay .heart-logo {
+    width: 600px;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6));
+}
+
+.cdu-header-overlay .glow-effect {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(213, 15, 15, 0.6) 0%, transparent 60%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    mix-blend-mode: screen;
+}
+
+
+
+/* Side Panels */
+.cdu-side-overlay {
+    position: absolute;
+    top: 1831px;
+    width: 873px;
+    height: 870px;
+    background: var(--color-quaternary);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.cdu-side-overlay.left {
+    left: 164.2px;
+}
+
+.cdu-side-overlay.right {
+    left: 2140px;
+}
+
+.cdu-side-overlay .side-content {
+    position: relative;
+    z-index: 2;
+    padding: 60px 80px;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cdu-side-overlay.left .side-content {
+    justify-content: center;
+}
+
+/* Benefits List on Left Side */
+.cdu-root .benefits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.cdu-root .benefit-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+
+
+.cdu-root .benefit-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+}
+
+.cdu-root .benefit-text-wrapper strong {
+    font-size: 36px;
+    color: var(--color-secondary);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+}
+
+.cdu-root .benefit-text-wrapper span {
+    font-size: 28px;
+    color: #fff;
+    line-height: 1.4;
+}
+
+/* Trust Panel on Right Side */
+.cdu-root .trust-panel {
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.cdu-root .trust-panel h2 {
+    font-size: 58px;
+    color: var(--color-secondary);
+    text-transform: uppercase;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.cdu-root .trust-panel p {
+    font-size: 34px;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 50px;
+}
+
+.cdu-root .qr-wrapper {
+    background: #fff;
+    padding: 6px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cdu-root .qr-img {
+    width: 100%;
+    height: 100%;
+}
+
+/* Shelf Lips */
+.cdu-shelf-overlay {
+    position: absolute;
+    width: 890px;
+    background: var(--color-quaternary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.cdu-root .cdu-shelf-overlay p {
+    color: var(--color-secondary);
+    font-size: 26px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+    text-align: center;
+    width: 100%;
+}
+
+.cdu-shelf-overlay.top-shelf {
+    top: 2162.2px;
+    left: 1142.3px;
+    height: 137.4px;
+}
+
+.cdu-shelf-overlay.bottom-shelf {
+    top: 2512.2px;
+    left: 1142.3px;
+    height: 174.4px;
+}
+
+.cdu-root .shelf-badges {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding: 0 40px;
+    height: 100%;
+}
+
+.cdu-root .shelf-badges .badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.cdu-root .shelf-badges .badge-icon {
+    width: 50px;
+    height: 50px;
+    color: var(--color-secondary);
+}
+
+.cdu-root .shelf-badges span {
+    color: var(--color-secondary);
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    line-height: 1.2;
+}
+
+/* Front Base (Bottom panel) */
+.cdu-base-overlay {
+    position: absolute;
+    top: 2300px;
+    /* Space between shelves */
+    left: 1142.3px;
+    width: 890px;
+    height: 212px;
+    background: var(--color-quaternary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 50px;
+}
+
+.cdu-base-overlay .base-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cdu-base-overlay .base-tagline {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 480px;
+    line-height: 1.4;
+}
+
+.cdu-base-overlay .logo-small {
+    height: 40px;
+}
+
+.cdu-base-overlay .base-website {
+    font-size: 22px;
+    color: var(--color-secondary);
+    font-weight: 600;
+}
+
+/* Leaflet Holder Back (Right side of back board) */
+.cdu-leaflet-holder-back {
+    position: absolute;
+    top: 857px;
+    left: 1625px;
+    width: 425px;
+    height: 567px;
+    overflow: hidden;
+    background: var(--color-quaternary);
+}
+
+.cdu-leaflet-holder-back .holder-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cdu-leaflet-holder-back .holder-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, var(--color-quaternary) 0%, transparent 100%);
+    opacity: 0.9;
+}
+
+/* Leaflet Holder Front */
+.cdu-leaflet-holder-front {
+    position: absolute;
+    top: 1098px;
+    left: 2379px;
+    width: 618px;
+    height: 411px;
+    background: var(--color-tertiary);
+    /* Dark red */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 80px;
+    /* Push content up from bottom */
+    padding-left: 85px;
+    /* Stay inside left flap */
+    padding-right: 85px;
+    /* Stay inside right flap */
+    gap: 0px;
+}
+
+.cdu-leaflet-holder-front p {
+    font-size: 22px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--color-secondary);
+}
+
+.cdu-leaflet-holder-front img {
+    width: 50px;
+    opacity: 0.8;
+}
+
+/* Print Overrides */
+@media print {
+    @page {
+        size: 3177pt 2830pt;
+        margin: 0;
+    }
+
+    .cdu-root .cdu-page {
+        zoom: 1.333333;
+    }
+
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: transparent !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .no-print,
+    .editor-sidebar,
+    .zoom-controls,
+    .rhythmia-editor-sidebar,
+    .rhythmia-editor-controls {
+        display: none !important;
+    }
+
+    .cdu-root .cdu-page {
+        page: cdu-page;
+        box-shadow: none;
+        margin: 0;
+        border: none;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .cdu-template-bg {
+        opacity: 1 !important;
+        /* Print full template */
+    }
+
+    .leaflet-editor-layout {
+        display: block !important;
+        background: transparent;
+    }
+
+    .leaflet-preview-wrapper {
+        margin: 0 !important;
+        padding: 0 !important;
+        transform: none !important;
+        width: 3177px !important;
+        height: 2830px !important;
+        display: block !important;
+    }
+
+    .leaflet-preview-scaler {
+        transform: none !important;
+    }
+}
