@@ -24,9 +24,12 @@ export default function Header() {
                     transition={{ duration: 1.0, ease: "easeOut" }}
                     className="logo-wrapper-static"
                 >
+                    <h1 style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', whiteSpace: 'nowrap', borderWidth: 0 }}>
+                        Rhythmia Heart Care
+                    </h1>
                     <img
                         src="/assets/logo/Rhythmia_Care_Logo_Workmark_Red_Heart_White_Copy_RGB.svg"
-                        alt="Rhythmia Heart Care"
+                        alt="Rhythmia Heart Care Logo"
                         className="header-logo"
                     />
                 </motion.div>
