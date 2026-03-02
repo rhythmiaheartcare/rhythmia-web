@@ -65,19 +65,18 @@ export default function CduEditor() {
             <EditorSection title="Right Side Panel (Action)">
                 <EditorInput label="Title (Use <br/> for new line)" value={data.sides.rightTitle} onChange={v => updateField('sides.rightTitle', v)} textarea />
                 <EditorInput label="Subtitle" value={data.sides.rightSubtitle} onChange={v => updateField('sides.rightSubtitle', v)} textarea />
+            </EditorSection>
+
+            <EditorSection title="Shelf Lips & Leaflet Holder">
+                <EditorInput label="Top Shelf Text" value={data.shelves.topText} onChange={v => updateField('shelves.topText', v)} />
                 <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '14px', marginTop: '10px' }}>
                     <input
                         type="checkbox"
                         checked={data.sides.showQrCode}
                         onChange={(e) => updateField('sides.showQrCode', e.target.checked)}
                     />
-                    Show QR Code
+                    Show QR Code on Leaflet Holder
                 </label>
-            </EditorSection>
-
-            <EditorSection title="Shelf Lips & Leaflet Holder">
-                <EditorInput label="Top Shelf Text" value={data.shelves.topText} onChange={v => updateField('shelves.topText', v)} />
-                <EditorInput label="Leaflet Holder Text" value={data.leaflet?.text || ''} onChange={v => updateField('leaflet.text', v)} />
             </EditorSection>
         </>
     );

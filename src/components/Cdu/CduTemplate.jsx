@@ -51,19 +51,6 @@ export default function CduTemplate({ data = defaultCduData }) {
                         <div className="bg-pattern"></div>
                         <div className="header-content" style={{ position: 'relative', width: '100%', minHeight: '1600px' }}>
                             <div className="top-center-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', paddingTop: '80px' }}>
-                                {/* QR Code at Top Center */}
-                                {d.sides.showQrCode && (
-                                    <div className="header-qr-wrapper" style={{ marginBottom: '30px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                        <div style={{ position: 'relative', width: '150px', height: '150px', margin: '0 auto' }}>
-                                            <div className="qr-wrapper" style={{ borderRadius: '20px', width: '100%', height: '100%', boxSizing: 'border-box', backgroundColor: '#641218' }}>
-                                                <img src="/assets/qr_code.svg" alt="Scan to Visit" className="qr-img" style={{ width: '100%', height: '100%' }} />
-                                            </div>
-                                            <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '45px', height: '45px', backgroundColor: '#641218', padding: '5px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                                <img src="/assets/just_heart_logo/Rhythmia_Care_Logo_Heart_Red_RGB.svg" alt="Logo" style={{ width: '100%', height: 'auto' }} />
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
 
                                 <div className="header-visual" style={{ marginBottom: '30px' }}>
                                     <div className="glow-effect"></div>
@@ -185,8 +172,14 @@ export default function CduTemplate({ data = defaultCduData }) {
 
                     {/* Leaflet Holder Front (Now covers full bounding box of the intricate shape) */}
                     <div className="cdu-leaflet-holder-front">
-                        <img src="/assets/just_heart_logo/Rhythmia_Care_Logo_Heart_White_RGB.svg" alt="Heart" onError={(e) => { e.target.style.display = 'none'; }} />
-                        <p>{d.leaflet?.text || 'Take one'}</p>
+                        {d.sides.showQrCode && (
+                            <div className="leaflet-qr-wrapper">
+                                <img src="/assets/qr_code.svg" alt="Scan to Visit" className="qr-img" />
+                                <div className="qr-logo-centered">
+                                    <img src="/assets/just_heart_logo/Rhythmia_Care_Logo_Heart_White_RGB.svg" alt="Logo" />
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
