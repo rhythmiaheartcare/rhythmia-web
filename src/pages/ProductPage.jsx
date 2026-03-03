@@ -1,25 +1,14 @@
 import React from 'react'
 import { ArrowLeft, Check, ShieldCheck, Zap, Lock, Truck } from 'lucide-react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import ProductJar from '../components/3d/ProductJar'
 import ProductReviews from '../components/ProductReviews'
 import Footer from '../components/Footer'
 import { reviewService } from '../services/reviewService'
+import BackButton from '../components/BackButton'
 
 export default function ProductPage() {
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    const handleBack = (e) => {
-        e.preventDefault();
-        if (location.key !== "default") {
-            navigate(-1);
-        } else {
-            navigate('/');
-        }
-    };
-
     const [purchaseType, setPurchaseType] = React.useState('onetime');
     const [activeTab, setActiveTab] = React.useState('reviews');
     const [reviews, setReviews] = React.useState([]);
@@ -55,9 +44,7 @@ export default function ProductPage() {
     return (
         <div className="product-page-root">
             <div className="product-content-wrapper">
-                <a href="/" onClick={handleBack} className="back-link">
-                    <ArrowLeft size={20} /> Back to Home
-                </a>
+                <BackButton className="back-link" />
 
                 <div className="product-page-container container">
                     <div className="product-page-grid">
@@ -302,20 +289,6 @@ export default function ProductPage() {
                     flex: 1;
                     display: flex;
                     flex-direction: column;
-                }
-                .back-link {
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    color: var(--color-primary);
-                    text-decoration: none;
-                    opacity: 0.7;
-                    transition: opacity 0.3s;
-                    margin-bottom: 2rem;
-                    font-weight: 500;
-                }
-                .back-link:hover {
-                    opacity: 1;
                 }
                 .product-page-container {
                     flex: 1;

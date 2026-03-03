@@ -58,8 +58,8 @@ export default function Navbar() {
                 {/* Desktop Links - Right Aligned */}
                 <ul className="nav-links desktop-only">
                     <li onClick={() => scrollToSection('product')}>Product</li>
+                    <li onClick={() => navigate('/how-its-made')}>How Its Made</li>
                     <li onClick={() => scrollToSection('who-we-are')}>Who We Are</li>
-                    <li onClick={() => scrollToSection('every-heartbeat')}>Rhythm</li>
                     <li onClick={() => scrollToSection('our-story')}>Our Story</li>
                     <li onClick={() => scrollToSection('contact')}>Contact</li>
                     <li>
@@ -90,8 +90,8 @@ export default function Navbar() {
                         </div>
                         <ul className="mobile-nav-links">
                             <li onClick={() => scrollToSection('product')}>Product</li>
+                            <li onClick={() => { setMobileMenuOpen(false); navigate('/how-its-made'); }}>How It's Made</li>
                             <li onClick={() => scrollToSection('who-we-are')}>Who We Are</li>
-                            <li onClick={() => scrollToSection('every-heartbeat')}>Rhythm</li>
                             <li onClick={() => scrollToSection('our-story')}>Our Story</li>
                             <li onClick={() => scrollToSection('contact')}>Contact</li>
                             <li>
