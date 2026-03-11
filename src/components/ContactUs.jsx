@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Send, CheckCircle, AlertCircle, Mail, MapPin } from 'lucide-react'
+import { Send, CheckCircle, AlertCircle } from 'lucide-react'
 
 export default function ContactUs() {
     const [formStatus, setFormStatus] = useState('idle') // idle, submitting, success, error

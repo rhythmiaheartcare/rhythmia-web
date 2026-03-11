@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { XCircle } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
@@ -9,7 +9,7 @@ export default function Cancel() {
                 <XCircle size={80} className="text-red-500 mb-6" />
                 <h1 className="text-3xl font-bold mb-4">Payment Cancelled</h1>
                 <p className="text-gray-400 mb-8">
-                    Your payment was not processed. You can try again whenever you're ready.
+                    Your payment was not processed. You can try again whenever you&apos;re ready.
                 </p>
                 <Link to="/product" className="retry-btn">
                     Try Again

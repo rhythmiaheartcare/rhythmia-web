@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import BusinessCardTemplate, { defaultCardData } from '../components/BusinessCard/BusinessCardTemplate';
 import EditorLayout from '../components/Editor/EditorLayout';
 import { EditorSection, EditorInput } from '../components/Editor/EditorComponents';

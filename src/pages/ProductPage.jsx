@@ -1,6 +1,6 @@
 import React from 'react'
-import { ArrowLeft, Check, ShieldCheck, Zap, Lock, Truck } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Check, ShieldCheck, Zap, Truck } from 'lucide-react'
+
 import { motion, AnimatePresence } from 'framer-motion'
 import ProductJar from '../components/3d/ProductJar'
 import ProductReviews from '../components/ProductReviews'

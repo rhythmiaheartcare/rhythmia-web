@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import BookletTemplate, { defaultBookletData } from '../components/Booklet/BookletTemplate';
 import EditorLayout from '../components/Editor/EditorLayout';
 import { EditorSection, EditorInput } from '../components/Editor/EditorComponents';

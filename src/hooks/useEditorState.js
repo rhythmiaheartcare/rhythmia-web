@@ -17,6 +17,7 @@ export function useEditorState(storageKey, defaultData, initialZoom = 1.0, fitWi
         }
         setIsLoaded(true);
         setTimeout(() => handleFit(), 100); // Fit on mount
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // Save to LocalStorage

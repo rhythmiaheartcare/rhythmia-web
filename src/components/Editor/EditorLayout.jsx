@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './Editor.css';
 import { ZoomControls, EditorActions } from './EditorComponents';
 

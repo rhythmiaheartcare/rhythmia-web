@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import CduTemplate, { defaultCduData } from '../components/Cdu/CduTemplate';
 import EditorLayout from '../components/Editor/EditorLayout';
 import { EditorSection, EditorInput } from '../components/Editor/EditorComponents';
@@ -9,7 +9,6 @@ export default function CduEditor() {
         data,
         isLoaded,
         updateField,
-        updateArrayItem,
         updateObjectArrayItem,
         zoomState,
         actions

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Star, StarHalf, Check, ChevronDown, User, Send } from 'lucide-react';
+import { useState } from 'react';
+import { Star, StarHalf, Check, User, Send } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import { reviewService } from '../services/reviewService';

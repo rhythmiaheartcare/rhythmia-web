@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import LeafletTemplate, { defaultLeafletData } from '../components/Leaflet/LeafletTemplate';
 import EditorLayout from '../components/Editor/EditorLayout';
 import { EditorSection, EditorInput } from '../components/Editor/EditorComponents';
@@ -9,7 +9,6 @@ export default function LeafletEditor() {
         data,
         isLoaded,
         updateField,
-        updateArrayItem,
         updateObjectArrayItem,
         zoomState,
         actions

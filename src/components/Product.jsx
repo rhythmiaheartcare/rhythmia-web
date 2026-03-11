@@ -1,4 +1,4 @@
-import React from 'react'
+
 import ProductJar from './3d/ProductJar'
 import { motion } from 'framer-motion'
 import { Zap, ShieldCheck, Sparkles, Activity } from 'lucide-react'

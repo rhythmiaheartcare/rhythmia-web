@@ -1,4 +1,4 @@
-import React from 'react';
+
 import './Booklet.css';
 
 export const defaultBookletData = {

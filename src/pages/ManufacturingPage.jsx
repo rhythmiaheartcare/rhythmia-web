@@ -1,6 +1,5 @@
-import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowLeft, CheckCircle2, FlaskConical, ShieldCheck, Leaf, Factory, Droplets, MapPin, Award, Check } from 'lucide-react';
+import { CheckCircle2, FlaskConical, ShieldCheck, Leaf, Factory, MapPin, Award } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import BackButton from '../components/BackButton';

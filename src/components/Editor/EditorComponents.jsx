@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 /**
  * A standardized input component for the editor.

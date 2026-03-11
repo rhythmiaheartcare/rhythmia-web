@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useState, useEffect, useCallback } from 'react'
+import { useRef, useMemo, useState, useEffect, useCallback } from 'react'
 import { Canvas, useLoader, useFrame, useThree } from '@react-three/fiber'
 import { TextureLoader, Vector2, Raycaster, Vector2 as Vec2 } from 'three'
 import { Float, ContactShadows, PresentationControls } from '@react-three/drei'

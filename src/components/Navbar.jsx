@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
@@ -63,7 +63,7 @@ export default function Navbar() {
                     <li onClick={() => scrollToSection('product')}>Product</li>
                     <li onClick={() => scrollToSection('who-we-are')}>Who We Are</li>
                     <li onClick={() => scrollToSection('our-story')}>Our Story</li>
-                    <li onClick={() => navigate('/how-its-made')}>How It's Made</li>
+                    <li onClick={() => navigate('/how-its-made')}>How It&apos;s Made</li>
                     <li onClick={() => scrollToSection('contact')}>Contact</li>
                     <li>
                         <Link to="/product" className="nav-cta-btn">
@@ -95,7 +95,7 @@ export default function Navbar() {
                             <li onClick={() => scrollToSection('product')}>Product</li>
                             <li onClick={() => scrollToSection('who-we-are')}>Who We Are</li>
                             <li onClick={() => scrollToSection('our-story')}>Our Story</li>
-                            <li onClick={() => { setMobileMenuOpen(false); navigate('/how-its-made'); }}>How It's Made</li>
+                            <li onClick={() => { setMobileMenuOpen(false); navigate('/how-its-made'); }}>How It&apos;s Made</li>
                             <li onClick={() => scrollToSection('contact')}>Contact</li>
                             <li>
                                 <Link to="/product" onClick={() => setMobileMenuOpen(false)} className="mobile-cta-btn">

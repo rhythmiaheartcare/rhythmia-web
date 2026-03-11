@@ -1,4 +1,4 @@
-import React from 'react';
+
 import './Cdu.css';
 
 export const defaultCduData = {

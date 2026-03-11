@@ -1,4 +1,4 @@
-import React from 'react';
+
 import './Leaflet.css';
 
 export const defaultLeafletData = {
