@@ -40,6 +40,9 @@ export default function Navbar() {
 
     return (
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+            <div className={`announcement-bar ${scrolled ? 'hidden' : ''}`}>
+                Now available in <strong>Selfridges</strong>
+            </div>
             <div className="container navbar-content">
                 {/* Mobile Menu Button - Left Aligned */}
                 <div className="mobile-menu-btn" onClick={() => setMobileMenuOpen(true)}>

@@ -65,6 +65,9 @@ export default function ProductPage() {
 
                         {/* Right: Details & Checkout */}
                         <div className="product-details">
+                            <div className="selfridges-badge-container">
+                                <span className="selfridges-badge">Now available in <strong>Selfridges</strong></span>
+                            </div>
                             <h1 className="product-title">Rhythmia Heart Care</h1>
                             <p className="product-subtitle">Daily support for the electrical rhythm of your heart</p>
 
@@ -335,6 +338,24 @@ export default function ProductPage() {
                     letter-spacing: 0.15em;
                     font-weight: 600;
                     opacity: 0.9;
+                }
+                .selfridges-badge-container {
+                    margin-bottom: 1.5rem;
+                }
+                .selfridges-badge {
+                    display: inline-block;
+                    padding: 0.4rem 1rem;
+                    background-color: rgba(255, 222, 0, 0.1);
+                    border: 1px solid #FFDE00;
+                    color: #FFDE00;
+                    border-radius: 4px;
+                    font-size: 0.8rem;
+                    text-transform: uppercase;
+                    letter-spacing: 0.1em;
+                    font-weight: 500;
+                }
+                .selfridges-badge strong {
+                    font-weight: 700;
                 }
                 .price-tag {
                     font-size: 2.75rem;
