@@ -71,24 +71,12 @@ export default function ManufacturingPage() {
                 "Integrated contract manufacturing"
             ]
         },
-        {
-            id: 2,
-            title: "Bespoke Formulation",
-            subtitle: "Precision & Purity",
-            description: "Specialising in high-quality powders and two-piece hard capsules. Our custom formulations are developed to exact specifications, ensuring the perfect balance of vitamins, minerals, and nutraceuticals required for optimal heart health support.",
-            icon: <FlaskConical size={32} />,
-            image: "https://images.unsplash.com/photo-1579165466741-7f35e4755660?auto=format&fit=crop&q=80&w=1000",
-            features: [
-                "Specialist encapsulation",
-                "Custom formulation development",
-                "Premium raw ingredients"
-            ]
-        },
+
         {
             id: 3,
             title: "Rigorous Quality Control",
             subtitle: "SALSA Certified (13796)",
-            description: "Our cleanrooms and warehousing operate under strict SALSA certification. Every single product undergoes rigorous testing and stringent quality control checks from raw material to finished capsule, ensuring absolute safety and consistent excellence.",
+            description: "Cleanrooms and warehousing operate under strict SALSA certification. Every single product undergoes rigorous testing and stringent quality control checks from raw material to finished capsule, ensuring absolute safety and consistent excellence.",
             icon: <ShieldCheck size={32} />,
             image: "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=1000",
             features: [
@@ -184,8 +172,7 @@ export default function ManufacturingPage() {
                         </div>
                         <h1 className="hero-title">Crafted with<br /><span className="text-secondary">Precision</span> & <span className="text-secondary">Purity</span></h1>
                         <p className="hero-subtitle">
-                            Discover the state-of-the-art manufacturing behind Rhythmia Heart Care.
-                            Partnered with industry leaders to bring you unparalleled quality.
+                            We have partnered with industry leaders to bring you unparalleled quality.
                         </p>
                     </motion.div>
                 </div>
@@ -258,35 +245,7 @@ export default function ManufacturingPage() {
                 ))}
             </div>
 
-            {/* Quality Process */}
-            <div className="container quality-process-container">
-                <div className="section-header">
-                    <h2 className="section-subtitle">Quality Process</h2>
-                    <h3 className="section-title">From Raw Ingredient to Finished Capsule</h3>
-                </div>
 
-                <div className="quality-steps-list">
-                    {qualitySteps.map((step, i) => (
-                        <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: i * 0.1 }}
-                            key={i}
-                            className="quality-step-item"
-                        >
-                            <div className="step-number-container">
-                                <div className="step-number">{i + 1}</div>
-                                {i < qualitySteps.length - 1 && <div className="step-line" />}
-                            </div>
-                            <div className="step-content">
-                                <div className="step-content-title">{step.title}</div>
-                                <p className="step-content-desc">{step.desc}</p>
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
 
             {/* Certifications */}
             <div className="container certifications-container">
@@ -317,6 +276,24 @@ export default function ManufacturingPage() {
                 </div>
             </div>
 
+            {/* Bottom CTA / Guarantee section */}
+            <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="manufacturing-footer-cta container"
+            >
+                <div className="cta-card">
+                    <Award size={48} className="text-secondary mb-4" />
+                    <h2>Uncompromising Quality</h2>
+                    <p>Every capsule of Rhythmia Heart Care is a testament to our commitment to your cardiovascular health. Manufactured in the UK to the highest possible standards.</p>
+                    <button onClick={() => navigate('/product')} className="buy-now-btn-large cta-btn">
+                        View Product
+                    </button>
+                </div>
+            </motion.div>
+
             {/* Bottom Badges */}
             <div className="container bottom-badges-container">
                 <div className="bottom-badges-grid">
@@ -338,24 +315,6 @@ export default function ManufacturingPage() {
                     ))}
                 </div>
             </div>
-
-            {/* Bottom CTA / Guarantee section */}
-            <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className="manufacturing-footer-cta container"
-            >
-                <div className="cta-card">
-                    <Award size={48} className="text-secondary mb-4" />
-                    <h2>Uncompromising Quality</h2>
-                    <p>Every capsule of Rhythmia Heart Care is a testament to our commitment to your cardiovascular health. Manufactured in the UK to the highest possible standards.</p>
-                    <button onClick={() => navigate('/product')} className="buy-now-btn-large cta-btn">
-                        View Product
-                    </button>
-                </div>
-            </motion.div>
 
             <Footer />
 
