@@ -61,6 +61,7 @@ export default function Navbar() {
                 {/* Desktop Links - Right Aligned */}
                 <ul className="nav-links desktop-only">
                     <li onClick={() => scrollToSection('product')}>Product</li>
+                    <li onClick={() => navigate('/evidence')}>Evidence</li>
                     <li onClick={() => scrollToSection('who-we-are')}>Who We Are</li>
                     <li onClick={() => scrollToSection('our-story')}>Our Story</li>
                     <li onClick={() => navigate('/how-its-made')}>How It&apos;s Made</li>
@@ -93,6 +94,7 @@ export default function Navbar() {
                         </div>
                         <ul className="mobile-nav-links">
                             <li onClick={() => scrollToSection('product')}>Product</li>
+                            <li onClick={() => { setMobileMenuOpen(false); navigate('/evidence'); }}>Evidence</li>
                             <li onClick={() => scrollToSection('who-we-are')}>Who We Are</li>
                             <li onClick={() => scrollToSection('our-story')}>Our Story</li>
                             <li onClick={() => { setMobileMenuOpen(false); navigate('/how-its-made'); }}>How It&apos;s Made</li>

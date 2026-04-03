@@ -26,7 +26,7 @@ export default function Product() {
         <section className="product-section" id="product">
             <div className="container relative z-10">
                 <div className="text-center mb-16">
-                    <h2 className="section-title text-primary" style={{ color: 'var(--color-primary)' }}>An all-in-one cardiac supplement</h2>
+                    <h2 className="section-title text-primary" style={{ color: 'var(--color-primary)' }}>The all-in-one cardiac supplement</h2>
                     <div className="divider bg-secondary mx-auto"></div>
                     <p className="text-primary mt-4 max-w-2xl mx-auto" style={{ color: '#ffffff' }}>
                         created specifically to support the electrical function of the heart.
