@@ -62,9 +62,8 @@ export default function Navbar() {
                 <ul className="nav-links desktop-only">
                     <li onClick={() => scrollToSection('product')}>Product</li>
                     <li onClick={() => navigate('/evidence')}>Evidence</li>
-                    <li onClick={() => scrollToSection('who-we-are')}>Who We Are</li>
-                    <li onClick={() => scrollToSection('our-story')}>Our Story</li>
                     <li onClick={() => navigate('/how-its-made')}>How It&apos;s Made</li>
+                    <li onClick={() => navigate('/team')}>Team</li>
                     <li onClick={() => scrollToSection('contact')}>Contact</li>
                     <li>
                         <Link to="/product" className="nav-cta-btn">
@@ -95,9 +94,8 @@ export default function Navbar() {
                         <ul className="mobile-nav-links">
                             <li onClick={() => scrollToSection('product')}>Product</li>
                             <li onClick={() => { setMobileMenuOpen(false); navigate('/evidence'); }}>Evidence</li>
-                            <li onClick={() => scrollToSection('who-we-are')}>Who We Are</li>
-                            <li onClick={() => scrollToSection('our-story')}>Our Story</li>
                             <li onClick={() => { setMobileMenuOpen(false); navigate('/how-its-made'); }}>How It&apos;s Made</li>
+                            <li onClick={() => { setMobileMenuOpen(false); navigate('/team'); }}>Team</li>
                             <li onClick={() => scrollToSection('contact')}>Contact</li>
                             <li>
                                 <Link to="/product" onClick={() => setMobileMenuOpen(false)} className="mobile-cta-btn">

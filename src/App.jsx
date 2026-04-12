@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import ProductPage from './pages/ProductPage'
 import ManufacturingPage from './pages/ManufacturingPage'
 import EvidencePage from './pages/EvidencePage'
+import TeamPage from './pages/TeamPage'
 import Success from './pages/Success'
 import Cancel from './pages/Cancel'
 import ApproveReview from './pages/ApproveReview'
@@ -26,6 +27,7 @@ export default function App() {
                     <Route path="/product" element={<ProductPage />} />
                     <Route path="/how-its-made" element={<ManufacturingPage />} />
                     <Route path="/evidence" element={<EvidencePage />} />
+                    <Route path="/team" element={<TeamPage />} />
                     <Route path="/success" element={<Success />} />
                     <Route path="/cancel" element={<Cancel />} />
                     <Route path="/approve-review" element={<ApproveReview />} />

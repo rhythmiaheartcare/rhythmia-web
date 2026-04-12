@@ -507,6 +507,7 @@ export default function EvidencePage() {
                     color: white;
                     display: flex;
                     flex-direction: column;
+                    overflow-x: hidden;
                 }
 
                 .evidence-bg-pattern {
@@ -532,6 +533,8 @@ export default function EvidencePage() {
                     width: 100%;
                     z-index: 10;
                 }
+
+
 
                 /* Hero */
                 .evidence-hero {
@@ -616,8 +619,11 @@ export default function EvidencePage() {
                 /* Shared section container */
                 .evidence-section-container {
                     max-width: 800px;
+                    width: 100%;
+                    min-width: 0;
                     margin: 0 auto;
                     padding-bottom: 3.5rem;
+                    box-sizing: border-box;
                 }
 
 
@@ -885,16 +891,24 @@ export default function EvidencePage() {
                     justify-content: space-between;
                     font-family: var(--font-main);
                     transition: all 0.3s ease;
+                    text-align: left;
                 }
                 .evidence-table-toggle:hover {
                     background: rgba(213, 15, 15, 0.12);
                     border-color: rgba(213, 15, 15, 0.3);
+                }
+                
+                .evidence-table-toggle > div:first-child {
+                    flex: 1;
+                    min-width: 0; /* Ensures the text can wrap and won't stretch the button */
+                    padding-right: 1rem;
                 }
 
                 .evidence-table-toggle-title {
                     font-size: 1.2rem;
                     font-weight: 700;
                     text-align: left;
+                    white-space: normal;
                 }
 
                 .evidence-table-toggle-sub {
@@ -902,6 +916,7 @@ export default function EvidencePage() {
                     color: rgba(255,255,255,0.45);
                     text-align: left;
                     margin-top: 0.25rem;
+                    white-space: normal;
                 }
 
                 .evidence-table-wrapper {
@@ -972,6 +987,21 @@ export default function EvidencePage() {
                 .evidence-table-evidence {
                     color: rgba(255,255,255,0.45);
                     font-size: 0.8rem;
+                }
+
+                @media (max-width: 768px) {
+                    .evidence-table-wrapper {
+                        width: 100%;
+                        max-width: calc(100vw - 3rem);
+                    }
+                    .evidence-table-inner {
+                        overflow-x: auto;
+                        -webkit-overflow-scrolling: touch;
+                        width: 100%;
+                    }
+                    .evidence-summary-table {
+                        min-width: 700px;
+                    }
                 }
 
                 /* Who Is It For */
@@ -1200,6 +1230,41 @@ export default function EvidencePage() {
 
                     .evidence-needs-grid {
                         grid-template-columns: 1fr 1fr;
+                    }
+                }
+
+                @media (max-width: 768px) {
+                    .evidence-table-toggle {
+                        padding: 1.25rem !important;
+                        width: 100% !important;
+                        box-sizing: border-box !important;
+                        margin: 0 !important;
+                        border-radius: 16px !important;
+                    }
+                    
+                    .evidence-table-toggle-title {
+                        font-size: 1.05rem;
+                        word-break: break-word;
+                    }
+                    
+                    .evidence-table-toggle-sub {
+                        font-size: 0.85rem;
+                        word-break: break-word;
+                    }
+
+                    .evidence-table-wrapper {
+                        width: 100% !important;
+                        box-sizing: border-box !important;
+                    }
+                    .evidence-table-inner {
+                        overflow-x: auto;
+                        -webkit-overflow-scrolling: touch;
+                        width: 100% !important;
+                        max-width: 100% !important;
+                        box-sizing: border-box !important;
+                    }
+                    .evidence-summary-table {
+                        min-width: 700px;
                     }
                 }
 

@@ -90,7 +90,8 @@ p {
     left: 0;
     width: 100%;
     z-index: 1000;
-    padding: 3rem 0 1rem; /* Increased top padding to make room for absolute banner */
+    padding: 3rem 0 1rem;
+    /* Increased top padding to make room for absolute banner */
     transition: padding 0.3s ease, background-color 0.3s ease;
 }
 
@@ -783,6 +784,7 @@ section {
 .text-right {
     text-align: right;
 }
+
 /* Global Back Button */
 .global-back-link {
     display: inline-flex;
@@ -794,7 +796,7 @@ section {
     transition: opacity 0.3s;
     font-weight: 500;
 }
+
 .global-back-link:hover {
     opacity: 1;
 }
-
