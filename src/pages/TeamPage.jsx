@@ -9,7 +9,7 @@ const leadership = [
         name: "Mohamed Zuhair",
         title: "CEO & Chief Medical Officer",
         credential: "Cardiologist – Specialist in Electrophysiology",
-        bio: "Dr. Mohamed Zuhair is a Cardiologist specialised in cardiac electrophysiology with extensive experience in heart rhythm disorders and cardiovascular prevention. He founded the company to bridge clinical cardiology with evidence-based nutritional support. He leads the company's vision and strategy, oversees product scientific integrity and medical communication, and ensures every product reflects the highest standards of cardiovascular care.",
+        bio: "Dr Mohamed Zuhair is a senior cardiology registrar and PhD candidate at Imperial College London and the National Heart and Lung Institute, with a research focus on syncope and complex rhythm management. He holds MBBS, BSc, MRCP, and PGCME qualifications and teaches cardiology to medical students at both UCL and Imperial College London. His interests include cardiac electrophysiology, catheter ablation, and neuromodulation for arrhythmias. His published work includes studies on complex rhythm management and percutaneous neuromodulation for vasovagal syncope.",
         photo: "/assets/photos/Mohamed_Zuhair.png",
         icon: <Stethoscope size={20} />,
         accentColor: "#D50F0F",
@@ -41,14 +41,14 @@ const advisors = [
         title: "Consultant Cardiologist & Electrophysiologist",
         affiliation: "Imperial College Healthcare NHS Trust | Imperial College London",
         role: "Advisor – Cardiac Electrophysiology",
-        bio: "Dr. Daniel Keene is a Consultant Cardiologist and Electrophysiologist at Imperial College Healthcare NHS Trust and Imperial College London, specialising in heart rhythm disorders and cardiac device therapy. His clinical and academic work focuses on advancing electrophysiological care and pacing strategies. As an advisor, he provides expert clinical insight to ensure our cardiovascular approach remains scientifically rigorous and aligned with modern rhythm management.",
+        bio: "Dr Daniel Keene is a consultant cardiologist and electrophysiologist at the Royal Free London NHS Foundation Trust and Imperial College Healthcare NHS Trust. He graduated from the University of Manchester and was awarded both a National Institute for Health and Care Research academic clinical fellowship and a British Heart Foundation Clinical Research Training Fellowship to support his doctoral research into novel implantable cardiac device technologies. His clinical practice spans complex electrophysiology procedures including catheter ablation for a range of arrhythmias, alongside broader inpatient and outpatient general cardiology.",
     },
     {
         name: "Dr. P. Boon Lim",
         title: "Consultant Cardiologist & Electrophysiologist",
         affiliation: "Imperial College Healthcare NHS Trust | Imperial College London",
         role: "Advisor – Heart Rhythm & Syncope",
-        bio: "Dr. P. Boon Lim is a Consultant Cardiologist and Electrophysiologist at Imperial College Healthcare NHS Trust and Imperial College London, with specialist expertise in arrhythmias and syncope. He is actively involved in research and innovation in heart rhythm disorders. As an advisor, he contributes strategic clinical guidance to strengthen the scientific foundation of our cardiovascular initiatives.",
+        bio: "Dr Boon Lim is a consultant cardiologist and electrophysiologist at Imperial College Healthcare NHS Trust, where he leads the nationally renowned Imperial Syncope Diagnostic Service at Hammersmith Hospital. He read medicine at Cambridge University on a prestigious scholarship, graduating with double first-class honours, and holds a PhD from Imperial College London in the autonomic mechanisms of atrial fibrillation, funded by the British Heart Foundation. A recognised expert in atrial fibrillation, arrhythmias, and catheter ablation, Dr Lim has been named Top Doctor of the Year for Cardiology (2018, 2021) and is a recipient of the President's Medal for Cardiology at the Royal Society of Medicine. He is also the author of Keeping Your Heart Healthy, published as part of the Penguin Life Experts series.",
     },
 ];
 
@@ -112,7 +112,11 @@ export default function TeamPage() {
                 className="container team-mission-container"
             >
                 <div className="team-mission-card">
-                    <Heart size={32} className="team-mission-icon" />
+                    <img 
+                        src="/assets/logo/Rhythmia_Care_Logo_Heart_Red_RGB.svg" 
+                        alt="Rhythmia Heart Logo" 
+                        className="team-mission-logo" 
+                    />
                     <h2 className="team-mission-title">Built by Clinicians, Driven by Science</h2>
                     <p className="team-mission-text">
                         Rhythmia Heart Care was born inside the walls of one of the UK&apos;s leading cardiac centres. Our team brings together frontline clinical experience, deep cardiovascular research, and technology expertise to create heart supplements that truly reflect what the science says.
@@ -365,6 +369,13 @@ export default function TeamPage() {
                 .team-mission-icon {
                     color: var(--color-secondary);
                     margin-bottom: 1.25rem;
+                }
+
+                .team-mission-logo {
+                    height: 38px;
+                    width: auto;
+                    margin-bottom: 1.25rem;
+                    display: inline-block;
                 }
 
                 .team-mission-title {

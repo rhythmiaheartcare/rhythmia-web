@@ -283,9 +283,9 @@ export default function EvidencePage() {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="evidence-hero-content container"
                 >
-                    <img 
-                        src="/assets/logo/Rhythmia_Care_Logo_Workmark_Red_Heart_White_Copy_RGB.svg" 
-                        alt="Rhythmia Heart Care Logo" 
+                    <img
+                        src="/assets/logo/Rhythmia_Care_Logo_Workmark_Red_Heart_White_Copy_RGB.svg"
+                        alt="Rhythmia Heart Care Logo"
                         className="evidence-hero-logo"
                     />
 
@@ -294,7 +294,7 @@ export default function EvidencePage() {
                     </h1>
 
                     <p className="evidence-hero-subtitle">
-                        The science behind every ingredient in Rhythmia Heart Care &mdash; developed by cardiologists at Imperial College NHS Trust to support your heart&apos;s electrical rhythm and muscle function.
+                        The science behind every ingredient in Rhythmia Heart Care &mdash; developed by expert cardiologists to support your heart&apos;s electrical rhythm and muscle function.
                     </p>
 
                     <div className="evidence-stats-bar">
@@ -492,7 +492,7 @@ export default function EvidencePage() {
             <div className="container evidence-section-container evidence-disclaimer-container">
                 <div className="evidence-disclaimer">
                     <p>
-                        <strong>Important:</strong> Rhythmia Heart Care is a food supplement. It is not intended to diagnose, treat, cure, or prevent any disease. The research cited reflects published peer-reviewed evidence for individual ingredients and their associations with cardiac function. Always consult your doctor or cardiologist before starting any new supplement, particularly if you are on medication or have a heart condition.
+                        <strong>Important:</strong> Rhythmia Heart Care is a food supplement. It is not intended to diagnose, treat, cure, or prevent any disease. The research cited reflects published peer-reviewed evidence for individual ingredients and their associations with cardiac function.
                     </p>
                 </div>
             </div>
