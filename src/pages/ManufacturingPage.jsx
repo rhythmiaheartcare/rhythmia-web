@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { CheckCircle2, FlaskConical, ShieldCheck, Leaf, Factory, MapPin, Award } from 'lucide-react';
+import { CheckCircle2, ShieldCheck, Leaf, Factory, MapPin, Award } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import BackButton from '../components/BackButton';
@@ -108,28 +108,6 @@ export default function ManufacturingPage() {
         { title: "Soil Association Organic Certified", desc: "Facility certified for organic manufacturing from start to finish" },
     ];
 
-    const qualitySteps = [
-        {
-            title: "Ingredient Sourcing",
-            desc: "Every supplier undergoes a rigorous approval process including auditing of recall and traceability systems. All raw materials must arrive with an approved Certificate of Analysis before being accepted.",
-        },
-        {
-            title: "Pre-Release Testing",
-            desc: "All ingredients are tested for microbiology, heavy metals, and contaminants before being cleared for production. Nothing enters our cleanrooms without passing these checks.",
-        },
-        {
-            title: "Manufacturing",
-            desc: "Capsules are produced in certified cleanrooms and weighed regularly throughout production to ensure a consistent, accurate dose in every capsule. All equipment and rooms are cleaned with food-grade products between every batch.",
-        },
-        {
-            title: "Batch Testing",
-            desc: "Every batch is metal tested before being packaged and dispatched. Additional accredited laboratory testing is available for microbiological count, allergens, vitamins, minerals, and more.",
-        },
-        {
-            title: "Ongoing Facility Checks",
-            desc: "The facility undergoes quarterly microbiological testing to verify cleaning procedures and water quality. Staff complete refresher hygiene training every six months.",
-        },
-    ];
 
     const bottomBadgesList = [
         { label: "Clinically Formulated", sub: "Developed by experts", icon: <ClinicallyIcon /> },

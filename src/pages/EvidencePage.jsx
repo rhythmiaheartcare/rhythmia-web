@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Zap, Battery, Shield, Activity, Cpu, Network, ChevronDown, Award } from 'lucide-react';
+import { Zap, Battery, Shield, Activity, Cpu, Network, ChevronDown, Award, ExternalLink } from 'lucide-react';
 import Footer from '../components/Footer';
 import BackButton from '../components/BackButton';
 
@@ -69,11 +69,11 @@ const ingredients = [
         why: "Magnesium is involved in over 300 enzymatic reactions and is essential for regulating blood pressure, cardiac contractility, and electrical excitability. Low magnesium is consistently linked to higher risks of atrial fibrillation, heart failure, and arrhythmias.",
         whyBisglycinate: "Magnesium bisglycinate is one of the most bioavailable and well-tolerated forms. Unlike cheaper magnesium oxide, it is efficiently absorbed and far less likely to cause gastrointestinal side effects \u2014 important for daily use.",
         keyFindings: [
-            { finding: "45% reduction in post-surgical atrial fibrillation", source: "Cochrane systematic review of randomised trials" },
-            { finding: "22% lower heart failure risk per 100 mg/day increase", source: "Del Gobbo et al. \u2014 meta-analysis of prospective cohorts" },
-            { finding: "50% higher AF risk in those with the lowest magnesium levels", source: "Framingham Heart Study (Khan et al., 2013) \u2014 3,530 participants" },
-            { finding: "Improved endothelial function and exercise tolerance in CAD", source: "Shechter et al. (2000) \u2014 double-blind RCT, 50 patients" },
-            { finding: "Lower heart failure and major cardiac event risk with long-term use", source: "Wu et al. (2025) \u2014 94,239 veterans" },
+            { finding: "45% reduction in post-surgical atrial fibrillation", source: "Cochrane systematic review of randomised trials", url: "https://pubmed.ncbi.nlm.nih.gov/23440790/", chip: "PubMed" },
+            { finding: "22% lower heart failure risk per 100 mg/day increase", source: "Del Gobbo et al. \u2014 meta-analysis of prospective cohorts", url: "https://pubmed.ncbi.nlm.nih.gov/23719551/", chip: "PubMed" },
+            { finding: "50% higher AF risk in those with the lowest magnesium levels", source: "Framingham Heart Study (Khan et al., 2013) \u2014 3,530 participants", url: "https://pubmed.ncbi.nlm.nih.gov/23172839/", chip: "PubMed" },
+            { finding: "Improved endothelial function and exercise tolerance in CAD", source: "Shechter et al. (2000) \u2014 double-blind RCT, 50 patients", url: "https://pubmed.ncbi.nlm.nih.gov/11067788/", chip: "PubMed" },
+            { finding: "Lower heart failure and major cardiac event risk with long-term use", source: "Wu et al. (2025) \u2014 94,239 veterans", url: "https://pubmed.ncbi.nlm.nih.gov/40135571/", chip: "PubMed" },
         ],
         evidenceLevel: "Meta-analyses, large RCTs, prospective cohorts"
     },
@@ -85,11 +85,11 @@ const ingredients = [
         color: "#e76f51",
         why: "CoQ10 is essential for producing ATP \u2014 the energy currency your heart cells need to beat. It is also a powerful antioxidant. Heart failure patients have been shown to have significantly reduced CoQ10 levels, and supplementation consistently improves cardiac function.",
         keyFindings: [
-            { finding: "43% reduction in major cardiac events and cardiovascular death", source: "Q-SYMBIO trial (Mortensen et al., 2014) \u2014 420 HF patients, 2 years" },
-            { finding: "54% reduction in cardiovascular mortality", source: "KiSel-10 trial (Alehagen et al., 2013) \u2014 440 subjects, 5 years" },
-            { finding: "Significant improvements in ejection fraction across 13 RCTs", source: "Fotino et al. (2013) \u2014 meta-analysis" },
-            { finding: "Improved cardiac strain, NT-proBNP, blood pressure, and 6-min walk distance", source: "JCM 2025 \u2014 RCT of 120 HF patients" },
-            { finding: "Reduced heart failure hospitalisations (73 vs 118, p<0.001)", source: "Italian multicentre trial \u2014 641 patients" },
+            { finding: "43% reduction in major cardiac events and cardiovascular death", source: "Q-SYMBIO trial (Mortensen et al., 2014) \u2014 420 HF patients, 2 years", url: "https://pubmed.ncbi.nlm.nih.gov/25282031/", chip: "PubMed" },
+            { finding: "54% reduction in cardiovascular mortality", source: "KiSel-10 trial (Alehagen et al., 2013) \u2014 440 subjects, 5 years", url: "https://pubmed.ncbi.nlm.nih.gov/22626835/", chip: "PubMed" },
+            { finding: "Significant improvements in ejection fraction across 13 RCTs", source: "Fotino et al. (2013) \u2014 meta-analysis", url: "https://pubmed.ncbi.nlm.nih.gov/23221577/", chip: "PubMed" },
+            { finding: "Improved cardiac strain, NT-proBNP, blood pressure, and 6-min walk distance", source: "JCM 2025 \u2014 RCT of 120 HF patients", url: "https://pubmed.ncbi.nlm.nih.gov/40507436/", chip: "PubMed" },
+            { finding: "Reduced heart failure hospitalisations (73 vs 118, p<0.001)", source: "Italian multicentre trial \u2014 641 patients", url: "https://pubmed.ncbi.nlm.nih.gov/7752841/", chip: "PubMed" },
         ],
         evidenceLevel: "Multicentre RCTs, meta-analyses of 13+ RCTs"
     },
@@ -101,11 +101,11 @@ const ingredients = [
         color: "#2a9d8f",
         why: "Taurine makes up about 50% of the heart\u2019s free amino acid pool. It is critical for calcium handling, membrane stabilisation, and antioxidant defence. In Japan, taurine is a standard part of heart failure treatment. Deficiency causes cardiomyopathy in animal models.",
         keyFindings: [
-            { finding: "Significant reductions in blood pressure, improved LVEF & NYHA class", source: "Tzang et al. (2024) \u2014 meta-analysis of 20 RCTs" },
-            { finding: "85% of peripartum cardiomyopathy patients improved NYHA class (vs 10% placebo)", source: "Zaki et al. (2021) \u2014 double-blind RCT, 40 ICU patients" },
-            { finding: "Increased exercise time, distance, and metabolic equivalents in HF", source: "Beyranvand et al. (2011) \u2014 placebo-controlled trial" },
-            { finding: "Improved myocardial oxygen consumption and electrical activity", source: "Ahmadian et al. (2017) \u2014 double-blind RCT" },
-            { finding: "Lowers blood pressure and improves vascular function in prehypertension", source: "Sun et al. (2016) \u2014 double-blind placebo-controlled trial" },
+            { finding: "Significant reductions in blood pressure, improved LVEF & NYHA class", source: "Tzang et al. (2024) \u2014 meta-analysis of 20 RCTs", url: "https://pubmed.ncbi.nlm.nih.gov/39148075/", chip: "PubMed" },
+            { finding: "85% of peripartum cardiomyopathy patients improved NYHA class (vs 10% placebo)", source: "Zaki et al. (2021) \u2014 double-blind RCT, 40 ICU patients", url: "https://doi.org/10.4103/joacc.JOACC_36_20", chip: "DOI" },
+            { finding: "Increased exercise time, distance, and metabolic equivalents in HF", source: "Beyranvand et al. (2011) \u2014 placebo-controlled trial", url: "https://pubmed.ncbi.nlm.nih.gov/21334852/", chip: "PubMed" },
+            { finding: "Improved myocardial oxygen consumption and electrical activity", source: "Ahmadian et al. (2017) \u2014 double-blind RCT", url: "https://pubmed.ncbi.nlm.nih.gov/28118062/", chip: "PubMed" },
+            { finding: "Lowers blood pressure and improves vascular function in prehypertension", source: "Sun et al. (2016) \u2014 double-blind placebo-controlled trial", url: "https://pubmed.ncbi.nlm.nih.gov/26781281/", chip: "PubMed" },
         ],
         evidenceLevel: "Meta-analysis of 20 RCTs, multiple placebo-controlled trials"
     },
@@ -117,11 +117,11 @@ const ingredients = [
         color: "#e9c46a",
         why: "Thiamine is a cofactor for key enzymes in cardiac energy metabolism. Deficiency is remarkably common in heart failure patients (21\u201398%) and directly impairs the heart\u2019s ability to produce energy. Severe deficiency causes a form of heart failure known as cardiovascular beriberi.",
         keyFindings: [
-            { finding: "3.28% net improvement in LVEF vs placebo (no heterogeneity, I\u00B2=0%)", source: "DiNicolantonio et al. (2013) \u2014 meta-analysis of double-blind RCTs" },
-            { finding: "22% improvement in LVEF in thiamine-depleted CHF patients on diuretics", source: "Shimon et al. (1995) \u2014 landmark RCT, 30 patients" },
-            { finding: "Significant LVEF improvement of 3.30% in stable HF on diuretics", source: "Schoenenberger et al. (2012) \u2014 crossover pilot RCT" },
-            { finding: "Improved endothelial function across healthy and diabetic groups", source: "Arora et al. \u2014 clinical trial, 30 participants" },
-            { finding: "Promising improvements in cardiac function, symptoms, and thiamine status", source: "Xu & Ji (2022) \u2014 systematic review of all HF RCTs" },
+            { finding: "3.28% net improvement in LVEF vs placebo (no heterogeneity, I\u00B2=0%)", source: "DiNicolantonio et al. (2013) \u2014 meta-analysis of double-blind RCTs", url: "https://pubmed.ncbi.nlm.nih.gov/23910704/", chip: "PubMed" },
+            { finding: "22% improvement in LVEF in thiamine-depleted CHF patients on diuretics", source: "Shimon et al. (1995) \u2014 landmark RCT, 30 patients", url: "https://pubmed.ncbi.nlm.nih.gov/7733128/", chip: "PubMed" },
+            { finding: "Significant LVEF improvement of 3.30% in stable HF on diuretics", source: "Schoenenberger et al. (2012) \u2014 crossover pilot RCT", url: "https://pubmed.ncbi.nlm.nih.gov/22057652/", chip: "PubMed" },
+            { finding: "Improved endothelial function across healthy and diabetic groups", source: "Arora et al. \u2014 clinical trial, 30 participants", url: "https://pubmed.ncbi.nlm.nih.gov/16741654/", chip: "PubMed" },
+            { finding: "Promising improvements in cardiac function, symptoms, and thiamine status", source: "Xu & Ji (2022) \u2014 systematic review of all HF RCTs", url: "https://pubmed.ncbi.nlm.nih.gov/35842069/", chip: "PubMed" },
         ],
         evidenceLevel: "Meta-analyses of double-blind RCTs, systematic reviews"
     },
@@ -133,11 +133,11 @@ const ingredients = [
         color: "#457b9d",
         why: "Zinc modulates the sodium, calcium, and potassium ion channels essential for every heartbeat. It also influences beta-adrenergic receptors and has powerful antioxidant and membrane-stabilising properties. Low zinc is linked to arrhythmias, heart failure, and worse outcomes after heart attacks.",
         keyFindings: [
-            { finding: "Modulates Na\u207A, Ca\u00B2\u207A, K\u207A channels essential for cardiac rhythm", source: "Kokhabi et al. (2025) \u2014 comprehensive review" },
-            { finding: "LVEF recovery from 27% to 42% with zinc/selenium repletion", source: "Frustaci et al. \u2014 18 cardiomyopathy patients" },
-            { finding: "15.7\u00D7 higher heart failure risk post-MI with low zinc levels", source: "Suzuki et al. (2024) \u2014 243 MI patients" },
-            { finding: "Prevented ventricular fibrillation in 83\u201391% of treated hearts", source: "Karagulova et al. \u2014 isolated heart studies" },
-            { finding: "Higher zinc intake linked to better systolic/diastolic function in elderly", source: "Olechnowicz et al. (2023) \u2014 270 elderly individuals" },
+            { finding: "Modulates Na\u207A, Ca\u00B2\u207A, K\u207A channels essential for cardiac rhythm", source: "Kokhabi et al. (2025) \u2014 comprehensive review", url: "https://pubmed.ncbi.nlm.nih.gov/39301907/", chip: "PubMed" },
+            { finding: "LVEF recovery from 27% to 42% with zinc/selenium repletion", source: "Frustaci et al. \u2014 18 cardiomyopathy patients", url: "https://pubmed.ncbi.nlm.nih.gov/22186680/", chip: "PubMed" },
+            { finding: "15.7\u00D7 higher heart failure risk post-MI with low zinc levels", source: "Suzuki et al. (2024) \u2014 243 MI patients", url: "https://pubmed.ncbi.nlm.nih.gov/38355442/", chip: "PubMed" },
+            { finding: "Prevented ventricular fibrillation in 83\u201391% of treated hearts", source: "Karagulova et al. \u2014 isolated heart studies", url: "https://pubmed.ncbi.nlm.nih.gov/17322024/", chip: "PubMed" },
+            { finding: "Higher zinc intake linked to better systolic/diastolic function in elderly", source: "Olechnowicz et al. (2023) \u2014 270 elderly individuals", url: "https://pubmed.ncbi.nlm.nih.gov/36829824/", chip: "PubMed" },
         ],
         evidenceLevel: "Mechanistic reviews, clinical studies, observational cohorts"
     },
@@ -149,11 +149,11 @@ const ingredients = [
         color: "#8338ec",
         why: "Vitamin B12 is essential for the autonomic nerves that control your heart rate and rhythm. Deficiency causes measurable changes in heart rate variability \u2014 a key marker of cardiac health \u2014 and is associated with altered ECG patterns that can predispose to arrhythmias.",
         keyFindings: [
-            { finding: "B12 replacement fully normalised heart rate variability in deficient patients", source: "Aytemir et al. (2000) \u2014 power spectral analysis study" },
-            { finding: "Improved cardiac sympathetic function in healthy elderly after 3 months", source: "Sucharita et al. (2012) \u2014 47 elderly subjects" },
-            { finding: "Dose-response: higher B12 = lower autonomic neuropathy risk in diabetes", source: "Hansen et al. \u2014 469 type 2 diabetes patients" },
-            { finding: "B12 deficiency linked to prolonged QTc and arrhythmogenic ECG markers", source: "Yilmaz et al. (2022) \u2014 214 healthy adults" },
-            { finding: "B-vitamins including B12 protected cardiac autonomic function from pollution", source: "Zhong et al. (2017) \u2014 crossover pilot trial" },
+            { finding: "B12 replacement fully normalised heart rate variability in deficient patients", source: "Aytemir et al. (2000) \u2014 power spectral analysis study", url: "https://pubmed.ncbi.nlm.nih.gov/10879381/", chip: "PubMed" },
+            { finding: "Improved cardiac sympathetic function in healthy elderly after 3 months", source: "Sucharita et al. (2012) \u2014 47 elderly subjects", url: "https://pubmed.ncbi.nlm.nih.gov/22226502/", chip: "PubMed" },
+            { finding: "Dose-response: higher B12 = lower autonomic neuropathy risk in diabetes", source: "Hansen et al. \u2014 469 type 2 diabetes patients", url: "https://pubmed.ncbi.nlm.nih.gov/27638143/", chip: "PubMed" },
+            { finding: "B12 deficiency linked to prolonged QTc and arrhythmogenic ECG markers", source: "Yilmaz et al. (2022) \u2014 214 healthy adults", url: "https://pubmed.ncbi.nlm.nih.gov/35485384/", chip: "PubMed" },
+            { finding: "B-vitamins including B12 protected cardiac autonomic function from pollution", source: "Zhong et al. (2017) \u2014 crossover pilot trial", url: "https://pubmed.ncbi.nlm.nih.gov/28367952/", chip: "PubMed" },
         ],
         evidenceLevel: "Clinical trials, prospective studies, crossover trials"
     },
@@ -238,13 +238,30 @@ function IngredientCard({ item, index }) {
                         {item.keyFindings.map((f, i) => (
                             <div key={i} className="evidence-finding-item">
                                 <div className="evidence-finding-dot" style={{ background: item.color }} />
-                                <div>
+                                <div style={{ flex: 1 }}>
                                     <div className="evidence-finding-text">
                                         {f.finding}
                                     </div>
-                                    <div className="evidence-finding-source">
-                                        {f.source}
-                                    </div>
+                                    {f.url ? (
+                                        <a
+                                            href={f.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="evidence-finding-source-link"
+                                            onClick={(e) => e.stopPropagation()}
+                                            title={`Open study: ${f.source}`}
+                                        >
+                                            <span className="evidence-source-text">{f.source}</span>
+                                            <span className="evidence-source-chip">
+                                                <span>{f.chip || 'PubMed'}</span>
+                                                <ExternalLink size={10} className="evidence-chip-icon" />
+                                            </span>
+                                        </a>
+                                    ) : (
+                                        <div className="evidence-finding-source">
+                                            {f.source}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         ))}
@@ -313,47 +330,6 @@ export default function EvidencePage() {
             </div>
 
 
-            {/* How Your Heart Works */}
-            <div className="container evidence-section-container">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <h2 className="evidence-section-label">What Your Heart Needs</h2>
-                    <h3 className="evidence-section-heading">
-                        100,000 Beats a Day.<br />Every One Demands Precision.
-                    </h3>
-                    <p className="evidence-section-intro">
-                        Your heart is the hardest-working muscle in your body. Each beat requires precise electrical signals to fire, cellular energy to contract, stable membranes to maintain structure, and healthy nerves to regulate rhythm. A deficiency in any of these areas can affect how your heart functions.
-                    </p>
-
-                    <div className="evidence-needs-grid">
-                        {[
-                            { label: "Electrical Signalling", desc: "Magnesium & Zinc", color: "#e63946" },
-                            { label: "Cellular Energy", desc: "CoQ10 & Thiamine", color: "#e76f51" },
-                            { label: "Membrane Stability", desc: "Taurine & Zinc", color: "#2a9d8f" },
-                            { label: "Autonomic Nerve Support", desc: "Vitamins B1, B6, B12", color: "#8338ec" },
-                            { label: "Antioxidant Defence", desc: "CoQ10, Zinc & Taurine", color: "#457b9d" },
-                            { label: "Metabolic Support", desc: "Full B-vitamin complex", color: "#e9c46a" },
-                        ].map((item, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, y: 15 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.4, delay: i * 0.08 }}
-                                className="evidence-need-card"
-                                style={{ borderLeftColor: item.color }}
-                            >
-                                <div className="evidence-need-label">{item.label}</div>
-                                <div className="evidence-need-desc">{item.desc}</div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </motion.div>
-            </div>
 
             {/* Ingredients Deep Dive */}
             <div className="container evidence-section-container">
@@ -654,39 +630,6 @@ export default function EvidencePage() {
                     color: rgba(255,255,255,0.6);
                     margin: 0 0 1.5rem 0;
                 }
-
-                /* Heart Needs grid */
-                .evidence-needs-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                    gap: 0.75rem;
-                }
-
-                .evidence-need-card {
-                    padding: 1.25rem 1.5rem;
-                    background: rgba(255,255,255,0.02);
-                    border: 1px solid rgba(255,255,255,0.06);
-                    border-radius: 14px;
-                    border-left: 3px solid;
-                    transition: all 0.3s ease;
-                }
-                .evidence-need-card:hover {
-                    background: rgba(255,255,255,0.04);
-                    transform: translateY(-2px);
-                }
-
-                .evidence-need-label {
-                    font-size: 1rem;
-                    font-weight: 700;
-                    margin-bottom: 0.25rem;
-                    color: white;
-                }
-
-                .evidence-need-desc {
-                    font-size: 0.85rem;
-                    color: rgba(255,255,255,0.45);
-                }
-
                 /* Ingredient Cards */
                 .evidence-ingredient-card {
                     background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
@@ -855,6 +798,64 @@ export default function EvidencePage() {
                     color: rgba(255,255,255,0.4);
                     margin-top: 0.25rem;
                     font-style: italic;
+                }
+
+                .evidence-finding-source-link {
+                    display: inline-flex;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    gap: 0.45rem;
+                    margin-top: 0.35rem;
+                    text-decoration: none;
+                    color: rgba(255,255,255,0.45);
+                    font-size: 0.8rem;
+                    line-height: 1.4;
+                    transition: all 0.2s ease;
+                }
+                .evidence-finding-source-link:hover {
+                    color: rgba(255,255,255,0.95);
+                }
+
+                .evidence-source-text {
+                    font-style: italic;
+                    transition: color 0.2s ease;
+                }
+                .evidence-finding-source-link:hover .evidence-source-text {
+                    text-decoration: underline;
+                    text-decoration-color: rgba(255,255,255,0.3);
+                }
+
+                .evidence-source-chip {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.25rem;
+                    padding: 0.15rem 0.5rem;
+                    background: rgba(255,255,255,0.05);
+                    border: 1px solid rgba(255,255,255,0.12);
+                    border-radius: 999px;
+                    font-size: 0.7rem;
+                    font-weight: 600;
+                    font-style: normal;
+                    color: rgba(255,255,255,0.7);
+                    letter-spacing: 0.02em;
+                    transition: all 0.2s ease;
+                    white-space: nowrap;
+                }
+                .evidence-finding-source-link:hover .evidence-source-chip {
+                    background: rgba(255,255,255,0.14);
+                    border-color: rgba(255,255,255,0.35);
+                    color: #fff;
+                    transform: translateY(-1px);
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+                }
+
+                .evidence-chip-icon {
+                    opacity: 0.7;
+                    transition: transform 0.2s ease, opacity 0.2s ease;
+                }
+                .evidence-finding-source-link:hover .evidence-chip-icon {
+                    opacity: 1;
+                    transform: translate(1px, -1px);
                 }
 
                 .evidence-level-badge {
@@ -1227,10 +1228,6 @@ export default function EvidencePage() {
                     .evidence-cta-section .cta-card h2 {
                         font-size: 1.8rem;
                     }
-
-                    .evidence-needs-grid {
-                        grid-template-columns: 1fr 1fr;
-                    }
                 }
 
                 @media (max-width: 768px) {
@@ -1269,10 +1266,6 @@ export default function EvidencePage() {
                 }
 
                 @media (max-width: 480px) {
-                    .evidence-needs-grid {
-                        grid-template-columns: 1fr;
-                    }
-
                     .bottom-badges-grid {
                         grid-template-columns: 1fr 1fr;
                     }

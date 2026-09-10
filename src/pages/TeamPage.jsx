@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Users, Heart, Award, Lightbulb, GraduationCap, Stethoscope } from 'lucide-react';
+import { Users, Award, Lightbulb, GraduationCap, Stethoscope } from 'lucide-react';
 import Footer from '../components/Footer';
 import BackButton from '../components/BackButton';
 
