@@ -12,7 +12,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom', 'react-router-dom', 'framer-motion'],
-          three: ['three', '@react-three/fiber', '@react-three/drei']
+          firebase: ['firebase/app', 'firebase/firestore']
         }
       }
     }

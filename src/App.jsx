@@ -1,33 +1,45 @@
+import { lazy, Suspense } from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
-import ProductPage from './pages/ProductPage'
-import ManufacturingPage from './pages/ManufacturingPage'
-import EvidencePage from './pages/EvidencePage'
-import TeamPage from './pages/TeamPage'
-import Success from './pages/Success'
-import Cancel from './pages/Cancel'
-import ApproveReview from './pages/ApproveReview'
-import BookletEditor from './pages/BookletEditor'
-import BusinessCardEditor from './pages/BusinessCardEditor'
-import LeafletEditor from './pages/LeafletEditor'
+import ScrollManager from './components/ScrollManager'
 import './index.css'
-import ScrollToTop from './components/ScrollToTop'
-import SmoothScroll from './components/SmoothScroll'
 
-import CduEditor from './pages/CduEditor'
+/* Home loads eagerly — it is the landing page. Everything else is split out, so
+   a first visit no longer pays for Firebase (only the product and review-approval
+   pages touch it) or for the internal print-collateral editors. */
+const ProductPage = lazy(() => import('./pages/ProductPage'))
+const ManufacturingPage = lazy(() => import('./pages/ManufacturingPage'))
+const EvidencePage = lazy(() => import('./pages/EvidencePage'))
+const AboutPage = lazy(() => import('./pages/AboutPage'))
+const Success = lazy(() => import('./pages/Success'))
+const Cancel = lazy(() => import('./pages/Cancel'))
+const ApproveReview = lazy(() => import('./pages/ApproveReview'))
+const BookletEditor = lazy(() => import('./pages/BookletEditor'))
+const BusinessCardEditor = lazy(() => import('./pages/BusinessCardEditor'))
+const LeafletEditor = lazy(() => import('./pages/LeafletEditor'))
+const CduEditor = lazy(() => import('./pages/CduEditor'))
+
+/** Holds the page ground while a route chunk loads, so there is no white flash. */
+function RouteFallback() {
+    return <div className="route-fallback" aria-busy="true" aria-label="Loading" />
+}
 
 export default function App() {
     return (
         <Router>
-            <SmoothScroll>
-                <ScrollToTop />
+            <ScrollManager />
+            <Suspense fallback={<RouteFallback />}>
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/product" element={<ProductPage />} />
                     <Route path="/how-its-made" element={<ManufacturingPage />} />
                     <Route path="/evidence" element={<EvidencePage />} />
-                    <Route path="/team" element={<TeamPage />} />
+                    <Route path="/about" element={<AboutPage />} />
+                    {/* The Team page became About. Printed leaflets, business cards and
+                        the CDU stand carry QR codes pointing at the old path, so it has
+                        to keep resolving. */}
+                    <Route path="/team" element={<Navigate to="/about" replace />} />
                     <Route path="/success" element={<Success />} />
                     <Route path="/cancel" element={<Cancel />} />
                     <Route path="/approve-review" element={<ApproveReview />} />
@@ -36,7 +48,7 @@ export default function App() {
                     <Route path="/leaflet-editor" element={<LeafletEditor />} />
                     <Route path="/stand-editor" element={<CduEditor />} />
                 </Routes>
-            </SmoothScroll>
+            </Suspense>
         </Router>
     )
 }

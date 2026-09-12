@@ -36,7 +36,7 @@ export default function EditorLayout({
 
             {/* SIDEBAR */}
             <div className={`rhythmia-editor-sidebar ${!showSidebar ? 'collapsed' : ''} no-print`}>
-                <div className="rhythmia-editor-sidebar-content" data-lenis-prevent>
+                <div className="rhythmia-editor-sidebar-content">
 
                     {/* Header */}
                     <div className="rhythmia-sidebar-header">
@@ -67,7 +67,7 @@ export default function EditorLayout({
             </div>
 
             {/* PREVIEW */}
-            <div className="rhythmia-editor-preview-wrapper" id="editor-preview-wrapper" data-lenis-prevent>
+            <div className="rhythmia-editor-preview-wrapper" id="editor-preview-wrapper">
 
                 {/* Show sidebar toggle */}
                 {!showSidebar && (

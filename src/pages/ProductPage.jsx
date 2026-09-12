@@ -1,163 +1,199 @@
-import React from 'react'
-import { Check, ShieldCheck, Zap, Truck } from 'lucide-react'
-
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import ProductJar from '../components/3d/ProductJar'
-import ProductReviews from '../components/ProductReviews'
+import { Link } from 'react-router-dom'
+import { Check, ShieldCheck, Truck, RefreshCw, ChevronDown, Star, ArrowRight } from 'lucide-react'
+
+import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import EvidenceStrip from '../components/EvidenceStrip'
+import ProductReviews from '../components/ProductReviews'
+import Portrait from '../components/Portrait'
+import ProductGallery from '../components/ProductGallery'
 import { reviewService } from '../services/reviewService'
-import BackButton from '../components/BackButton'
+import { usePageMeta, useJsonLd } from '../hooks/usePageMeta'
+import { audiences } from '../data/evidence'
+import { founders } from '../data/people'
+import {
+    product, pricing, delivery, guarantee, nutrition, directions, storage,
+    benefits, faq,
+} from '../data/product'
+
+const EASE = [0.22, 1, 0.36, 1]
+const reveal = {
+    hidden: { opacity: 0, y: 24 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
+}
+
+/* All four are 4:5 — a half-viewport at 1440x900 is 4:5 exactly, so the hero photo
+   fills its half with essentially no crop. */
+const gallery = [
+    { src: '/assets/photos/product-hero.jpg', alt: 'Rhythmia Heart Care jar, 60 capsules', label: 'The jar' },
+    { src: '/assets/photos/product-capsules.jpg', alt: 'Amber capsules beside the open jar', label: 'Capsules' },
+    { src: '/assets/photos/product-overhead.jpg', alt: 'The open jar seen from above', label: 'Inside' },
+    { src: '/assets/photos/product-morning.jpg', alt: 'The jar beside a glass of water in morning light', label: 'Daily' },
+]
+
+const money = (n) => `£${n.toFixed(2)}`
+
+function FaqItem({ item, index }) {
+    const [open, setOpen] = useState(false)
+    const id = `faq-${index}`
+    return (
+        <li className={`faq ${open ? 'is-open' : ''}`}>
+            <button className="faq-q" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-controls={id}>
+                <span>{item.q}</span>
+                <span className="faq-chevron" aria-hidden="true"><ChevronDown size={18} strokeWidth={2} /></span>
+            </button>
+            <AnimatePresence initial={false}>
+                {open && (
+                    <motion.div
+                        id={id}
+                        key="a"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: EASE }}
+                        style={{ overflow: 'hidden' }}
+                    >
+                        <p className="faq-a">{item.a}</p>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </li>
+    )
+}
 
 export default function ProductPage() {
-    const [purchaseType, setPurchaseType] = React.useState('onetime');
-    const [activeTab, setActiveTab] = React.useState('reviews');
-    const [reviews, setReviews] = React.useState([]);
-    const [reviewsLoading, setReviewsLoading] = React.useState(true);
+    const [purchaseType, setPurchaseType] = useState('onetime')
+    const [reviews, setReviews] = useState([])
+    const [reviewsLoading, setReviewsLoading] = useState(true)
+    const [stickyVisible, setStickyVisible] = useState(false)
+    const buyRef = useRef(null)
 
-    React.useEffect(() => {
-        const loadReviews = async () => {
-            const data = await reviewService.getApprovedReviews();
-            if (data && data.length > 0) {
-                setReviews(data);
+    useEffect(() => {
+        let cancelled = false
+        reviewService.getApprovedReviews().then((data) => {
+            if (cancelled) return
+            if (data?.length) setReviews(data)
+            setReviewsLoading(false)
+        })
+        return () => { cancelled = true }
+    }, [])
+
+    // Sticky buy bar: shown once the main button has scrolled up out of view.
+    // A scroll listener rather than IntersectionObserver — one rect read per
+    // scroll event is cheap, and it behaves the same everywhere.
+    useEffect(() => {
+        const update = () => {
+            const el = buyRef.current
+            if (!el) return
+            setStickyVisible(el.getBoundingClientRect().bottom < 0)
+        }
+        update()
+        window.addEventListener('scroll', update, { passive: true })
+        window.addEventListener('resize', update)
+        return () => {
+            window.removeEventListener('scroll', update)
+            window.removeEventListener('resize', update)
+        }
+    }, [])
+
+    const avg = reviews.length
+        ? Math.round((reviews.reduce((a, r) => a + r.rating, 0) / reviews.length) * 10) / 10
+        : null
+
+    const plan = pricing[purchaseType]
+
+    usePageMeta({
+        title: `${product.name} — ${product.tagline}`,
+        description: `${product.description} ${product.capsules} capsules, ${product.perDay} a day. ${money(pricing.onetime.price)}, or subscribe for ${money(pricing.subscription.price)}/month. ${delivery.headline}.`,
+        path: '/product',
+        image: product.image,
+    })
+
+    const schema = useMemo(() => {
+        const data = {
+            '@context': 'https://schema.org',
+            '@type': 'Product',
+            name: product.name,
+            description: product.description,
+            image: [product.image],
+            sku: product.sku,
+            gtin13: product.gtin,
+            brand: { '@type': 'Brand', name: product.name },
+            offers: {
+                '@type': 'Offer',
+                url: product.url,
+                priceCurrency: pricing.currency,
+                price: pricing.onetime.price.toFixed(2),
+                availability: 'https://schema.org/InStock',
+                itemCondition: 'https://schema.org/NewCondition',
+                shippingDetails: {
+                    '@type': 'OfferShippingDetails',
+                    shippingRate: { '@type': 'MonetaryAmount', value: '0', currency: pricing.currency },
+                    shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'GB' },
+                },
+            },
+        }
+        if (avg && reviews.length) {
+            data.aggregateRating = {
+                '@type': 'AggregateRating',
+                ratingValue: avg,
+                reviewCount: reviews.length,
+                bestRating: 5,
+                worstRating: 1,
             }
-            setReviewsLoading(false);
-        };
-        loadReviews();
-    }, []);
+        }
+        return data
+    }, [avg, reviews.length])
+    useJsonLd(schema)
 
     const handleCheckout = () => {
-        // Open appropriate Stripe Payment Link based on selection
         const link = purchaseType === 'subscription'
             ? import.meta.env.VITE_STRIPE_LINK_SUBSCRIPTION
-            : import.meta.env.VITE_STRIPE_LINK_ONETIME;
-
-        if (link) {
-            window.open(link, '_blank');
-        } else {
-            console.error("Stripe link not configured for", purchaseType);
-            alert("Checkout link not configured yet. Please check environment variables.");
+            : import.meta.env.VITE_STRIPE_LINK_ONETIME
+        if (!link) {
+            console.error('Stripe link not configured for', purchaseType)
+            alert('Checkout link not configured yet. Please check environment variables.')
+            return
         }
-    };
+        // Same tab. Checkout in a new window loses the visitor's context, and
+        // the Success and Cancel pages exist for the return trip.
+        window.location.assign(link)
+    }
 
-    const price = purchaseType === 'subscription' ? '£22.49' : '£24.99';
+    const founder = founders[0]
 
     return (
-        <div className="product-page-root">
-            <div className="product-content-wrapper">
-                <BackButton className="back-link" />
+        <>
+            <a className="skip-link" href="#main">Skip to content</a>
+            <Navbar />
 
-                <div className="product-page-container container">
-                    <div className="product-page-grid">
-                        {/* Left: Image/Visual */}
-                        <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8 }}
-                            className="product-visual"
-                        >
-                            {/* Using a high-quality static image for the sales page for stability, or re-using the 3D model if preferred. 
-                                 For a sales conversion page, a static high-res render often converts better than an interactive model 
-                                 that might distract. I'll stick to a clean placeholder/render style for now. */}
-                            <div className="product-visual-container">
-                                <ProductJar />
-                            </div>
-                        </motion.div>
+            <main id="main">
+                {/* =============================== Hero =========================== */}
+                {/* Split screen, one viewport tall: the photograph edge-to-edge on the
+                    left, everything needed to buy on the right. Thumbnails sit on the
+                    photo so the hero stays clean. */}
+                <section className="pdp-hero">
+                    <ProductGallery images={gallery} />
 
-                        {/* Right: Details & Checkout */}
-                        <div className="product-details">
-                            <div className="selfridges-badge-container">
-                                <span className="selfridges-badge">Now available in <strong>Selfridges</strong></span>
-                            </div>
-                            <h1 className="product-title">Rhythmia Heart Care</h1>
-                            <p className="product-subtitle">Daily support for the electrical rhythm of your heart</p>
+                    <div className="pdp-hero-panel">
+                        <div className="pdp-details">
+                            <h1 className="pdp-title">{product.name}</h1>
+                            <p className="pdp-subtitle">{product.tagline}</p>
 
-                            <div className="price-tag">
-                                <AnimatePresence mode="wait">
-                                    <motion.div
-                                        key={purchaseType}
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        exit={{ opacity: 0 }}
-                                        transition={{ duration: 0.2 }}
-                                    >
-                                        {price} <span className="text-sm text-gray-400 font-normal">
-                                            {purchaseType === 'subscription' ? '/ month' : '/ bottle'}
-                                        </span>
-                                    </motion.div>
-                                </AnimatePresence>
-                            </div>
+                            {avg && (
+                                <a href="#reviews" className="pdp-rating">
+                                    <span className="stars" aria-hidden="true">
+                                        {[1, 2, 3, 4, 5].map((n) => (
+                                            <Star key={n} size={15} strokeWidth={1.5} className={avg >= n - 0.25 ? 'star is-filled' : 'star'} />
+                                        ))}
+                                    </span>
+                                    <span>{avg.toFixed(1)} · {reviews.length} {reviews.length === 1 ? 'review' : 'reviews'}</span>
+                                </a>
+                            )}
 
-                            <div className="description-container">
-                                <p className="product-description">
-                                    All-in-one supplement created specifically to support the electrical function of the
-                                    heart. Clinically formulated with natural, vegan ingredients.
-                                </p>
-                            </div>
-
-                            <ul className="benefit-list">
-                                <li>
-                                    <div className="benefit-icon"><Check size={18} /></div>
-                                    <div className="benefit-text">
-                                        <span className="benefit-key">Magnesium Bisglycinate</span>
-                                        <span className="benefit-desc">Regulates electrical signalling</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="benefit-icon"><Check size={18} /></div>
-                                    <div className="benefit-text">
-                                        <span className="benefit-key">L-Taurine</span>
-                                        <span className="benefit-desc">Supports cardiac membrane stability</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="benefit-icon"><Check size={18} /></div>
-                                    <div className="benefit-text">
-                                        <span className="benefit-key">Coenzyme Q10</span>
-                                        <span className="benefit-desc">Promotes mitochondrial function</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="benefit-icon"><Check size={18} /></div>
-                                    <div className="benefit-text">
-                                        <span className="benefit-key">Vitamin B Complex + Zinc</span>
-                                        <span className="benefit-desc">Metabolic & neurological support</span>
-                                    </div>
-                                </li>
-                            </ul>
-
-                            {/* Purchase Options Selector - Horizontal Split Cards */}
-                            <div className="purchase-options-container">
-                                <div
-                                    className={`option-card ${purchaseType === 'onetime' ? 'active' : ''}`}
-                                    onClick={() => setPurchaseType('onetime')}
-                                >
-                                    <div className="option-header">
-                                        <span className="option-title">One-time</span>
-                                    </div>
-                                    <span className="option-price">£24.99</span>
-                                </div>
-                                <div
-                                    className={`option-card ${purchaseType === 'subscription' ? 'active' : ''}`}
-                                    onClick={() => setPurchaseType('subscription')}
-                                >
-                                    <div className="option-header">
-                                        <span className="option-title">Subscribe</span>
-                                    </div>
-                                    <span className="option-price">£22.49</span>
-                                    <span className="save-badge">Save 10%</span>
-                                    <div
-                                        className={`sub-note-embedded ${purchaseType === 'subscription' ? 'visible' : ''}`}
-                                    >
-                                        Cancel anytime<br />No hidden fees
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Old External Note Removed */}
-
-
-
-                            <button onClick={handleCheckout} className="buy-now-btn-large">
+                            <p className="pdp-price">
                                 <AnimatePresence mode="wait">
                                     <motion.span
                                         key={purchaseType}
@@ -165,460 +201,212 @@ export default function ProductPage() {
                                         animate={{ opacity: 1 }}
                                         exit={{ opacity: 0 }}
                                         transition={{ duration: 0.2 }}
-                                        style={{ display: 'inline-flex', alignItems: 'center', width: '100%', justifyContent: 'center' }}
                                     >
-                                        {purchaseType === 'subscription' ? 'Subscribe Now' : 'Buy Now'}
-                                        <span className="secure-suffix"> Secure Checkout</span>
+                                        {money(plan.price)} <span className="pdp-price-unit">{plan.unit}</span>
                                     </motion.span>
                                 </AnimatePresence>
+                            </p>
+
+                            <p className="pdp-desc">
+                                {product.description} {product.capsules} capsules — {product.perDay} a day.
+                            </p>
+
+                            <fieldset className="pdp-options">
+                                <legend className="visually-hidden">Purchase options</legend>
+                                <label className={`pdp-option ${purchaseType === 'onetime' ? 'is-active' : ''}`}>
+                                    <input type="radio" name="purchase" value="onetime" checked={purchaseType === 'onetime'} onChange={() => setPurchaseType('onetime')} />
+                                    <span className="pdp-option-name">{pricing.onetime.label}</span>
+                                    <span className="pdp-option-price">{money(pricing.onetime.price)}</span>
+                                </label>
+                                <label className={`pdp-option ${purchaseType === 'subscription' ? 'is-active' : ''}`}>
+                                    <input type="radio" name="purchase" value="subscription" checked={purchaseType === 'subscription'} onChange={() => setPurchaseType('subscription')} />
+                                    <span className="pdp-option-name">{pricing.subscription.label}</span>
+                                    <span className="pdp-option-price">{money(pricing.subscription.price)}</span>
+                                    <span className="pdp-option-save">{pricing.subscription.saving}</span>
+                                </label>
+                            </fieldset>
+
+                            <button ref={buyRef} onClick={handleCheckout} className="btn btn-primary btn-lg btn-block pdp-buy">
+                                {purchaseType === 'subscription' ? 'Subscribe now' : 'Buy now'}
+                                <span className="pdp-buy-sub">Secure checkout</span>
                             </button>
 
-                            <div className="trust-badges">
-                                <span><ShieldCheck size={16} /> 30-Day Guarantee</span>
-                                <span><Zap size={16} /> Fast Shipping</span>
-                                <span><Truck size={16} /> Free UK Delivery</span>
+                            <ul className="pdp-trust">
+                                <li><ShieldCheck size={15} strokeWidth={1.75} />{guarantee.headline}</li>
+                                <li><Truck size={15} strokeWidth={1.75} />{delivery.headline}</li>
+                                <li><RefreshCw size={15} strokeWidth={1.75} />Skip or cancel any time</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                {/* ============================ What's inside ===================== */}
+                <section className="section" id="whats-inside" data-surface="sunken">
+                    <div className="container">
+                        <motion.div className="pdp-head" variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
+                            <p className="eyebrow">What&rsquo;s inside</p>
+                            <h2 className="section-heading">Every ingredient, and how much</h2>
+                        </motion.div>
+
+                        <ul className="pdp-benefits">
+                            {benefits.map(({ key, desc }) => (
+                                <li key={key}>
+                                    <span className="pdp-check"><Check size={14} strokeWidth={3} /></span>
+                                    <span><strong>{key}</strong><span>{desc}</span></span>
+                                </li>
+                            ))}
+                        </ul>
+
+                        <div className="nutrition-grid">
+                            <div className="nutrition-panel">
+                                <table className="nutrition">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Nutrient</th>
+                                            <th scope="col" className="num">
+                                                Per serving
+                                                <span className="nutrition-form">{product.perDay} capsules</span>
+                                            </th>
+                                            <th scope="col" className="num">% NRV*</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {nutrition.map((row) => (
+                                            <tr key={row.name}>
+                                                <th scope="row">
+                                                    {row.name}
+                                                    {row.form && <span className="nutrition-form">{row.form}</span>}
+                                                </th>
+                                                <td className="num">{row.amount}</td>
+                                                <td className="num muted">{row.nrv}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                                <p className="nutrition-note">*NRV = Nutrient Reference Value. &mdash; indicates no NRV has been established.</p>
+                            </div>
+
+                            <div className="nutrition-side">
+                                <div>
+                                    <h3 className="nutrition-side-title">Directions</h3>
+                                    <p>{directions}</p>
+                                </div>
+                                <div>
+                                    <h3 className="nutrition-side-title">Storage</h3>
+                                    <p>{storage}</p>
+                                </div>
+                                <Link to="/evidence" className="nutrition-link">
+                                    Read the research behind each ingredient
+                                    <ArrowRight size={16} strokeWidth={2} />
+                                </Link>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
 
-                {/* Tabbed Info Section - Full Width */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.3 }}
-                    className="product-info-section"
-                >
-                    <div className="tab-header">
-                        <button
-                            className={`tab-btn ${activeTab === 'reviews' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('reviews')}
-                        >
-                            Reviews
-                        </button>
-                        <button
-                            className={`tab-btn ${activeTab === 'ingredients' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('ingredients')}
-                        >
-                            Full Ingredients
-                        </button>
+                {/* ============================ Research =========================== */}
+                <EvidenceStrip />
+
+                {/* ============================ Who it's for ======================= */}
+                <section className="section">
+                    <div className="container">
+                        <motion.div className="pdp-head" variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
+                            <p className="eyebrow">Who it&rsquo;s for</p>
+                            <h2 className="section-heading">Designed for patients, suitable for everyone</h2>
+                        </motion.div>
+                        <ul className="audience-grid">
+                            {audiences.map(({ title, desc }, i) => (
+                                <motion.li
+                                    key={title}
+                                    className="audience"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: '-60px' }}
+                                    transition={{ duration: 0.5, delay: i * 0.08, ease: EASE }}
+                                >
+                                    <h3 className="audience-title">{title}</h3>
+                                    <p className="audience-desc">{desc}</p>
+                                </motion.li>
+                            ))}
+                        </ul>
                     </div>
+                </section>
 
-                    <div className="tab-content">
-                        {activeTab === 'ingredients' && (
-                            <motion.div
-                                key="ingredients"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ duration: 0.3 }}
-                                className="info-content"
-                            >
-                                <p className="info-section-text">
-                                    Magnesium (Magnesium Bisglycinate Chelate Buffered), Taurine, Coenzyme Q10 (Ubiquinone), Zinc (Zinc Picolinate), Vitamin B1 (Thiamine Hydrochloride), Vitamin B6 (Pyridoxine Hydrochloride), Vitamin B12 (Methylcobalamin), Capsule Shell (Hydroxypropylmethylcellulose)
+                {/* ============================ FAQ ================================ */}
+                <section className="section" id="faq" data-surface="sunken">
+                    <div className="container faq-grid">
+                        <motion.div className="pdp-head" variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
+                            <p className="eyebrow">Questions</p>
+                            <h2 className="section-heading">Before you order</h2>
+                            <p className="lead">
+                                If you are being treated for a heart condition, speak to your doctor before
+                                starting any supplement.
+                            </p>
+                        </motion.div>
+                        <ul className="faq-list">
+                            {faq.map((item, i) => <FaqItem key={item.q} item={item} index={i} />)}
+                        </ul>
+                    </div>
+                </section>
+
+                {/* ============================ Reviews ============================ */}
+                <section className="section" id="reviews">
+                    <div className="container">
+                        <motion.div className="pdp-head" variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
+                            <p className="eyebrow">Reviews</p>
+                            <h2 className="section-heading">From people taking it</h2>
+                        </motion.div>
+                        <ProductReviews reviews={reviews} loading={reviewsLoading} />
+                    </div>
+                </section>
+
+                {/* ============================ Founder ============================ */}
+                <section className="section-sm" data-surface="sunken">
+                    <div className="container">
+                        <motion.div className="founder-card" variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}>
+                            <Portrait person={founder} className="founder-portrait" />
+                            <div>
+                                <p className="eyebrow">Created by cardiologists</p>
+                                <h2 className="founder-title">Formulated by the doctors who treat rhythm disorders</h2>
+                                <p className="founder-text">
+                                    {founder.name}, {founder.title.toLowerCase()}, is a cardiologist specialising in
+                                    electrophysiology at Imperial College London. Rhythmia brings together the
+                                    ingredients he and his co-founders recommend to their own patients.
                                 </p>
-                            </motion.div>
-                        )}
-
-                        {activeTab === 'reviews' && (
-                            <motion.div
-                                key="reviews"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ duration: 0.3 }}
-                            >
-                                <ProductReviews reviews={reviews} loading={reviewsLoading} />
-                            </motion.div>
-                        )}
+                                <Link to="/about" className="btn btn-secondary">
+                                    Meet the team
+                                    <ArrowRight size={18} strokeWidth={2} />
+                                </Link>
+                            </div>
+                        </motion.div>
                     </div>
-                </motion.div>
-            </div>
+                </section>
+            </main>
+
+            {/* Sticky buy bar — phones, once the main button has scrolled away. */}
+            <AnimatePresence>
+                {stickyVisible && (
+                    <motion.div
+                        className="pdp-sticky"
+                        initial={{ y: '100%' }}
+                        animate={{ y: 0 }}
+                        exit={{ y: '100%' }}
+                        transition={{ duration: 0.28, ease: EASE }}
+                    >
+                        <div className="container pdp-sticky-inner">
+                            <div className="pdp-sticky-price">
+                                <strong>{money(plan.price)}</strong>
+                                <span>{plan.unit}</span>
+                            </div>
+                            <button onClick={handleCheckout} className="btn btn-primary">
+                                {purchaseType === 'subscription' ? 'Subscribe' : 'Buy now'}
+                            </button>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
             <Footer />
-
-            <style>{`
-                /* Tab Styles */
-                .tab-header {
-                    display: flex;
-                    gap: 2rem;
-                    margin-bottom: 2rem;
-                    border-bottom: 1px solid rgba(255,255,255,0.1);
-                    padding-bottom: 1rem;
-                }
-                .tab-btn {
-                    background: none;
-                    border: none;
-                    color: rgba(255,255,255,0.4);
-                    font-family: var(--font-main);
-                    font-size: 1.1rem;
-                    text-transform: uppercase;
-                    letter-spacing: 0.1em;
-                    cursor: pointer;
-                    padding-bottom: 0.5rem;
-                    position: relative;
-                    transition: all 0.3s;
-                    font-weight: 600; /* Fixed weight to prevent wiggle */
-                }
-                .tab-btn:hover {
-                    color: rgba(255,255,255,0.8);
-                }
-                .tab-btn.active {
-                    color: white;
-                    /* font-weight removed to prevent layout shift */
-                }
-                .tab-btn.active::after {
-                    content: '';
-                    position: absolute;
-                    bottom: -1.1rem; /* align with border bottom */
-                    left: 0;
-                    width: 100%;
-                    height: 2px;
-                    background: var(--color-secondary);
-                    box-shadow: 0 -2px 10px var(--color-secondary);
-                }
-                .tab-content {
-                    min-height: 200px;
-                }
-                /* End Tab Styles */
-
-                .product-page-root {
-                    min-height: 100vh;
-                    background-color: var(--color-quaternary);
-                    color: var(--color-primary);
-                    padding: 0;
-                    display: flex;
-                    flex-direction: column;
-                }
-                .product-content-wrapper {
-                    padding: 2rem;
-                    flex: 1;
-                    display: flex;
-                    flex-direction: column;
-                }
-                .product-page-container {
-                    flex: 1;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-                .product-page-grid {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 6rem;
-                    align-items: flex-start;
-                    width: 100%;
-                    max-width: 1200px;
-                }
-                .product-visual {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    position: sticky;
-                    top: 2rem;
-                }
-                .product-visual-container {
-                    width: 100%;
-                    height: 550px;
-                    position: relative;
-                }
-                .product-details {
-                    padding-top: 1rem;
-                }
-                .product-title {
-                    font-size: 3.5rem;
-                    line-height: 1.1;
-                    margin-bottom: 0.75rem;
-                    color: white;
-                    font-weight: 600;
-                    letter-spacing: -0.02em;
-                }
-                .product-subtitle {
-                    font-size: 1.1rem;
-                    color: var(--color-secondary);
-                    margin-bottom: 2rem;
-                    text-transform: uppercase;
-                    letter-spacing: 0.15em;
-                    font-weight: 600;
-                    opacity: 0.9;
-                }
-                .selfridges-badge-container {
-                    margin-bottom: 1.5rem;
-                }
-                .selfridges-badge {
-                    display: inline-block;
-                    padding: 0.4rem 1rem;
-                    background-color: rgba(255, 222, 0, 0.1);
-                    border: 1px solid #FFDE00;
-                    color: #FFDE00;
-                    border-radius: 4px;
-                    font-size: 0.8rem;
-                    text-transform: uppercase;
-                    letter-spacing: 0.1em;
-                    font-weight: 500;
-                }
-                .selfridges-badge strong {
-                    font-weight: 700;
-                }
-                .price-tag {
-                    font-size: 2.75rem;
-                    font-weight: 600;
-                    color: white;
-                    margin-bottom: 2rem;
-                    display: flex;
-                    align-items: baseline;
-                    gap: 0.5rem;
-                }
-                .description-container {
-                    margin-bottom: 2.5rem;
-                    /* Removed border and padding */
-                }
-                .product-description {
-                    line-height: 1.8;
-                    color: rgba(255,255,255,0.8);
-                    font-size: 1.05rem;
-                    margin: 0;
-                }
-                .benefit-list {
-                    list-style: none;
-                    margin-bottom: 3.5rem;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 1.25rem;
-                }
-                .benefit-list li {
-                    display: flex;
-                    align-items: flex-start;
-                    gap: 1rem;
-                }
-                .benefit-icon {
-                    color: var(--color-secondary);
-                    margin-top: 2px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    background: rgba(213, 15, 15, 0.1);
-                    padding: 4px;
-                    border-radius: 50%;
-                }
-                .benefit-text {
-                    display: flex;
-                    flex-direction: column;
-                }
-                .benefit-key {
-                    font-weight: 600;
-                    color: white;
-                    font-size: 1.05rem;
-                    margin-bottom: 2px;
-                }
-                .benefit-desc {
-                    font-size: 0.95rem;
-                    color: rgba(255,255,255,0.6);
-                }
-                .product-info-section {
-                    width: 100%;
-                    max-width: 1200px;
-                    margin: 4rem auto 0;
-                    padding: 3rem;
-                    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%);
-                    border-radius: 16px;
-                    border: 1px solid rgba(255, 255, 255, 0.05);
-                }
-                .info-content {
-                    text-align: center;
-                }
-                .info-section-title {
-                    color: rgba(255,255,255,0.5);
-                    text-transform: uppercase;
-                    letter-spacing: 0.15em;
-                    font-size: 0.9rem;
-                    font-weight: 600;
-                    margin-bottom: 1.5rem;
-                }
-                .info-section-text {
-                    color: rgba(255,255,255,0.8);
-                    font-size: 1rem;
-                    line-height: 1.9;
-                    max-width: 800px;
-                    margin: 0 auto;
-                }
-                .buy-now-btn-large {
-                    width: 100%;
-                    padding: 1.25rem;
-                    background-color: var(--color-secondary);
-                    color: white;
-                    border: none;
-                    border-radius: 12px;
-                    font-size: 1.2rem;
-                    font-weight: 600;
-                    font-family: var(--font-main); /* Ensure Clash Display is used */
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    text-transform: uppercase;
-                    letter-spacing: 0.05em;
-                    box-shadow: 0 4px 20px rgba(213, 15, 15, 0.4);
-                }
-                .buy-now-btn-large:hover {
-                    background-color: #ff1f1f;
-                    transform: translateY(-2px);
-                    box-shadow: 0 8px 30px rgba(213, 15, 15, 0.6);
-                }
-                .trust-badges {
-                    margin-top: 2rem;
-                    display: flex;
-                    gap: 2rem;
-                    justify-content: center;
-                    opacity: 0.4;
-                    font-size: 0.85rem;
-                    letter-spacing: 0.05em;
-                    text-transform: uppercase;
-                }
-                .trust-badges span {
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                }
-                @media (max-width: 900px) {
-                    .product-page-grid {
-                        grid-template-columns: 1fr;
-                        gap: 3rem;
-                        text-align: left; /* Align left for consistent tick column */
-                    }
-                    .benefit-list li {
-                        justify-content: flex-start; /* Align left */
-                    }
-                    .trust-badges {
-                        justify-content: center;
-                    }
-                    .product-title {
-                        font-size: 2.5rem;
-                    }
-                    .product-visual {
-                        position: relative; /* Disable sticky on mobile */
-                        top: 0;
-                    }
-                    .product-visual-container {
-                         height: 400px;
-                    }
-                     .purchase-options-container {
-                        grid-template-columns: 1fr 1fr; 
-                        gap: 0.75rem;
-                     }
-                     .option-card {
-                        padding: 1rem 0.5rem;
-                     }
-                }
-                
-                /* Purchase Options Styling - Horizontal Split */
-                .purchase-options-container {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 1rem;
-                    margin-bottom: 2rem;
-                }
-                .option-card {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    text-align: center;
-                    padding: 1.5rem 1rem;
-                    border: 1px solid rgba(255,255,255,0.1);
-                    border-radius: 12px;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    background: rgba(255,255,255,0.02);
-                    position: relative;
-                    min-height: 140px;
-                }
-                .option-card:hover {
-                    background: rgba(255,255,255,0.05);
-                    transform: translateY(-2px);
-                }
-                .option-card.active {
-                    border-color: var(--color-secondary);
-                    background: rgba(213, 15, 15, 0.08);
-                    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-                }
-                
-                /* Hide the radio circle for this modern "Plan" look */
-                .option-radio {
-                    display: none;
-                }
-                
-                .option-header {
-                    margin-bottom: 0.5rem;
-                }
-                
-                .option-title {
-                    font-size: 0.95rem;
-                    font-weight: 500;
-                    color: rgba(255,255,255,0.7);
-                    text-transform: uppercase;
-                    letter-spacing: 0.05em;
-                }
-                
-                .option-price {
-                    font-size: 1.5rem;
-                    font-weight: 700;
-                    color: white;
-                }
-                
-                .save-badge {
-                    margin-top: 0.5rem;
-                    background: var(--color-secondary);
-                    color: white;
-                    font-size: 0.75rem;
-                    padding: 2px 8px;
-                    border-radius: 10px;
-                    font-weight: 600;
-                }
-                
-                .sub-note-embedded {
-                    font-size: 0.75rem;
-                    color: rgba(255,255,255,0.5);
-                    margin-top: 0.5rem;
-                    opacity: 0;
-                    transition: opacity 0.3s ease;
-                    min-height: 2.5em; /* Reserve height for 2 lines */
-                    line-height: 1.4;
-                }
-                .sub-note-embedded.visible {
-                    opacity: 1;
-                }
-
-                .subscription-note {
-                    display: none; /* We will embed the text inside the card */
-                }
-
-                @media (max-width: 900px) {
-                    /* On mobile, keep them side-by-side but tighter */
-                     .purchase-options-container {
-                        grid-template-columns: 1fr 1fr; 
-                        gap: 0.75rem;
-                     }
-                     .option-card {
-                        padding: 1rem 0.5rem;
-                     }
-                     
-                     /* Fix for button text wrapping on mobile */
-                     .buy-now-btn-large {
-                         font-size: 1.2rem; /* Larger, close to original */
-                         white-space: nowrap; 
-                         padding: 1.25rem 0.25rem; /* Max height, min side padding */
-                     }
-                }
-                
-                .secure-suffix {
-                    font-size: 0.75em; /* Smaller suffix to allow main text to be big */
-                    font-weight: 400;
-                    opacity: 0.8;
-                    text-transform: none; 
-                    letter-spacing: -0.02em; /* Squeeze slightly */
-                    margin-left: 0.4rem;
-                }
-                
-                .secure-checkout-label {
-                    display: none;
-                }
-            `}</style>
-        </div>
+        </>
     )
 }
