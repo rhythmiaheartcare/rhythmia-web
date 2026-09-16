@@ -11,10 +11,9 @@ export default function Cancel() {
                     <span className="outcome-icon outcome-icon-cancel">
                         <XCircle size={32} strokeWidth={1.75} />
                     </span>
-                    <h1 className="outcome-title">Payment cancelled</h1>
+                    <h1 className="outcome-title">Payment Cancelled</h1>
                     <p className="outcome-text">
-                        Your payment wasn&rsquo;t processed and you haven&rsquo;t been charged. You can
-                        pick up where you left off whenever you&rsquo;re ready.
+                        Your payment was not processed. You can try again whenever you&rsquo;re ready.
                     </p>
                     <div className="outcome-actions">
                         <Link to="/product" className="btn btn-primary btn-lg">Try again</Link>

@@ -19,21 +19,36 @@ export default function EveryHeartbeat() {
                         viewport={{ once: true, margin: '-80px' }}
                     >
                         <p className="eyebrow">Why rhythm matters</p>
-                        <h2 className="section-heading">Every heartbeat is an electrical event</h2>
+                        <h2 className="section-heading">Every Heartbeat Counts</h2>
 
                         <div className="prose">
                             <p>
-                                For decades, heart health products have focused on circulation — the
-                                &ldquo;plumbing&rdquo;. The electrical system that actually sets your
-                                rhythm has been left overlooked.
+                                Every beat of the heart is powered not just by blood flow, but by an
+                                intricate electrical system that keeps the rhythm and life in motion.
+                            </p>
+                            <p>
+                                Yet, for decades, most heart health products have focused only on
+                                circulation &ndash; the &ldquo;plumbing&rdquo; of the heart &ndash;
+                                leaving the electrical systems, which control rhythm, overlooked.
                             </p>
                         </div>
 
                         <div className="problem-stat">
                             <span className="problem-stat-figure">10&ndash;20%</span>
                             <span className="problem-stat-label">
-                                of adults experience palpitations each year
+                                of adults suffer with palpitations each year
                             </span>
+                        </div>
+
+                        <div className="prose">
+                            <p>
+                                Rhythm disorders are common affecting millions of people. Palpitations,
+                                the feeling of flutters or skipped beats, can affect people of all ages.
+                            </p>
+                            <p>
+                                Palpitations and irregular heartbeats disrupt sleep, exercise, and work
+                                for a significant number of people who experience them.
+                            </p>
                         </div>
                     </motion.div>
 

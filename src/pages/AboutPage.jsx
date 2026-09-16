@@ -1,4 +1,6 @@
+import { useLayoutEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
+import { ChevronDown } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import Portrait from '../components/Portrait'
@@ -11,15 +13,40 @@ const reveal = {
     show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 }
 
-/** Expanded card — used for people who have a written bio. */
+const EASE = [0.22, 1, 0.36, 1]
+const PREVIEW_LINES = 2
+
+/** Expanded card — used for people who have a written bio. The biography
+ * shows its first two lines; "Read more" opens the rest of this card only. */
 function ProfileCard({ person, index }) {
+    const [open, setOpen] = useState(false)
+    const [collapsed, setCollapsed] = useState(null)   // height of the preview, px
+    const [overflows, setOverflows] = useState(false)  // bio longer than the preview?
+    const bioRef = useRef(null)
+    const id = `bio-${person.name.replace(/\W+/g, '-').toLowerCase()}`
+
+    useLayoutEffect(() => {
+        const el = bioRef.current
+        if (!el) return
+        const measure = () => {
+            const lh = parseFloat(getComputedStyle(el).lineHeight)
+            const h = Math.round(lh * PREVIEW_LINES)
+            setCollapsed(h)
+            setOverflows(el.scrollHeight > h + 2)
+        }
+        measure()
+        const ro = new ResizeObserver(measure)
+        ro.observe(el)
+        return () => ro.disconnect()
+    }, [])
+
     return (
         <motion.li
-            className="profile"
+            className={`profile ${open ? 'is-open' : ''}`}
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.6, delay: index * 0.08, ease: EASE }}
         >
             <Portrait person={person} className="portrait-lg" />
             <div className="profile-body">
@@ -27,7 +54,27 @@ function ProfileCard({ person, index }) {
                 <p className="profile-title">{person.title}</p>
                 {person.credential && <p className="profile-credential">{person.credential}</p>}
                 {person.affiliation && <p className="profile-affiliation">{person.affiliation}</p>}
-                <p className="profile-bio">{person.bio}</p>
+                <motion.div
+                    id={id}
+                    className="profile-bio-wrap"
+                    initial={false}
+                    animate={{ height: open || collapsed === null ? 'auto' : collapsed }}
+                    transition={{ duration: 0.4, ease: EASE }}
+                    style={{ overflow: 'hidden' }}
+                >
+                    <p ref={bioRef} className="profile-bio">{person.bio}</p>
+                </motion.div>
+                {overflows && (
+                    <button
+                        className="profile-more"
+                        onClick={() => setOpen((v) => !v)}
+                        aria-expanded={open}
+                        aria-controls={id}
+                    >
+                        {open ? 'Read less' : 'Read more'}
+                        <ChevronDown size={16} strokeWidth={2} aria-hidden="true" />
+                    </button>
+                )}
             </div>
         </motion.li>
     )
@@ -58,7 +105,11 @@ function Group({ label, people }) {
         <div className="people-group">
             <h3 className="people-group-label">{label}</h3>
             {profiled.length > 0 && (
-                <ul className="profile-list">
+                /* Side by side on wide screens when there are two or three. */
+                <ul
+                    className={`profile-list ${profiled.length > 1 ? `is-columns cols-${Math.min(profiled.length, 3)}` : ''}`}
+                    style={{ '--profile-cols': Math.min(profiled.length, 3) }}
+                >
                     {profiled.map((person, i) => (
                         <ProfileCard key={person.name} person={person} index={i} />
                     ))}
@@ -98,68 +149,25 @@ export default function AboutPage() {
                         >
                             <p className="eyebrow">About</p>
                             <h1 className="about-hero-title">
-                                Built by clinicians, driven by science
+                                The Minds Behind Rhythmia
                             </h1>
                             <p className="lead">
-                                Rhythmia Heart Care was founded by UK cardiologists to support
-                                something most heart supplements overlook — the electrical system
-                                that sets your heartbeat.
+                                A team of cardiologists, scientists, and innovators united by a
+                                single mission &mdash; to support your heart with science-backed,
+                                physician-developed care.
+                            </p>
+                            <p className="prose about-mission">
+                                <strong>Built by Clinicians, Driven by Science.</strong> Rhythmia
+                                Heart Care was born inside the walls of one of the UK&rsquo;s leading
+                                cardiac centres. Our team brings together frontline clinical
+                                experience, deep cardiovascular research, and technology expertise to
+                                create heart supplements that truly reflect what the science says.
                             </p>
                         </motion.div>
                     </div>
                 </section>
 
-                {/* Who we are — moved here from the homepage */}
-                <section className="section" id="who-we-are" data-surface="sunken">
-                    <div className="container">
-                        <div className="grid-split">
-                            <motion.div
-                                variants={reveal}
-                                initial="hidden"
-                                whileInView="show"
-                                viewport={{ once: true, margin: '-80px' }}
-                            >
-                                <p className="eyebrow">Who we are</p>
-                                <h2 className="section-heading">We&rsquo;re Rhythmia Heart Care</h2>
-                                <div className="prose">
-                                    <p>
-                                        Founded by UK cardiologists, we deliver trusted, clinically
-                                        informed support for the heart&rsquo;s electrical rhythm.
-                                    </p>
-                                    <p>
-                                        More than a capsule, it&rsquo;s a commitment: to empower
-                                        patients with arrhythmias, and to give confidence to anyone
-                                        wanting to look after their heart rhythm.
-                                    </p>
-                                    <p>
-                                        Proper heart health is about caring for your heart&rsquo;s
-                                        natural rhythm.
-                                    </p>
-                                </div>
-                            </motion.div>
-
-                            {/* PLACEHOLDER: replace with a photograph of the cardiologists behind
-                                Rhythmia (Zuhair, Keene, Boon Lim). Drop the file into
-                                public/assets/photos/ and swap the src below. */}
-                            <motion.div
-                                className="media media-zoom story-media"
-                                initial={{ opacity: 0, scale: 0.97 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                            >
-                                <img
-                                    src="/assets/photos/getty-images-3UDtdrn3qsQ-unsplash.jpg"
-                                    alt="Cardiologists reviewing heart rhythm data"
-                                    loading="lazy"
-                                    decoding="async"
-                                />
-                            </motion.div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Our story — moved here from the homepage */}
+                {/* Our story */}
                 <section className="section" id="our-story">
                     <div className="container">
                         <div className="grid-split">
@@ -185,12 +193,12 @@ export default function AboutPage() {
                                 viewport={{ once: true, margin: '-80px' }}
                             >
                                 <p className="eyebrow">Our story</p>
-                                <h2 className="section-heading">It began with a single heartbeat</h2>
+                                <h2 className="section-heading">Our Story</h2>
                                 <div className="prose">
                                     <p>
-                                        A realised potential to save lives not just through medicine,
-                                        but through understanding the delicate rhythm of the human
-                                        heart.
+                                        It began with a single heartbeat, a realized potential to save
+                                        lives not just through medicine, but through understanding the
+                                        delicate rhythm of the human heart.
                                     </p>
                                     <p>
                                         The founders brought together a carefully selected blend of
@@ -198,7 +206,8 @@ export default function AboutPage() {
                                         clear mission: to support everyday heart rhythm health.
                                         It&rsquo;s designed for people living with arrhythmias, as well
                                         as anyone who wants to take care of their heart&rsquo;s
-                                        electrical balance — gentle, daily support you can rely on.
+                                        electrical balance, providing gentle, daily support you can
+                                        rely on.
                                     </p>
                                 </div>
                             </motion.div>
@@ -230,7 +239,10 @@ export default function AboutPage() {
                     </div>
                 </section>
 
-                <CtaBand />
+                <CtaBand
+                    heading="Confidence in Every Beat"
+                    text="Expert-led. Evidence-based. Designed to support your heart at every level."
+                />
             </main>
 
             <Footer />

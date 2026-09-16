@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Link, useLocation } from 'react-router-dom'
-import { ChevronDown, ExternalLink, ArrowUpRight } from 'lucide-react'
+import { ChevronDown, ExternalLink } from 'lucide-react'
 
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
@@ -14,79 +13,53 @@ import {
     BunnyIcon,
 } from '../components/BadgeIcons'
 import { ingredients, summaryData, audiences } from '../data/evidence'
-import { nutrition } from '../data/product'
 import { usePageMeta } from '../hooks/usePageMeta'
 
 const stats = [
-    ['6', 'Active ingredients', 'each with a defined role in heart rhythm or muscle function'],
-    ['38+', 'Published studies', 'peer-reviewed, in humans, with cardiac outcomes'],
-    ['265k+', 'Patients in research', 'across the trials and cohorts cited below'],
+    ['6', 'Active Ingredients'],
+    ['38+', 'Published Studies'],
+    ['265k+', 'Patients in Research'],
 ]
 
 const badges = [
-    { label: 'Clinically formulated', sub: 'Developed by experts', icon: <ClinicallyIcon /> },
-    { label: '100% vegan', sub: 'Plant-based capsules', icon: <VeganIcon /> },
-    { label: 'GMP certified', sub: 'Independently verified', icon: <GMPIcon /> },
+    { label: 'Clinically Formulated', sub: 'Developed by experts', icon: <ClinicallyIcon /> },
+    { label: '100% Vegan', sub: 'Plant-based capsules', icon: <VeganIcon /> },
+    { label: 'GMP Certified', sub: 'Independently verified', icon: <GMPIcon /> },
     { label: 'Made in UK', sub: 'Kent, England', icon: <UKMapIcon /> },
-    { label: 'No animal testing', sub: 'Cruelty free', icon: <BunnyIcon /> },
+    { label: 'No Animal Testing', sub: 'Cruelty free', icon: <BunnyIcon /> },
 ]
 
-const EASE = [0.22, 1, 0.36, 1]
 const reveal = {
     hidden: { opacity: 0, y: 24 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
+    show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 }
 
-function Citation({ finding }) {
-    if (!finding.url) return <span className="finding-cite">{finding.source}</span>
-    return (
-        <a href={finding.url} target="_blank" rel="noopener noreferrer" className="finding-cite">
-            {finding.source}
-            <span className="finding-chip">
-                {finding.chip}
-                <ExternalLink size={11} strokeWidth={2.5} />
-            </span>
-        </a>
-    )
-}
-
-/**
- * One ingredient as a row: number, name, role and the strongest finding are
- * always visible, so the proof reads without a click; open the row for why
- * it matters, the dose, and every citation.
- */
-function IngredientRow({ item, index, defaultOpen }) {
-    const [open, setOpen] = useState(defaultOpen)
-    const panelId = `research-${item.slug}`
-    const headline = item.keyFindings[item.headline.finding]
-    const findings = [headline, ...item.keyFindings.filter((_, i) => i !== item.headline.finding)]
-    const dose = nutrition.find((row) => row.name === item.doseName)
+/** One ingredient, collapsed to its headline until opened. */
+function Ingredient({ item, index }) {
+    const [open, setOpen] = useState(false)
+    const panelId = `ingredient-panel-${index}`
 
     return (
         <motion.li
-            id={item.slug}
-            className={`ev-row ${open ? 'is-open' : ''}`}
-            initial={{ opacity: 0, y: 16 }}
+            className={`ingredient ${open ? 'is-open' : ''}`}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.5, delay: Math.min(index, 5) * 0.05, ease: EASE }}
+            transition={{ duration: 0.5, delay: Math.min(index, 4) * 0.06, ease: [0.22, 1, 0.36, 1] }}
         >
             <button
-                className="ev-row-head"
+                className="ingredient-head"
                 onClick={() => setOpen((v) => !v)}
                 aria-expanded={open}
                 aria-controls={panelId}
             >
-                <span className="ev-row-number">{String(index + 1).padStart(2, '0')}</span>
-                <span className="ev-row-text">
-                    <span className="ev-row-name">{item.name}</span>
-                    <span className="ev-row-role">{item.role}</span>
+                <span className="ingredient-icon">{item.icon}</span>
+                <span className="ingredient-headings">
+                    <span className="ingredient-role">{item.role}</span>
+                    <span className="ingredient-name">{item.name}</span>
+                    <span className="ingredient-tagline">{item.tagline}</span>
                 </span>
-                <span className="ev-row-proof">
-                    <span className="ev-row-stat">{item.headline.stat}</span>
-                    <span className="ev-row-label">{item.headline.label}</span>
-                </span>
-                <span className="ev-row-chevron" aria-hidden="true">
+                <span className="ingredient-chevron" aria-hidden="true">
                     <ChevronDown size={20} strokeWidth={2} />
                 </span>
             </button>
@@ -99,40 +72,48 @@ function IngredientRow({ item, index, defaultOpen }) {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.35, ease: EASE }}
+                        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                         style={{ overflow: 'hidden' }}
                     >
-                        <div className="ev-row-body">
-                            <div className="ev-row-why">
-                                <h4 className="ev-panel-sub">Why it matters</h4>
+                        <div className="ingredient-body">
+                            <div className="ingredient-why">
+                                <h4>Why it matters for your heart</h4>
                                 <p>{item.why}</p>
                                 {item.whyBisglycinate && (
                                     <>
-                                        <h4 className="ev-panel-sub">Why this form</h4>
+                                        <h4>Why Bisglycinate?</h4>
                                         <p>{item.whyBisglycinate}</p>
                                     </>
                                 )}
-                                {dose && (
-                                    <Link to="/product#whats-inside" className="ev-dose">
-                                        <span className="ev-dose-label">In Rhythmia</span>
-                                        <span className="ev-dose-amount">{dose.amount} per serving</span>
-                                        <ArrowUpRight size={14} strokeWidth={2} />
-                                    </Link>
-                                )}
                             </div>
 
-                            <div className="ev-row-findings">
-                                <h4 className="ev-panel-sub">Key findings</h4>
-                                <ul className="ev-more">
-                                    {findings.map((f) => (
+                            <div className="ingredient-findings">
+                                <h4>Key Research Findings</h4>
+                                <ul>
+                                    {item.keyFindings.map((f) => (
                                         <li key={f.finding}>
                                             <p className="finding-text">{f.finding}</p>
-                                            <Citation finding={f} />
+                                            {f.url ? (
+                                                <a
+                                                    href={f.url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="finding-cite"
+                                                >
+                                                    {f.source}
+                                                    <span className="finding-chip">
+                                                        {f.chip}
+                                                        <ExternalLink size={11} strokeWidth={2.5} />
+                                                    </span>
+                                                </a>
+                                            ) : (
+                                                <span className="finding-cite">{f.source}</span>
+                                            )}
                                         </li>
                                     ))}
                                 </ul>
-                                <p className="ev-level">
-                                    <span>Evidence level</span> {item.evidenceLevel}
+                                <p className="ingredient-level">
+                                    <span>Evidence Level:</span> {item.evidenceLevel}
                                 </p>
                             </div>
                         </div>
@@ -144,7 +125,7 @@ function IngredientRow({ item, index, defaultOpen }) {
 }
 
 export default function EvidencePage() {
-    const { hash } = useLocation()
+    const [showTable, setShowTable] = useState(false)
     usePageMeta({
         title: 'The evidence',
         description: 'The peer-reviewed research behind every ingredient in Rhythmia Heart Care — 38+ published studies on magnesium, CoQ10, taurine, thiamine, zinc and B12 and their role in heart rhythm.',
@@ -157,18 +138,16 @@ export default function EvidencePage() {
             <Navbar />
 
             <main id="main">
-                {/* Hero — the proof leads */}
+                {/* Hero */}
                 <section className="section evidence-hero">
                     <div className="container">
                         <motion.div variants={reveal} initial="hidden" animate="show" className="evidence-hero-copy">
                             <p className="eyebrow">The evidence</p>
-                            <h1 className="evidence-hero-title">
-                                Six ingredients. Thirty-eight studies. One formulation.
-                            </h1>
+                            <h1 className="evidence-hero-title">Understanding Your Heart Supplement</h1>
                             <p className="lead">
-                                Every ingredient in Rhythmia Heart Care was chosen by cardiologists
-                                from published, peer-reviewed research in people &mdash; prioritising
-                                randomised trials and meta-analyses with cardiac outcomes.
+                                The science behind every ingredient in Rhythmia Heart Care &mdash;
+                                developed by expert cardiologists to support your heart&rsquo;s
+                                electrical rhythm and muscle function.
                             </p>
                         </motion.div>
 
@@ -176,23 +155,20 @@ export default function EvidencePage() {
                             className="evidence-stats"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
+                            transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
                         >
-                            {stats.map(([num, label, sub]) => (
+                            {stats.map(([num, label]) => (
                                 <div key={label}>
                                     <dt>{num}</dt>
-                                    <dd>
-                                        <strong>{label}</strong>
-                                        <span>{sub}</span>
-                                    </dd>
+                                    <dd>{label}</dd>
                                 </div>
                             ))}
                         </motion.dl>
                     </div>
                 </section>
 
-                {/* The research */}
-                <section className="section ev-research">
+                {/* Ingredients */}
+                <section className="section" data-surface="sunken">
                     <div className="container">
                         <motion.div
                             variants={reveal}
@@ -201,61 +177,77 @@ export default function EvidencePage() {
                             viewport={{ once: true, margin: '-80px' }}
                             className="evidence-head"
                         >
-                            <p className="eyebrow">The ingredients</p>
-                            <h2 className="section-heading">Every ingredient earns its place</h2>
+                            <p className="eyebrow">The Ingredients</p>
+                            <h2 className="section-heading">Evidence Behind Every Ingredient</h2>
                             <p className="lead">
-                                What each one does in the heart and its strongest published
-                                finding. Open any row for the full research and the dose.
+                                Tap any ingredient to explore the peer-reviewed research supporting
+                                its inclusion.
                             </p>
                         </motion.div>
 
-                        <ol className="ev-rows">
+                        <ul className="ingredient-list">
                             {ingredients.map((item, i) => (
-                                <IngredientRow key={item.slug} item={item} index={i} defaultOpen={`#${item.slug}` === hash} />
+                                <Ingredient key={item.name} item={item} index={i} />
                             ))}
-                        </ol>
-                    </div>
-                </section>
+                        </ul>
 
-                {/* At a glance */}
-                <section className="section" data-surface="sunken" id="at-a-glance">
-                    <div className="container">
-                        <motion.div
-                            variants={reveal}
-                            initial="hidden"
-                            whileInView="show"
-                            viewport={{ once: true, margin: '-80px' }}
-                            className="evidence-head"
-                        >
-                            <p className="eyebrow">At a glance</p>
-                            <h2 className="section-heading">All six, on one page</h2>
-                        </motion.div>
+                        {/* Summary table */}
+                        <div className="summary">
+                            <button
+                                className="summary-toggle"
+                                onClick={() => setShowTable((v) => !v)}
+                                aria-expanded={showTable}
+                                aria-controls="summary-table"
+                            >
+                                <span>
+                                    <span className="summary-toggle-title">At-a-Glance Summary Table</span>
+                                    <span className="summary-toggle-sub">
+                                        All six ingredients, their roles, and top-line findings
+                                    </span>
+                                </span>
+                                <span className={`ingredient-chevron ${showTable ? 'is-open' : ''}`} aria-hidden="true">
+                                    <ChevronDown size={20} strokeWidth={2} />
+                                </span>
+                            </button>
 
-                        <div className="ev-summary">
-                            {/* Wide tables scroll inside their own container rather than
-                                forcing the page to scroll sideways. */}
-                            <div className="ev-summary-scroll">
-                                <table className="ev-summary-table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Ingredient</th>
-                                            <th scope="col">Cardiac role</th>
-                                            <th scope="col">Headline finding</th>
-                                            <th scope="col">Evidence level</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {summaryData.map((row) => (
-                                            <tr key={row.ingredient}>
-                                                <th scope="row">{row.ingredient}</th>
-                                                <td>{row.role}</td>
-                                                <td className="ev-summary-highlight">{row.highlight}</td>
-                                                <td className="ev-summary-level">{row.evidence}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
+                            <AnimatePresence initial={false}>
+                                {showTable && (
+                                    <motion.div
+                                        id="summary-table"
+                                        key="table"
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: 'auto', opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                                        style={{ overflow: 'hidden' }}
+                                    >
+                                        {/* Wide tables scroll inside their own container rather than
+                                            forcing the page to scroll sideways. */}
+                                        <div className="summary-scroll">
+                                            <table className="summary-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Ingredient</th>
+                                                        <th>Cardiac Role</th>
+                                                        <th>Key Headline Finding</th>
+                                                        <th>Evidence Level</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {summaryData.map((row) => (
+                                                        <tr key={row.ingredient}>
+                                                            <td className="summary-name">{row.ingredient}</td>
+                                                            <td>{row.role}</td>
+                                                            <td className="summary-highlight">{row.highlight}</td>
+                                                            <td className="summary-level">{row.evidence}</td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
                     </div>
                 </section>
@@ -270,8 +262,8 @@ export default function EvidencePage() {
                             viewport={{ once: true, margin: '-80px' }}
                             className="evidence-head"
                         >
-                            <p className="eyebrow">Who Rhythmia is for</p>
-                            <h2 className="section-heading">Designed for patients, suitable for everyone</h2>
+                            <p className="eyebrow">Who Is Rhythmia For?</p>
+                            <h2 className="section-heading">Designed for Patients. Suitable for Everyone.</h2>
                         </motion.div>
 
                         <ul className="audience-grid">
@@ -282,7 +274,7 @@ export default function EvidencePage() {
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true, margin: '-60px' }}
-                                    transition={{ duration: 0.5, delay: i * 0.08, ease: EASE }}
+                                    transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
                                 >
                                     <h3 className="audience-title">{title}</h3>
                                     <p className="audience-desc">{desc}</p>
@@ -303,7 +295,7 @@ export default function EvidencePage() {
                 </section>
 
                 <CtaBand
-                    heading="Confidence in every beat"
+                    heading="Confidence in Every Beat"
                     text="Built on peer-reviewed research. Formulated by cardiologists. Designed to support your heart at every level."
                     secondaryLabel="See how it's made"
                     secondaryTo="/how-its-made"
@@ -313,7 +305,7 @@ export default function EvidencePage() {
                     <div className="container">
                         <p className="evidence-disclaimer">
                             <strong>Important:</strong> Rhythmia Heart Care is a food supplement. It is
-                            not intended to diagnose, treat, cure or prevent any disease. The research
+                            not intended to diagnose, treat, cure, or prevent any disease. The research
                             cited reflects published peer-reviewed evidence for individual ingredients
                             and their associations with cardiac function.
                         </p>

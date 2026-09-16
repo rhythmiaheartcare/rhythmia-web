@@ -38,7 +38,7 @@ export default function ContactUs() {
                         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                     >
                         <p className="eyebrow">Contact</p>
-                        <h2 className="section-heading">Get in touch</h2>
+                        <h2 className="section-heading">Get in Touch</h2>
                         <p className="lead">
                             Have a question about Rhythmia? We&rsquo;re here to help you understand how
                             to support your heart&rsquo;s rhythm naturally.
@@ -60,7 +60,7 @@ export default function ContactUs() {
                                 <div className="form-status form-status-success">
                                     <CheckCircle size={20} strokeWidth={2} />
                                     <span>
-                                        <strong>Message sent.</strong> Thank you for reaching out — we&rsquo;ll
+                                        <strong>Message Sent!</strong> Thank you for reaching out. We will
                                         get back to you shortly.
                                     </span>
                                 </div>
@@ -75,12 +75,12 @@ export default function ContactUs() {
                                 <input type="hidden" name="_template" value="table" />
 
                                 <div className="field">
-                                    <label htmlFor="contact-name">Your name</label>
+                                    <label htmlFor="contact-name">Your Name</label>
                                     <input id="contact-name" type="text" name="name" required autoComplete="name" />
                                 </div>
 
                                 <div className="field">
-                                    <label htmlFor="contact-email">Email address</label>
+                                    <label htmlFor="contact-email">Email Address</label>
                                     <input id="contact-email" type="email" name="email" required autoComplete="email" />
                                 </div>
 

@@ -1,28 +1,24 @@
 /* =============================================================================
    Evidence page
-   -----------------------------------------------------------------------------
-   The proof leads: a hero built around three figures, then six rows — one
-   per ingredient, each showing its strongest finding without a click and
-   opening to the full research — then the whole thing again as a table.
    ========================================================================== */
 
 .evidence-hero {
     padding-top: calc(var(--announcement-h) + var(--nav-h) + clamp(2.5rem, 6vw, 4.5rem));
-    padding-bottom: clamp(2.5rem, 5vw, 4rem);
+    padding-bottom: clamp(2rem, 5vw, 3.5rem);
     background:
         radial-gradient(70% 60% at 10% 0%, rgba(213, 15, 15, 0.05) 0%, transparent 60%),
         var(--bg);
 }
 
 .evidence-hero-copy {
-    max-width: 50rem;
+    max-width: 46rem;
 }
 
 .evidence-hero-title {
-    font-size: var(--text-6xl);
+    font-size: var(--text-5xl);
     color: var(--fg);
     margin-bottom: var(--space-6);
-    max-width: 16ch;
+    max-width: 17ch;
 }
 
 .evidence-head {
@@ -31,15 +27,13 @@
 }
 
 /* -----------------------------------------------------------------------------
-   Stats — the hero's main content
+   Stats
    -------------------------------------------------------------------------- */
 .evidence-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: clamp(1.5rem, 4vw, 3.5rem);
-    margin-top: clamp(2.5rem, 5vw, 4rem);
-    padding-top: clamp(2rem, 4vw, 3rem);
-    border-top: 1px solid var(--border-strong);
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
 }
 
 .evidence-stats>div {
@@ -54,7 +48,7 @@
 
 .evidence-stats dt {
     font-family: var(--font-display);
-    font-size: var(--text-6xl);
+    font-size: var(--text-4xl);
     font-weight: var(--weight-semibold);
     line-height: 1;
     letter-spacing: var(--track-tighter);
@@ -62,304 +56,226 @@
 }
 
 .evidence-stats dd {
-    margin-top: var(--space-4);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-}
-
-.evidence-stats dd strong {
-    font-size: var(--text-base);
-    font-weight: var(--weight-bold);
-    color: var(--fg);
-}
-
-.evidence-stats dd span {
+    margin-top: var(--space-3);
     font-size: var(--text-sm);
-    line-height: var(--leading-normal);
     color: var(--fg-muted);
-    max-width: 26ch;
 }
 
+/* Still one row on phones, just smaller. */
 @media (max-width: 700px) {
     .evidence-stats {
-        grid-template-columns: 1fr;
-        gap: var(--space-5);
+        gap: var(--space-3);
     }
 
     .evidence-stats>div {
-        padding-left: 0;
-        border-left: 0;
-        padding-top: var(--space-4);
-        border-top: 1px solid var(--border);
-    }
-
-    .evidence-stats>div:first-child {
-        padding-top: 0;
-        border-top: 0;
+        padding-left: var(--space-3);
     }
 
     .evidence-stats dt {
-        font-size: var(--text-5xl);
+        font-size: var(--text-3xl);
+    }
+
+    .evidence-stats dd {
+        margin-top: var(--space-2);
+        font-size: var(--text-xs);
+        line-height: var(--leading-snug);
     }
 }
 
 /* -----------------------------------------------------------------------------
-   Ingredient rows — number, name, role and headline finding always visible
+   Ingredient accordion
    -------------------------------------------------------------------------- */
-.ev-rows {
-    border-top: 1px solid var(--border-strong);
-}
-
-.ev-row {
-    border-bottom: 1px solid var(--border-strong);
-    scroll-margin-top: calc(var(--nav-h) + var(--space-6));
-}
-
-.ev-row-head {
-    display: grid;
-    grid-template-columns: 2.5rem minmax(0, 1fr) minmax(0, 1.15fr) 1.5rem;
-    align-items: center;
-    gap: var(--space-5);
-    width: 100%;
-    padding-block: var(--space-6);
-    text-align: left;
-    color: var(--fg);
-    transition: color var(--dur-base) var(--ease-out);
-}
-
-.ev-row-head:hover .ev-row-name {
-    color: var(--accent-text);
-}
-
-.ev-row-number {
-    font-size: var(--text-xs);
-    font-weight: var(--weight-bold);
-    letter-spacing: var(--track-wide);
-    color: var(--fg-subtle);
-}
-
-.ev-row.is-open .ev-row-number {
-    color: var(--accent-text);
-}
-
-.ev-row-text {
+.ingredient-list {
     display: flex;
     flex-direction: column;
-    gap: var(--space-1);
+    gap: var(--space-4);
+}
+
+.ingredient {
+    background-color: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition:
+        border-color var(--dur-base) var(--ease-out),
+        box-shadow var(--dur-base) var(--ease-out);
+}
+
+.ingredient:hover {
+    border-color: var(--border-strong);
+}
+
+.ingredient.is-open {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-md);
+}
+
+.ingredient-head {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--space-5);
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    text-align: left;
+}
+
+.ingredient-icon {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-md);
+    background-color: var(--accent-tint);
+    color: var(--accent-text);
+}
+
+.ingredient-headings {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
     min-width: 0;
 }
 
-.ev-row-name {
-    font-family: var(--font-display);
-    font-size: var(--text-2xl);
-    font-weight: var(--weight-semibold);
-    letter-spacing: var(--track-tight);
-    line-height: var(--leading-snug);
-    transition: color var(--dur-base) var(--ease-out);
-}
-
-.ev-row-role {
+/* Scoped to the accordion: the homepage cards use the same class names. */
+.ingredient-headings .ingredient-role {
     font-size: var(--text-xs);
-    font-weight: var(--weight-medium);
+    font-weight: var(--weight-bold);
     text-transform: uppercase;
     letter-spacing: var(--track-wide);
     color: var(--fg-subtle);
 }
 
-.ev-row-proof {
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-4);
-    min-width: 0;
-}
-
-.ev-row-stat {
+.ingredient-headings .ingredient-name {
     font-family: var(--font-display);
-    font-size: var(--text-3xl);
+    font-size: var(--text-2xl);
     font-weight: var(--weight-semibold);
     letter-spacing: var(--track-tight);
-    line-height: 1;
-    color: var(--accent-text);
-    white-space: nowrap;
+    line-height: var(--leading-snug);
+    color: var(--fg);
 }
 
-.ev-row-label {
+.ingredient-tagline {
     font-size: var(--text-sm);
-    line-height: var(--leading-snug);
     color: var(--fg-muted);
 }
 
-.ev-row-chevron {
+.ingredient-chevron {
     display: grid;
     place-items: center;
-    color: var(--fg-subtle);
-    transition: transform var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
-}
-
-.ev-row.is-open .ev-row-chevron {
-    transform: rotate(180deg);
-    color: var(--accent-text);
-}
-
-/* --- Open row --- */
-.ev-row-body {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: clamp(1.5rem, 4vw, 3rem);
-    padding: 0 0 var(--space-8) calc(2.5rem + var(--space-5));
-}
-
-.ev-row-why p {
-    font-size: var(--text-sm);
-    line-height: var(--leading-relaxed);
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border);
     color: var(--fg-muted);
+    transition:
+        transform var(--dur-base) var(--ease-out),
+        background-color var(--dur-base) var(--ease-out),
+        color var(--dur-base) var(--ease-out);
 }
 
-.ev-panel-sub {
+.ingredient.is-open .ingredient-chevron,
+.ingredient-chevron.is-open {
+    transform: rotate(180deg);
+    background-color: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-fg);
+}
+
+/* --- Expanded panel --- */
+.ingredient-body {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+    padding: 0 clamp(1.25rem, 3vw, 1.75rem) clamp(1.5rem, 3vw, 2rem);
+    border-top: 1px solid var(--border);
+    padding-top: clamp(1.25rem, 3vw, 1.75rem);
+    margin-top: var(--space-1);
+}
+
+.ingredient-body h4 {
     font-family: var(--font-text);
     font-size: var(--text-xs);
     font-weight: var(--weight-bold);
     text-transform: uppercase;
     letter-spacing: var(--track-widest);
     color: var(--fg-subtle);
-    margin-bottom: var(--space-2);
+    margin-bottom: var(--space-3);
 }
 
-.ev-row-why p+.ev-panel-sub {
+.ingredient-body h4:not(:first-child) {
     margin-top: var(--space-5);
 }
 
-/* Dose chip — the thread back to the product's nutrition table. */
-.ev-dose {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-3);
-    margin-top: var(--space-5);
-    padding: var(--space-3) var(--space-4);
-    border-radius: var(--radius-full);
-    background-color: var(--bg-sunken);
-    border: 1px solid var(--border);
-    color: var(--fg);
-    transition: border-color var(--dur-base) var(--ease-out), background-color var(--dur-base) var(--ease-out);
-}
-
-.ev-dose:hover {
-    border-color: var(--fg-subtle);
-    background-color: var(--bg-raised);
-}
-
-.ev-dose-label {
-    font-size: var(--text-xs);
-    font-weight: var(--weight-bold);
-    text-transform: uppercase;
-    letter-spacing: var(--track-wide);
-    color: var(--accent-text);
-}
-
-.ev-dose-amount {
+.ingredient-why p {
     font-size: var(--text-sm);
-    font-weight: var(--weight-medium);
+    line-height: var(--leading-relaxed);
+    color: var(--fg-muted);
 }
 
-.ev-dose svg {
-    color: var(--fg-subtle);
+.ingredient-findings ul {
+    display: flex;
+    flex-direction: column;
 }
 
-@media (max-width: 900px) {
-    .ev-row-head {
-        grid-template-columns: minmax(0, 1fr) 1.25rem;
-        row-gap: var(--space-3);
-        column-gap: var(--space-3);
-        padding-block: var(--space-5);
-    }
-
-    .ev-row-number {
-        display: none;
-    }
-
-    .ev-row-proof {
-        grid-column: 1;
-        flex-wrap: wrap;
-        gap: var(--space-2) var(--space-3);
-    }
-
-    .ev-row-chevron {
-        grid-row: 1;
-        grid-column: 2;
-    }
-
-    .ev-row-name {
-        font-size: var(--text-xl);
-    }
-
-    .ev-row-stat {
-        font-size: var(--text-2xl);
-    }
-
-    .ev-row-body {
-        grid-template-columns: 1fr;
-        padding-left: 0;
-    }
+.ingredient-findings li {
+    padding-block: var(--space-4);
+    border-top: 1px solid var(--border);
 }
 
-.ev-more li:first-child {
+.ingredient-findings li:first-child {
+    border-top: 0;
     padding-top: 0;
 }
 
 .finding-text {
     font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
     line-height: var(--leading-normal);
     color: var(--fg);
 }
 
 .finding-cite {
     display: inline-flex;
-    flex-wrap: wrap;
     align-items: center;
+    flex-wrap: wrap;
     gap: var(--space-2);
     margin-top: var(--space-2);
     font-size: var(--text-xs);
     line-height: var(--leading-normal);
-    color: var(--fg-muted);
+    color: var(--fg-subtle);
+    transition: color var(--dur-base) var(--ease-out);
 }
 
 a.finding-cite:hover {
-    color: var(--fg);
+    color: var(--accent-text);
 }
 
 .finding-chip {
     display: inline-flex;
     align-items: center;
-    gap: 3px;
+    gap: 4px;
     padding: 2px var(--space-2);
+    border: 1px solid var(--border-strong);
     border-radius: var(--radius-full);
-    background-color: var(--accent-tint);
-    color: var(--accent-text);
     font-weight: var(--weight-bold);
     letter-spacing: var(--track-wide);
-    text-transform: uppercase;
-    font-size: 0.625rem;
+    color: var(--accent-text);
+    white-space: nowrap;
 }
 
-.ev-more {
-    display: flex;
-    flex-direction: column;
-}
-
-.ev-more li {
-    padding-block: var(--space-4);
-    border-bottom: 1px solid var(--border);
-}
-
-.ev-level {
-    margin-top: var(--space-4);
+.ingredient-level {
+    margin-top: var(--space-5);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border);
     font-size: var(--text-xs);
     line-height: var(--leading-normal);
     color: var(--fg-muted);
 }
 
-.ev-level span {
+.ingredient-level span {
     font-weight: var(--weight-bold);
     text-transform: uppercase;
     letter-spacing: var(--track-wide);
@@ -367,62 +283,103 @@ a.finding-cite:hover {
     margin-right: var(--space-2);
 }
 
+@media (max-width: 860px) {
+    .ingredient-body {
+        grid-template-columns: 1fr;
+    }
+
+    .ingredient-head {
+        gap: var(--space-4);
+        padding: var(--space-4);
+    }
+
+    .ingredient-icon {
+        width: 38px;
+        height: 38px;
+    }
+}
+
 /* -----------------------------------------------------------------------------
-   At a glance — the same panel as the product's nutrition table
+   Summary table
    -------------------------------------------------------------------------- */
-.ev-summary {
+.summary {
+    margin-top: var(--space-8);
     background-color: var(--bg-raised);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: clamp(1.25rem, 3vw, 2rem);
+    overflow: hidden;
 }
 
-.ev-summary-scroll {
-    overflow-x: auto;
-}
-
-.ev-summary-table {
+.summary-toggle {
     width: 100%;
-    min-width: 720px;
-    border-collapse: collapse;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+    padding: clamp(1.25rem, 3vw, 1.5rem);
+    text-align: left;
 }
 
-.ev-summary-table th,
-.ev-summary-table td {
-    padding: var(--space-4) var(--space-4) var(--space-4) 0;
-    text-align: left;
-    vertical-align: top;
-    border-bottom: 1px solid var(--border);
+.summary-toggle-title {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--track-tight);
+    color: var(--fg);
+}
+
+.summary-toggle-sub {
+    display: block;
+    margin-top: var(--space-1);
     font-size: var(--text-sm);
-    line-height: var(--leading-normal);
     color: var(--fg-muted);
 }
 
-.ev-summary-table thead th {
-    padding-top: 0;
+.summary-scroll {
+    overflow-x: auto;
+    border-top: 1px solid var(--border);
+}
+
+.summary-table {
+    width: 100%;
+    min-width: 46rem;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+}
+
+.summary-table th {
+    text-align: left;
+    padding: var(--space-4) var(--space-5);
+    background-color: var(--bg-sunken);
     font-size: var(--text-xs);
     font-weight: var(--weight-bold);
     text-transform: uppercase;
     letter-spacing: var(--track-wide);
     color: var(--fg-subtle);
-}
-
-.ev-summary-table tbody th {
-    font-weight: var(--weight-bold);
-    color: var(--fg);
     white-space: nowrap;
 }
 
-.ev-summary-table tbody tr:last-child th,
-.ev-summary-table tbody tr:last-child td {
-    border-bottom: 0;
+.summary-table td {
+    padding: var(--space-4) var(--space-5);
+    border-top: 1px solid var(--border);
+    color: var(--fg-muted);
+    line-height: var(--leading-normal);
+    vertical-align: top;
 }
 
-.ev-summary-highlight {
-    color: var(--fg);
+.summary-name {
+    font-weight: var(--weight-bold);
+    color: var(--fg) !important;
+    white-space: nowrap;
 }
 
-.ev-summary-level {
+.summary-highlight {
+    color: var(--fg) !important;
+    min-width: 20rem;
+}
+
+.summary-level {
     font-size: var(--text-xs);
 }
 
@@ -464,16 +421,20 @@ a.finding-cite:hover {
 }
 
 /* -----------------------------------------------------------------------------
-   Disclaimer — quiet small print, centred, no box
+   Disclaimer
    -------------------------------------------------------------------------- */
 .evidence-disclaimer-section {
     padding-top: 0;
 }
 
 .evidence-disclaimer {
-    max-width: 70ch;
+    max-width: 80ch;
     margin-inline: auto;
     text-align: center;
+    padding: var(--space-6);
+    background-color: var(--bg-sunken);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
     font-size: var(--text-xs);
     line-height: var(--leading-relaxed);
     color: var(--fg-muted);

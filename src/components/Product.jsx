@@ -1,29 +1,35 @@
 import { motion } from 'framer-motion'
 import { Zap, ShieldCheck, Sparkles, Activity } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import JarViewer from './jar/JarViewer'
 
-const INGREDIENTS = [
-    {
-        name: 'Magnesium Bisglycinate',
-        role: 'Regulates the electrical signalling that sets your heart rhythm.',
-        icon: Activity,
-    },
-    {
-        name: 'L-Taurine',
-        role: 'Supports cardiac cell membrane stability and calcium handling.',
-        icon: ShieldCheck,
-    },
-    {
-        name: 'Coenzyme Q10',
-        role: 'Powers mitochondrial energy production in heart muscle.',
-        icon: Zap,
-    },
-    {
-        name: 'Vitamin B1, B6, B12 & Zinc',
-        role: 'Metabolic, neurological and antioxidant support.',
-        icon: Sparkles,
-    },
+/* Two ingredients either side of the jar, as on the original site. */
+const LEFT = [
+    { name: 'Magnesium Bisglycinate', role: 'Regulates electrical signaling', icon: Activity },
+    { name: 'Coenzyme Q10', role: 'Mitochondrial function and antioxidant', icon: Zap },
 ]
+const RIGHT = [
+    { name: 'L-Taurine', role: 'Supports cardiac membrane stability', icon: ShieldCheck },
+    { name: 'Vitamin B1, B6, B12, Zinc', role: 'Metabolic, neurological support, and antioxidant support', icon: Sparkles },
+]
+
+function IngredientCard({ name, role, icon: Icon, index }) {
+    return (
+        <motion.li
+            className="ingredient-card"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+        >
+            <span className="ingredient-icon">
+                <Icon size={20} strokeWidth={1.75} />
+            </span>
+            <h3 className="ingredient-name">{name}</h3>
+            <p className="ingredient-role">{role}</p>
+        </motion.li>
+    )
+}
 
 export default function Product() {
     return (
@@ -38,32 +44,32 @@ export default function Product() {
                 >
                     <p className="eyebrow">The formulation</p>
                     <h2 className="section-heading section-heading-center">
-                        An all-in-one cardiac supplement
+                        The all-in-one cardiac supplement
                     </h2>
                     <p className="lead">
-                        Six active ingredients, each selected for its published evidence in supporting
-                        the electrical function of the heart. Two capsules a day.
+                        created specifically to support the electrical function of the heart.
                     </p>
                 </motion.div>
 
-                <ul className="ingredient-grid">
-                    {INGREDIENTS.map(({ name, role, icon: Icon }, i) => (
-                        <motion.li
-                            key={name}
-                            className="ingredient-card"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: '-60px' }}
-                            transition={{ duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                        >
-                            <span className="ingredient-icon">
-                                <Icon size={20} strokeWidth={1.75} />
-                            </span>
-                            <h3 className="ingredient-name">{name}</h3>
-                            <p className="ingredient-role">{role}</p>
-                        </motion.li>
-                    ))}
-                </ul>
+                <div className="product-stage">
+                    <ul className="ingredient-col ingredient-col-left">
+                        {LEFT.map((item, i) => <IngredientCard key={item.name} {...item} index={i} />)}
+                    </ul>
+
+                    <motion.div
+                        className="product-jar"
+                        initial={{ opacity: 0, scale: 0.96 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true, margin: '-60px' }}
+                        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                        <JarViewer />
+                    </motion.div>
+
+                    <ul className="ingredient-col ingredient-col-right">
+                        {RIGHT.map((item, i) => <IngredientCard key={item.name} {...item} index={i + 2} />)}
+                    </ul>
+                </div>
 
                 <div className="product-cta">
                     <Link to="/product" className="btn btn-primary btn-lg">

@@ -11,10 +11,10 @@ export default function Success() {
                     <span className="outcome-icon outcome-icon-success">
                         <CheckCircle size={32} strokeWidth={1.75} />
                     </span>
-                    <h1 className="outcome-title">Thank you for your order</h1>
+                    <h1 className="outcome-title">Payment Successful!</h1>
                     <p className="outcome-text">
-                        Your payment went through. We&rsquo;re processing your order now and will send
-                        a confirmation email shortly with your delivery details.
+                        Thank you for your order. We are processing it and will send a confirmation
+                        email shortly.
                     </p>
                     <div className="outcome-actions">
                         <Link to="/" className="btn btn-primary btn-lg">Return home</Link>

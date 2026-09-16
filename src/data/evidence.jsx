@@ -4,10 +4,6 @@
    Every finding below is a published, citable result for the individual
    ingredient, not a claim about Rhythmia itself. Keep the `source` and `url`
    fields populated: an uncited figure on this page is worse than no figure.
-
-   `slug` is the in-page anchor; `doseName` matches a row of the product's
-   nutrition table so the dose shown here is the one printed on the label;
-   `headline` picks the finding shown as the large statistic.
    ========================================================================== */
 
 import { Zap, Battery, Shield, Activity, Cpu, Network } from 'lucide-react'
@@ -15,9 +11,6 @@ import { Zap, Battery, Shield, Activity, Cpu, Network } from 'lucide-react'
 export const ingredients = [
     {
         name: "Magnesium Bisglycinate",
-        slug: "magnesium",
-        doseName: "Magnesium",
-        headline: { stat: "45%", label: "reduction in post-surgical atrial fibrillation", finding: 0 },
         role: "Electrical Signalling",
         icon: <Zap size={20} />,
         tagline: "Regulates your heart\u2019s electrical rhythm",
@@ -35,9 +28,6 @@ export const ingredients = [
     },
     {
         name: "Coenzyme Q10 (CoQ10)",
-        slug: "coq10",
-        doseName: "Coenzyme Q10",
-        headline: { stat: "43%", label: "reduction in major cardiac events and cardiovascular death", finding: 0 },
         role: "Cellular Energy Production",
         icon: <Battery size={20} />,
         tagline: "Powers your heart muscle at the cellular level",
@@ -54,9 +44,6 @@ export const ingredients = [
     },
     {
         name: "L-Taurine",
-        slug: "taurine",
-        doseName: "L-Taurine",
-        headline: { stat: "20 RCTs", label: "in one meta-analysis showing lower blood pressure and improved LVEF and NYHA class", finding: 0 },
         role: "Cell Membrane Stability",
         icon: <Shield size={20} />,
         tagline: "Stabilises your heart\u2019s cell membranes",
@@ -73,9 +60,6 @@ export const ingredients = [
     },
     {
         name: "Thiamine (Vitamin B1)",
-        slug: "thiamine",
-        doseName: "Vitamin B1",
-        headline: { stat: "22%", label: "improvement in ejection fraction in thiamine-depleted heart-failure patients", finding: 1 },
         role: "Cardiac Energy Metabolism",
         icon: <Cpu size={20} />,
         tagline: "Fuels your heart\u2019s energy-producing pathways",
@@ -92,9 +76,6 @@ export const ingredients = [
     },
     {
         name: "Zinc",
-        slug: "zinc",
-        doseName: "Zinc",
-        headline: { stat: "15.7×", label: "higher heart-failure risk after a heart attack in people with low zinc", finding: 2 },
         role: "Ion Channel Function",
         icon: <Activity size={20} />,
         tagline: "Supports the channels that control your heartbeat",
@@ -111,9 +92,6 @@ export const ingredients = [
     },
     {
         name: "Vitamin B12",
-        slug: "b12",
-        doseName: "Vitamin B12",
-        headline: { stat: "Normalised", label: "heart rate variability in deficient patients after B12 replacement", finding: 0 },
         role: "Autonomic Nerve Function",
         icon: <Network size={20} />,
         tagline: "Supports the nerves that regulate your heart rhythm",
@@ -142,15 +120,15 @@ export const summaryData = [
 /* Who the product is for. Shared by the Evidence and Product pages. */
 export const audiences = [
     {
-        title: 'Cardiac patients',
-        desc: 'Originally created for people living with heart disease, palpitations, arrhythmias or heart failure. Provides targeted nutritional support alongside your medical treatment.',
+        title: 'Cardiac Patients',
+        desc: 'Originally created for people living with heart disease, palpitations, arrhythmias, or heart failure. Provides targeted nutritional support alongside your medical treatment.',
     },
     {
-        title: 'Those on heart medications',
+        title: 'Those on Heart Medications',
         desc: 'Common cardiac medications such as diuretics can deplete key nutrients like thiamine and magnesium. Rhythmia helps replenish what your medications may remove.',
     },
     {
-        title: 'Proactive heart health',
+        title: 'Proactive Heart Health',
         desc: 'Even without a diagnosis, supporting your heart with evidence-based nutrients is a smart long-term strategy — particularly with a family history of heart disease.',
     },
 ]

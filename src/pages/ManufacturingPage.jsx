@@ -17,35 +17,35 @@ const badges = [
     { label: 'Clinically formulated', sub: 'Developed by experts', icon: <ClinicallyIcon /> },
     { label: '100% vegan', sub: 'Plant-based capsules', icon: <VeganIcon /> },
     { label: 'GMP certified', sub: 'Independently verified', icon: <GMPIcon /> },
-    { label: 'Made in the UK', sub: 'Ashford, Kent', icon: <UKMapIcon /> },
-    { label: 'No animal testing', sub: 'Cruelty free', icon: <BunnyIcon /> },
+    { label: 'Made in UK', sub: 'Kent, England', icon: <UKMapIcon /> },
+    { label: 'No Animal Testing', sub: 'Cruelty free', icon: <BunnyIcon /> },
 ]
 
 const certifications = [
     {
         title: 'GMP Standards',
         ref: null,
-        desc: 'Manufactured to Good Manufacturing Practice standards throughout.',
+        desc: 'Manufactured to Good Manufacturing Practice standards',
     },
     {
         title: 'SALSA Certified',
         ref: '13796',
-        desc: 'Independently audited food safety certification covering our cleanrooms and warehouse.',
+        desc: 'Independently audited food safety certification for our cleanrooms and warehouse',
     },
     {
         title: 'Food Hygiene Rating 5',
         ref: null,
-        desc: 'The highest rating possible, awarded by local authority inspection.',
+        desc: 'The highest rating possible, awarded by local authority inspection',
     },
     {
         title: 'BCMPA Member',
         ref: null,
-        desc: 'Member of the UK trade association for contract manufacturers and packers.',
+        desc: 'Member of the UK trade association for contract manufacturers and packers',
     },
     {
         title: 'Soil Association Organic Certified',
         ref: 'DA30761',
-        desc: 'Facility certified for organic manufacturing from start to finish.',
+        desc: 'Facility certified for organic manufacturing from start to finish',
     },
 ]
 
@@ -55,24 +55,24 @@ const certifications = [
 const steps = [
     {
         icon: Factory,
-        title: 'Expert UK manufacturing',
-        subtitle: 'Over 20 years of experience',
+        title: 'Expert UK Manufacturing',
+        subtitle: 'Over 20 Years of Experience',
         description:
-            'We partner with Arena Health, a leading UK manufacturer with over two decades of expertise in food supplements. Based in Ashford, Kent, their facilities ensure every batch meets consistent standards of quality and efficacy.',
+            'Partnering with Arena Health, a leading UK manufacturer with over two decades of expertise in the food supplements industry. Based in Ashford, Kent, our state-of-the-art facilities ensure every batch of Rhythmia Heart Care meets the highest standards of quality and efficacy.',
     },
     {
         icon: ShieldCheck,
-        title: 'Rigorous quality control',
-        subtitle: 'SALSA certified (13796)',
+        title: 'Rigorous Quality Control',
+        subtitle: 'SALSA Certified (13796)',
         description:
-            'Cleanrooms and warehousing operate under strict SALSA certification. Every product undergoes testing and quality control checks from raw material through to finished capsule.',
+            'Cleanrooms and warehousing operate under strict SALSA certification. Every single product undergoes rigorous testing and stringent quality control checks from raw material to finished capsule, ensuring absolute safety and consistent excellence.',
     },
     {
         icon: Leaf,
-        title: 'Sustainable & ethical',
-        subtitle: 'Soil Association certified',
+        title: 'Sustainable & Ethical',
+        subtitle: 'Soil Association Organic Certified',
         description:
-            'Our facilities are certified by the Soil Association (DA30761), covering the manufacturing process from start to finish. Capsules are vegan-friendly and materials ethically sourced.',
+            'We believe in manufacturing that respects both the body and the planet. Our facilities are certified by the Soil Association (DA30761), proving our manufacturing process from start to finish meets the highest organic and sustainable standards.',
     },
 ]
 
@@ -99,10 +99,9 @@ export default function ManufacturingPage() {
                     <div className="container">
                         <motion.div variants={reveal} initial="hidden" animate="show" className="made-hero-copy">
                             <p className="eyebrow">How it&rsquo;s made</p>
-                            <h1 className="made-hero-title">Crafted with precision and purity</h1>
+                            <h1 className="made-hero-title">Crafted with Precision &amp; Purity</h1>
                             <p className="lead">
-                                Manufactured in Ashford, Kent, in a facility independently certified
-                                for food safety, hygiene and organic standards.
+                                We have partnered with industry leaders to bring you unparalleled quality.
                             </p>
                         </motion.div>
 
@@ -134,7 +133,7 @@ export default function ManufacturingPage() {
                             className="made-section-head"
                         >
                             <p className="eyebrow">Certifications</p>
-                            <h2 className="section-heading">Independently verified standards</h2>
+                            <h2 className="section-heading">Independently Verified Standards</h2>
                         </motion.div>
 
                         <ul className="cert-grid">
@@ -194,8 +193,8 @@ export default function ManufacturingPage() {
                 </section>
 
                 <CtaBand
-                    heading="Uncompromising quality"
-                    text="The same standards apply to every capsule, in every batch."
+                    heading="Uncompromising Quality"
+                    text="Every capsule of Rhythmia Heart Care is a testament to our commitment to your cardiovascular health. Manufactured in the UK to the highest possible standards."
                 />
             </main>
 

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Box, Images } from 'lucide-react'
+import JarViewer from './jar/JarViewer'
 
 /**
  * The product hero photographs: a swipeable, mouse-draggable carousel.
@@ -8,6 +9,8 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
  * either end — which is what makes it feel native rather than like a fade
  * between images. Navigation is deliberately quiet: centred dots, and
  * arrows that only show on hover for pointer devices; on touch you swipe.
+ * "View in 3D" swaps the photographs for the interactive jar in the same
+ * frame; the 3D code only loads when someone asks for it.
  */
 export default function ProductGallery({ images }) {
     const [viewportRef, embla] = useEmblaCarousel({
@@ -16,6 +19,7 @@ export default function ProductGallery({ images }) {
         align: 'start',
     })
     const [index, setIndex] = useState(0)
+    const [threeD, setThreeD] = useState(false)
 
     useEffect(() => {
         if (!embla) return
@@ -54,14 +58,34 @@ export default function ProductGallery({ images }) {
                 </div>
             </div>
 
-            <button type="button" className="gallery-arrow is-prev" onClick={prev} aria-label="Previous photograph">
-                <ChevronLeft size={20} strokeWidth={1.75} />
-            </button>
-            <button type="button" className="gallery-arrow is-next" onClick={next} aria-label="Next photograph">
-                <ChevronRight size={20} strokeWidth={1.75} />
+            {threeD && (
+                <div className="gallery-3d">
+                    <JarViewer />
+                </div>
+            )}
+
+            <button
+                type="button"
+                className="gallery-mode"
+                onClick={() => setThreeD((v) => !v)}
+                aria-pressed={threeD}
+            >
+                {threeD ? <Images size={16} strokeWidth={1.75} /> : <Box size={16} strokeWidth={1.75} />}
+                {threeD ? 'Photos' : 'View in 3D'}
             </button>
 
-            <div className="gallery-dots" role="tablist" aria-label="Choose a photograph">
+            {!threeD && (
+                <>
+                    <button type="button" className="gallery-arrow is-prev" onClick={prev} aria-label="Previous photograph">
+                        <ChevronLeft size={20} strokeWidth={1.75} />
+                    </button>
+                    <button type="button" className="gallery-arrow is-next" onClick={next} aria-label="Next photograph">
+                        <ChevronRight size={20} strokeWidth={1.75} />
+                    </button>
+                </>
+            )}
+
+            {!threeD && <div className="gallery-dots" role="tablist" aria-label="Choose a photograph">
                 {images.map((img, i) => (
                     <button
                         type="button"
@@ -73,7 +97,7 @@ export default function ProductGallery({ images }) {
                         aria-selected={i === index}
                     />
                 ))}
-            </div>
+            </div>}
         </div>
     )
 }

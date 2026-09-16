@@ -31,6 +31,13 @@ export const founders = [
         photo: '/assets/photos/Mohammad_Albatat.png',
         bio: 'Dr Mohamed Albatat holds a PhD in Cardiac Rhythm Management and has extensive experience in building and scaling healthcare ventures. Combining deep cardiovascular knowledge with strong commercial and operational expertise, he drives execution, efficiency and sustainable growth. He leads operations, manufacturing and supply chain partnerships, regulatory and quality frameworks, and business development to ensure high performance at scale.',
     },
+    {
+        name: 'Reda Albatat',
+        title: 'Chief Technology Officer',
+        credential: 'Data Scientist | AI Specialist',
+        photo: '/assets/photos/Reda_Albatat.png',
+        bio: 'Reda Albatat is a Data Scientist with expertise in artificial intelligence and healthcare analytics. He leads the company’s technology and data strategy, applying AI-driven insights to support innovation and informed decision-making. He oversees digital infrastructure, analytics and performance optimisation to ensure the company remains modern, data-driven and forward-looking.',
+    },
 ]
 
 export const advisors = [
@@ -73,13 +80,6 @@ export const advisors = [
 ]
 
 export const team = [
-    {
-        name: 'Reda Albatat',
-        title: 'Chief Technology Officer',
-        credential: 'Data Scientist | AI Specialist',
-        photo: '/assets/photos/Reda_Albatat.png',
-        bio: 'Reda Albatat is a Data Scientist with expertise in artificial intelligence and healthcare analytics. He leads the company’s technology and data strategy, applying AI-driven insights to support innovation and informed decision-making. He oversees digital infrastructure, analytics and performance optimisation to ensure the company remains modern, data-driven and forward-looking.',
-    },
     {
         name: 'Saja Labib',
         title: 'Head of Marketing',
