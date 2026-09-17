@@ -26,6 +26,8 @@ module.exports = {
         'side', 'intensity', 'roughness', 'metalness', 'transmission',
         'thickness', 'ior', 'map', 'castShadow', 'angle', 'penumbra',
         'object', 'dispose', 'attach',
+        'attenuationColor', 'attenuationDistance', 'clearcoat',
+        'clearcoatRoughness', 'envMapIntensity', 'flatShading',
       ]
     }],
   },

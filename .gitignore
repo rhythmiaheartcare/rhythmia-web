@@ -3,5 +3,7 @@ dist
 .vite
 .env
 .DS_Store
-website_notes.*
 .agents
+CLAUDE.local.md
+
+notes
