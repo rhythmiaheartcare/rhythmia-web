@@ -36,6 +36,7 @@ export default function Navbar() {
     const location = useLocation()
     const burgerRef = useRef(null)
     const firstLinkRef = useRef(null)
+    const hasOpened = useRef(false)
 
     // The header's scrolled state is frozen while the menu is open. Locking
     // scroll zeroes window.scrollY on phones, and without the freeze that
@@ -75,11 +76,16 @@ export default function Navbar() {
     }, [menuOpen])
 
     // Move focus into the menu when it opens and back to the control on close.
+    // Only after the menu has actually been opened once: on first load this
+    // effect also runs with the menu shut, and focusing the button there put a
+    // focus ring around the menu icon on every page load and refresh.
     useEffect(() => {
         if (menuOpen) {
+            hasOpened.current = true
             const t = setTimeout(() => firstLinkRef.current?.focus(), 80)
             return () => clearTimeout(t)
         }
+        if (!hasOpened.current) return
         burgerRef.current?.focus({ preventScroll: true })
     }, [menuOpen])
 
