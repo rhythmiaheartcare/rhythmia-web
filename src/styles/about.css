@@ -91,8 +91,140 @@
     color: var(--fg-muted);
 }
 
+/* Cards with a bio open it in a pop-up. The whole card is the button. */
+.person-button {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    border-radius: var(--radius-lg);
+}
+
+.person-button .portrait img {
+    transition: transform 0.6s var(--ease-out);
+}
+
+.person-button:hover .portrait img {
+    transform: scale(1.04);
+}
+
+.person-more {
+    display: inline-block;
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--accent-text);
+    border-bottom: 1px solid currentColor;
+}
+
+.person-button:hover .person-more {
+    color: var(--accent-hover);
+}
+
+/* --- Bio pop-up --- */
+.bio-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: grid;
+    place-items: center;
+    padding: var(--space-6);
+    background: rgba(20, 10, 12, 0.55);
+    backdrop-filter: blur(4px);
+}
+
+.bio-dialog {
+    position: relative;
+    width: 100%;
+    max-width: 44rem;
+    max-height: calc(100dvh - 3rem);
+    overflow-y: auto;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    background: var(--bg-raised);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+}
+
+.bio-close {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    background: var(--bg);
+    color: var(--fg);
+    cursor: pointer;
+}
+
+.bio-close:hover {
+    background: var(--bg-inset);
+}
+
+.bio-head {
+    display: grid;
+    grid-template-columns: 140px minmax(0, 1fr);
+    gap: var(--space-6);
+    align-items: center;
+    padding-right: var(--space-10);
+}
+
+.bio-name {
+    font-size: var(--text-2xl);
+    color: var(--fg-heading);
+    line-height: var(--leading-snug);
+}
+
+.bio-title {
+    margin-top: var(--space-1);
+    font-weight: var(--weight-bold);
+    color: var(--accent-text);
+}
+
+.bio-credential,
+.bio-affiliation {
+    margin-top: var(--space-1);
+    font-size: var(--text-sm);
+    color: var(--fg-muted);
+}
+
+.bio-text {
+    margin-top: var(--space-6);
+    color: var(--fg);
+    line-height: var(--leading-relaxed);
+}
+
 @media (max-width: 700px) {
     .person-grid {
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+
+    /* Phones: the pop-up rises as a sheet from the bottom of the screen. */
+    .bio-backdrop {
+        place-items: end stretch;
+        padding: 0;
+    }
+
+    .bio-dialog {
+        max-height: 88dvh;
+        border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    }
+
+    .bio-head {
+        grid-template-columns: 96px minmax(0, 1fr);
+        gap: var(--space-4);
+        align-items: start;
+    }
+
+    .bio-name {
+        font-size: var(--text-xl);
     }
 }

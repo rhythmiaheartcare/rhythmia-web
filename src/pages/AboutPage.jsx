@@ -1,4 +1,6 @@
-import { motion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { X } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import Portrait from '../components/Portrait'
@@ -11,20 +13,95 @@ const reveal = {
     show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 }
 
-/** Portrait, name and role. */
-function PersonCard({ person, index }) {
+const EASE = [0.22, 1, 0.36, 1]
+
+/** Portrait, name and role. People with a written bio open it in a pop-up. */
+function PersonCard({ person, index, onOpen }) {
+    const content = (
+        <>
+            <Portrait person={person} />
+            <h4 className="person-name">{person.name}</h4>
+            <p className="person-title">{person.title}</p>
+            {person.bio && <span className="person-more">Read bio</span>}
+        </>
+    )
+
     return (
         <motion.li
             className="person"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.5, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.5, delay: index * 0.06, ease: EASE }}
         >
-            <Portrait person={person} />
-            <h4 className="person-name">{person.name}</h4>
-            <p className="person-title">{person.title}</p>
+            {person.bio ? (
+                <button
+                    type="button"
+                    className="person-button"
+                    onClick={(e) => onOpen(person, e.currentTarget)}
+                    aria-haspopup="dialog"
+                >
+                    {content}
+                </button>
+            ) : (
+                content
+            )}
         </motion.li>
+    )
+}
+
+/** Full biography in a pop-up. Closes on the button, the backdrop or Escape,
+ * and hands focus back to the card that opened it. */
+function BioDialog({ person, onClose }) {
+    const closeRef = useRef(null)
+
+    useEffect(() => {
+        const onKey = (e) => e.key === 'Escape' && onClose()
+        const { overflow } = document.body.style
+        document.body.style.overflow = 'hidden'
+        document.addEventListener('keydown', onKey)
+        closeRef.current?.focus()
+        return () => {
+            document.body.style.overflow = overflow
+            document.removeEventListener('keydown', onKey)
+        }
+    }, [onClose])
+
+    return (
+        <motion.div
+            className="bio-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={onClose}
+        >
+            <motion.div
+                className="bio-dialog"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="bio-dialog-name"
+                initial={{ opacity: 0, y: 32, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 24, scale: 0.98 }}
+                transition={{ duration: 0.4, ease: EASE }}
+                onClick={(e) => e.stopPropagation()}
+            >
+                <button ref={closeRef} type="button" className="bio-close" onClick={onClose} aria-label="Close">
+                    <X size={20} strokeWidth={2} aria-hidden="true" />
+                </button>
+                <div className="bio-head">
+                    <Portrait person={person} className="bio-portrait" />
+                    <div>
+                        <h3 id="bio-dialog-name" className="bio-name">{person.name}</h3>
+                        <p className="bio-title">{person.title}</p>
+                        {person.credential && <p className="bio-credential">{person.credential}</p>}
+                        {person.affiliation && <p className="bio-affiliation">{person.affiliation}</p>}
+                    </div>
+                </div>
+                <p className="bio-text">{person.bio}</p>
+            </motion.div>
+        </motion.div>
     )
 }
 
@@ -34,6 +111,14 @@ export default function AboutPage() {
         description: 'Founded by UK cardiologists specialising in heart rhythm, and guided by advisors from Imperial College Healthcare and the NHS. Meet the people behind Rhythmia Heart Care.',
         path: '/about',
     })
+    const [selected, setSelected] = useState(null)
+    const openerRef = useRef(null)
+    const openBio = (person, opener) => {
+        openerRef.current = opener
+        setSelected(person)
+    }
+    const closeBio = () => setSelected(null)
+
     return (
         <>
             <a className="skip-link" href="#main">Skip to content</a>
@@ -137,7 +222,7 @@ export default function AboutPage() {
 
                         <ul className="person-grid">
                             {people.map((person, i) => (
-                                <PersonCard key={person.name} person={person} index={i} />
+                                <PersonCard key={person.name} person={person} index={i} onOpen={openBio} />
                             ))}
                         </ul>
                     </div>
@@ -150,6 +235,10 @@ export default function AboutPage() {
             </main>
 
             <Footer />
+
+            <AnimatePresence onExitComplete={() => openerRef.current?.focus()}>
+                {selected && <BioDialog key={selected.name} person={selected} onClose={closeBio} />}
+            </AnimatePresence>
         </>
     )
 }

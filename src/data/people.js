@@ -13,8 +13,8 @@
    shoulders with the eyeline around the upper third.
 
    The About page shows everyone the same way (photo, name and role), in the
-   order set by `people` at the bottom of this file. `bio` is kept for reference
-   but is not currently shown.
+   order set by `people` at the bottom of this file. Anyone with a `bio` gets a
+   "Read bio" link that opens the full biography in a pop-up.
    ========================================================================== */
 
 export const founders = [
