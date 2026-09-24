@@ -1,11 +1,9 @@
-import { useLayoutEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { ChevronDown } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import Portrait from '../components/Portrait'
 import CtaBand from '../components/CtaBand'
-import { founders, advisors, team } from '../data/people'
+import { people } from '../data/people'
 import { usePageMeta } from '../hooks/usePageMeta'
 
 const reveal = {
@@ -13,74 +11,7 @@ const reveal = {
     show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 }
 
-const EASE = [0.22, 1, 0.36, 1]
-const PREVIEW_LINES = 2
-
-/** Expanded card — used for people who have a written bio. The biography
- * shows its first two lines; "Read more" opens the rest of this card only. */
-function ProfileCard({ person, index }) {
-    const [open, setOpen] = useState(false)
-    const [collapsed, setCollapsed] = useState(null)   // height of the preview, px
-    const [overflows, setOverflows] = useState(false)  // bio longer than the preview?
-    const bioRef = useRef(null)
-    const id = `bio-${person.name.replace(/\W+/g, '-').toLowerCase()}`
-
-    useLayoutEffect(() => {
-        const el = bioRef.current
-        if (!el) return
-        const measure = () => {
-            const lh = parseFloat(getComputedStyle(el).lineHeight)
-            const h = Math.round(lh * PREVIEW_LINES)
-            setCollapsed(h)
-            setOverflows(el.scrollHeight > h + 2)
-        }
-        measure()
-        const ro = new ResizeObserver(measure)
-        ro.observe(el)
-        return () => ro.disconnect()
-    }, [])
-
-    return (
-        <motion.li
-            className={`profile ${open ? 'is-open' : ''}`}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.6, delay: index * 0.08, ease: EASE }}
-        >
-            <Portrait person={person} className="portrait-lg" />
-            <div className="profile-body">
-                <h4 className="profile-name">{person.name}</h4>
-                <p className="profile-title">{person.title}</p>
-                {person.credential && <p className="profile-credential">{person.credential}</p>}
-                {person.affiliation && <p className="profile-affiliation">{person.affiliation}</p>}
-                <motion.div
-                    id={id}
-                    className="profile-bio-wrap"
-                    initial={false}
-                    animate={{ height: open || collapsed === null ? 'auto' : collapsed }}
-                    transition={{ duration: 0.4, ease: EASE }}
-                    style={{ overflow: 'hidden' }}
-                >
-                    <p ref={bioRef} className="profile-bio">{person.bio}</p>
-                </motion.div>
-                {overflows && (
-                    <button
-                        className="profile-more"
-                        onClick={() => setOpen((v) => !v)}
-                        aria-expanded={open}
-                        aria-controls={id}
-                    >
-                        {open ? 'Read less' : 'Read more'}
-                        <ChevronDown size={16} strokeWidth={2} aria-hidden="true" />
-                    </button>
-                )}
-            </div>
-        </motion.li>
-    )
-}
-
-/** Compact card — name, title and portrait only. */
+/** Portrait, name and role. */
 function PersonCard({ person, index }) {
     return (
         <motion.li
@@ -94,35 +25,6 @@ function PersonCard({ person, index }) {
             <h4 className="person-name">{person.name}</h4>
             <p className="person-title">{person.title}</p>
         </motion.li>
-    )
-}
-
-function Group({ label, people }) {
-    const profiled = people.filter((p) => p.bio)
-    const compact = people.filter((p) => !p.bio)
-
-    return (
-        <div className="people-group">
-            <h3 className="people-group-label">{label}</h3>
-            {profiled.length > 0 && (
-                /* Side by side on wide screens when there are two or three. */
-                <ul
-                    className={`profile-list ${profiled.length > 1 ? `is-columns cols-${Math.min(profiled.length, 3)}` : ''}`}
-                    style={{ '--profile-cols': Math.min(profiled.length, 3) }}
-                >
-                    {profiled.map((person, i) => (
-                        <ProfileCard key={person.name} person={person} index={i} />
-                    ))}
-                </ul>
-            )}
-            {compact.length > 0 && (
-                <ul className="person-grid">
-                    {compact.map((person, i) => (
-                        <PersonCard key={person.name} person={person} index={i} />
-                    ))}
-                </ul>
-            )}
-        </div>
     )
 }
 
@@ -233,9 +135,11 @@ export default function AboutPage() {
                             </p>
                         </motion.div>
 
-                        <Group label="Founders" people={founders} />
-                        <Group label="Medical advisors" people={advisors} />
-                        <Group label="Team" people={team} />
+                        <ul className="person-grid">
+                            {people.map((person, i) => (
+                                <PersonCard key={person.name} person={person} index={i} />
+                            ))}
+                        </ul>
                     </div>
                 </section>
 

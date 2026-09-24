@@ -42,23 +42,7 @@
     margin-bottom: clamp(2.5rem, 5vw, 4rem);
 }
 
-.people-group+.people-group {
-    margin-top: clamp(3rem, 6vw, 4.5rem);
-}
-
-.people-group-label {
-    font-family: var(--font-text);
-    font-size: var(--text-xs);
-    font-weight: var(--weight-bold);
-    text-transform: uppercase;
-    letter-spacing: var(--track-widest);
-    color: var(--fg-subtle);
-    padding-bottom: var(--space-4);
-    margin-bottom: var(--space-8);
-    border-bottom: 1px solid var(--border);
-}
-
-/* Portrait — shared by both card types. */
+/* Portrait */
 .portrait {
     position: relative;
     aspect-ratio: 1;
@@ -75,7 +59,7 @@
     object-position: center top;
 }
 
-/* Monogram fallback for people whose headshot has not been supplied yet. */
+/* Empty placeholder for people whose headshot has not been supplied yet. */
 .portrait-empty {
     display: grid;
     place-items: center;
@@ -84,186 +68,11 @@
     border: 1px solid var(--border);
 }
 
-.portrait-empty span {
-    font-family: var(--font-display);
-    font-size: clamp(1.5rem, 4vw, 2rem);
-    font-weight: var(--weight-medium);
-    letter-spacing: var(--track-tight);
-    color: var(--fg-subtle);
-}
-
-/* --- Expanded profile (people with a bio) --- */
-.profile-list {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-6);
-}
-
-/* Two or three profiles sit in one row on wide screens. Two across keep the
-   portrait beside the text; three across stack it on top. Each card has its
-   own height and each biography opens on its own. */
-@media (min-width: 1001px) {
-    .profile-list.is-columns {
-        grid-template-columns: repeat(var(--profile-cols, 1), minmax(0, 1fr));
-        /* Each card keeps its own height: opening one must not stretch the
-           others to match. */
-        align-items: start;
-    }
-
-    /* Two across: portrait beside the name block, and the biography running
-       the full width of the card beneath both. */
-    .profile-list.cols-2 .profile {
-        grid-template-columns: 150px 1fr;
-        row-gap: 0;
-        align-items: start;
-        align-content: start;
-    }
-
-    .profile-list.cols-2 .profile .portrait-lg {
-        width: 150px;
-        grid-row: 1 / span 4;
-    }
-
-    .profile-list.cols-2 .profile-body {
-        display: contents;
-    }
-
-    .profile-list.cols-2 .profile-body>* {
-        grid-column: 2;
-    }
-
-    .profile-list.cols-2 .profile-bio-wrap,
-    .profile-list.cols-2 .profile-more {
-        grid-column: 1 / -1;
-    }
-
-    .profile-list.cols-2 .profile-bio {
-        max-width: none;
-    }
-
-    .profile-list.cols-3 .profile {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto 1fr;
-        row-gap: var(--space-5);
-    }
-
-    .profile-list.cols-3 .profile .portrait-lg {
-        width: 100%;
-    }
-
-    .profile-list.cols-3 .profile-body {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-    }
-
-    .profile-list.cols-3 .profile-more {
-        padding-top: var(--space-3);
-    }
-}
-
-.profile {
-    display: grid;
-    grid-template-columns: 180px 1fr;
-    gap: clamp(1.5rem, 3vw, 2.5rem);
-    align-items: start;
-    padding: clamp(1.5rem, 3vw, 2rem);
-    background-color: var(--bg-raised);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-}
-
-.profile .portrait-lg {
-    width: 180px;
-}
-
-.profile-name {
-    font-family: var(--font-display);
-    font-size: var(--text-2xl);
-    font-weight: var(--weight-semibold);
-    letter-spacing: var(--track-tight);
-    color: var(--fg);
-}
-
-.profile-title {
-    margin-top: var(--space-1);
-    font-size: var(--text-sm);
-    font-weight: var(--weight-bold);
-    letter-spacing: var(--track-wide);
-    text-transform: uppercase;
-    color: var(--accent-text);
-}
-
-.profile-credential {
-    margin-top: var(--space-2);
-    font-size: var(--text-sm);
-    font-weight: var(--weight-medium);
-    color: var(--fg);
-}
-
-.profile-affiliation {
-    margin-top: var(--space-1);
-    font-size: var(--text-sm);
-    color: var(--fg-subtle);
-}
-
-.profile-bio-wrap {
-    position: relative;
-    margin-top: var(--space-4);
-}
-
-.profile-bio {
-    font-size: var(--text-base);
-    line-height: var(--leading-relaxed);
-    color: var(--fg-muted);
-    max-width: 68ch;
-}
-
-/* A soft fade over the last preview line while the biography is folded. */
-.profile:not(.is-open) .profile-bio-wrap::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 1.6em;
-    background: linear-gradient(to bottom, transparent, var(--bg-raised));
-    pointer-events: none;
-}
-
-.profile-more {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-1);
-    margin-top: var(--space-3);
-    font-size: var(--text-sm);
-    font-weight: var(--weight-bold);
-    color: var(--fg);
-    transition: color var(--dur-base) var(--ease-out);
-}
-
-.profile-more:hover {
-    color: var(--accent-text);
-}
-
-.profile-more svg {
-    transition: transform var(--dur-base) var(--ease-out);
-}
-
-.profile.is-open .profile-more svg {
-    transform: rotate(180deg);
-}
-
-/* --- Compact card (name, title, portrait) --- */
+/* --- Person card (portrait, name, role) --- */
 .person-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: var(--space-6);
-}
-
-/* Compact cards sit directly under a profile list within the same group. */
-.profile-list+.person-grid {
-    margin-top: var(--space-6);
 }
 
 .person-name {
@@ -282,44 +91,7 @@
     color: var(--fg-muted);
 }
 
-/* Phones: portrait on the left with the name, title and credential beside
-   it; the biography runs the full width of the card beneath. */
 @media (max-width: 700px) {
-    .profile {
-        grid-template-columns: 112px minmax(0, 1fr);
-        column-gap: var(--space-4);
-        row-gap: 0;
-        align-items: start;
-        align-content: start;
-        padding: var(--space-5);
-    }
-
-    .profile .portrait-lg {
-        width: 112px;
-        grid-row: 1 / span 4;
-    }
-
-    .profile-body {
-        display: contents;
-    }
-
-    .profile-body>* {
-        grid-column: 2;
-    }
-
-    .profile-bio-wrap,
-    .profile-more {
-        grid-column: 1 / -1;
-    }
-
-    .profile-name {
-        font-size: var(--text-xl);
-    }
-
-    .profile-bio {
-        font-size: var(--text-sm);
-    }
-
     .person-grid {
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     }

@@ -6,14 +6,15 @@
    TO ADD A PHOTO
    Drop the image into  public/assets/photos/team/
    then set  photo: '/assets/photos/team/<filename>'  on that person.
-   Anyone with  photo: null  renders an initials monogram instead, so the page
-   stays presentable until the headshots arrive.
+   Anyone with  photo: null  shows an empty placeholder until the headshot
+   arrives.
 
    Portraits look best square (1:1), at least 600x600, cropped head-and-
    shoulders with the eyeline around the upper third.
 
-   `bio` is optional. People with a bio get an expanded profile card; everyone
-   else appears in the compact grid.
+   The About page shows everyone the same way (photo, name and role), in the
+   order set by `people` at the bottom of this file. `bio` is kept for reference
+   but is not currently shown.
    ========================================================================== */
 
 export const founders = [
@@ -97,13 +98,13 @@ export const team = [
     },
 ]
 
-/** Initials for the monogram fallback: "Dr Mohamed Zuhair" -> "MZ". */
-export function initials(name) {
-    return name
-        .replace(/^Dr\.?\s+/i, '')
-        .split(/\s+/)
-        .filter(Boolean)
-        .slice(0, 2)
-        .map((part) => part[0].toUpperCase())
-        .join('')
-}
+const byName = (name) => [...founders, ...advisors, ...team].find((p) => p.name === name)
+
+/** Everyone, in the order they appear on the About page. The named people come
+ * first; everyone else follows in the order listed above. */
+const leading = ['Dr Mohamed Zuhair', 'Dr Daniel Keene', 'Dr Phang Boon Lim', 'Dr Mohamed Albatat'].map(byName)
+
+export const people = [
+    ...leading,
+    ...[...founders, ...advisors, ...team].filter((p) => !leading.includes(p)),
+]
