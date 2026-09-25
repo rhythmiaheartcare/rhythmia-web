@@ -147,9 +147,9 @@ export default function AboutPage() {
                                 <div className="prose about-story">
                                     <p>
                                         Our supplement brings together ingredients we often recommend to
-                                        our own patients, in one daily capsule. It&rsquo;s made for people
-                                        living with an arrhythmia, and for anyone who wants to look after
-                                        their heart rhythm.
+                                        our own patients, in one daily capsule. It&rsquo;s made for anyone
+                                        who wants to look after their heart rhythm as part of everyday
+                                        life.
                                     </p>
                                     <p>
                                         Alongside the doctors, our team includes researchers and people

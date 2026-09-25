@@ -58,7 +58,7 @@ const steps = [
         title: 'Expert UK Manufacturing',
         subtitle: 'Over 20 Years of Experience',
         description:
-            'Partnering with Arena Health, a leading UK manufacturer with over two decades of expertise in the food supplements industry. Based in Ashford, Kent, our state-of-the-art facilities ensure every batch of Rhythmia Heart Care meets the highest standards of quality and efficacy.',
+            'We work with a leading UK manufacturer that has been making food supplements for more than 20 years. Every batch of Rhythmia Heart Care is made at their site in Ashford, Kent, to the highest standards of quality.',
     },
     {
         icon: ShieldCheck,
