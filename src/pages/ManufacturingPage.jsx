@@ -17,7 +17,7 @@ const badges = [
     { label: 'Clinically formulated', sub: 'Developed by experts', icon: <ClinicallyIcon /> },
     { label: '100% vegan', sub: 'Plant-based capsules', icon: <VeganIcon /> },
     { label: 'GMP certified', sub: 'Independently verified', icon: <GMPIcon /> },
-    { label: 'Made in UK', sub: 'Kent, England', icon: <UKMapIcon /> },
+    { label: 'Made in UK', sub: 'British manufacturing', icon: <UKMapIcon /> },
     { label: 'No Animal Testing', sub: 'Cruelty free', icon: <BunnyIcon /> },
 ]
 
@@ -58,7 +58,7 @@ const steps = [
         title: 'Expert UK Manufacturing',
         subtitle: 'Over 20 Years of Experience',
         description:
-            'We work with a leading UK manufacturer that has been making food supplements for more than 20 years. Every batch of Rhythmia Heart Care is made at their site in Ashford, Kent, to the highest standards of quality.',
+            'We work with a leading UK manufacturer that has been making food supplements for more than 20 years. Every batch of Rhythmia Heart Care is made to the highest standards of quality.',
     },
     {
         icon: ShieldCheck,
@@ -84,7 +84,7 @@ const reveal = {
 export default function ManufacturingPage() {
     usePageMeta({
         title: "How it's made",
-        description: 'Manufactured in Ashford, Kent, in a facility independently certified for food safety, hygiene and organic standards. GMP, SALSA, Food Hygiene Rating 5 and Soil Association certified.',
+        description: 'Manufactured in the UK, in a facility independently certified for food safety, hygiene and organic standards. GMP, SALSA, Food Hygiene Rating 5 and Soil Association certified.',
         path: '/how-its-made',
     })
     return (
