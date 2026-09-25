@@ -4,8 +4,8 @@
    Names and titles are as supplied by the founders.
 
    TO ADD A PHOTO
-   Drop the image into  public/assets/photos/team/
-   then set  photo: '/assets/photos/team/<filename>'  on that person.
+   Drop the image into  public/assets/photos/
+   then set  photo: '/assets/photos/<filename>'  on that person.
    Anyone with  photo: null  shows an empty placeholder until the headshot
    arrives.
 
@@ -47,7 +47,7 @@ export const advisors = [
         title: 'Medical Advisor',
         credential: 'Consultant Cardiologist & Electrophysiologist',
         affiliation: 'Imperial College Healthcare NHS Trust | Imperial College London',
-        photo: null,
+        photo: '/assets/photos/Boon_Lim.jpg',
         bio: 'Dr Boon Lim is a consultant cardiologist and electrophysiologist at Imperial College Healthcare NHS Trust, where he leads the nationally renowned Imperial Syncope Diagnostic Service at Hammersmith Hospital. He read medicine at Cambridge University on a prestigious scholarship, graduating with double first-class honours, and holds a PhD from Imperial College London in the autonomic mechanisms of atrial fibrillation, funded by the British Heart Foundation. A recognised expert in atrial fibrillation, arrhythmias and catheter ablation, Dr Lim has been named Top Doctor of the Year for Cardiology (2018, 2021) and is a recipient of the President’s Medal for Cardiology at the Royal Society of Medicine. He is also the author of Keeping Your Heart Healthy, published as part of the Penguin Life Experts series.',
     },
     {
@@ -55,7 +55,7 @@ export const advisors = [
         title: 'Medical Advisor',
         credential: 'Consultant Cardiologist & Electrophysiologist',
         affiliation: 'Imperial College Healthcare NHS Trust | Imperial College London',
-        photo: null,
+        photo: '/assets/photos/Daniel_Keene.jpg',
         bio: 'Dr Daniel Keene is a consultant cardiologist and electrophysiologist at the Royal Free London NHS Foundation Trust and Imperial College Healthcare NHS Trust. He graduated from the University of Manchester and was awarded both a National Institute for Health and Care Research academic clinical fellowship and a British Heart Foundation Clinical Research Training Fellowship to support his doctoral research into novel implantable cardiac device technologies. His clinical practice spans complex electrophysiology procedures including catheter ablation for a range of arrhythmias, alongside broader inpatient and outpatient general cardiology.',
     },
     {
@@ -71,7 +71,7 @@ export const advisors = [
     {
         name: 'Dr Hans Henrik Odland',
         title: 'Medical Advisor',
-        photo: null,
+        photo: '/assets/photos/Hans_Henrik_Odland.jpg',
     },
 ]
 
