@@ -14,17 +14,10 @@
     max-width: 46rem;
 }
 
-/* The mission statement, beneath the lead. */
-.about-mission {
+/* The story, beneath the lead. */
+.about-story {
     margin-top: var(--space-6);
     max-width: 62ch;
-    font-size: var(--text-base);
-    line-height: var(--leading-relaxed);
-    color: var(--fg-muted);
-}
-
-.about-mission strong {
-    color: var(--fg);
 }
 
 .about-hero-title {
@@ -227,4 +220,9 @@
     .bio-name {
         font-size: var(--text-xl);
     }
+}
+
+/* The photo sits against the right edge of the container on wide screens. */
+.about-hero .story-media {
+    margin-left: auto;
 }

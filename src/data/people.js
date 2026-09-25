@@ -21,7 +21,7 @@ export const founders = [
     {
         name: 'Dr Mohamed Zuhair',
         title: 'Cofounder and Director',
-        credential: 'Cardiologist — Specialist in Electrophysiology',
+        credential: 'Cardiologist, Specialist in Electrophysiology',
         photo: '/assets/photos/Mohamed_Zuhair.png',
         bio: 'Dr Mohamed Zuhair is a senior cardiology registrar and PhD candidate at Imperial College London and the National Heart and Lung Institute, with a research focus on syncope and complex rhythm management. He holds MBBS, BSc, MRCP and PGCME qualifications and teaches cardiology to medical students at both UCL and Imperial College London. His interests include cardiac electrophysiology, catheter ablation, and neuromodulation for arrhythmias. His published work includes studies on complex rhythm management and percutaneous neuromodulation for vasovagal syncope.',
     },
@@ -73,11 +73,6 @@ export const advisors = [
         title: 'Medical Advisor',
         photo: null,
     },
-    {
-        name: 'Dr Jacob Bergsland',
-        title: 'Medical Advisor',
-        photo: null,
-    },
 ]
 
 export const team = [
@@ -89,11 +84,6 @@ export const team = [
     {
         name: 'Alexandra Stefanou',
         title: 'Customer Operations',
-        photo: null,
-    },
-    {
-        name: 'Erik Nakkerud',
-        title: 'Key Account Manager',
         photo: null,
     },
 ]
