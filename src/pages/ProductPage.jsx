@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Check, ShieldCheck, Truck, RefreshCw, ChevronDown, Star, ArrowRight } from 'lucide-react'
+import { Check, ShieldCheck, Truck, RefreshCw, Star, ArrowRight } from 'lucide-react'
 
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
@@ -15,7 +15,7 @@ import { audiences } from '../data/evidence'
 import { founders } from '../data/people'
 import {
     product, pricing, delivery, guarantee, nutrition, directions, storage,
-    benefits, faq,
+    benefits,
 } from '../data/product'
 
 const EASE = [0.22, 1, 0.36, 1]
@@ -34,34 +34,6 @@ const gallery = [
 ]
 
 const money = (n) => `£${n.toFixed(2)}`
-
-function FaqItem({ item, index }) {
-    const [open, setOpen] = useState(false)
-    const id = `faq-${index}`
-    return (
-        <li className={`faq ${open ? 'is-open' : ''}`}>
-            <button className="faq-q" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-controls={id}>
-                <span>{item.q}</span>
-                <span className="faq-chevron" aria-hidden="true"><ChevronDown size={18} strokeWidth={2} /></span>
-            </button>
-            <AnimatePresence initial={false}>
-                {open && (
-                    <motion.div
-                        id={id}
-                        key="a"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: EASE }}
-                        style={{ overflow: 'hidden' }}
-                    >
-                        <p className="faq-a">{item.a}</p>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </li>
-    )
-}
 
 export default function ProductPage() {
     const [purchaseType, setPurchaseType] = useState('onetime')
@@ -328,23 +300,6 @@ export default function ProductPage() {
                                     <p className="audience-desc">{desc}</p>
                                 </motion.li>
                             ))}
-                        </ul>
-                    </div>
-                </section>
-
-                {/* ============================ FAQ ================================ */}
-                <section className="section" id="faq" data-surface="sunken">
-                    <div className="container faq-grid">
-                        <motion.div className="pdp-head" variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
-                            <p className="eyebrow">Questions</p>
-                            <h2 className="section-heading">Before you order</h2>
-                            <p className="lead">
-                                If you are being treated for a heart condition, speak to your doctor before
-                                starting any supplement.
-                            </p>
-                        </motion.div>
-                        <ul className="faq-list">
-                            {faq.map((item, i) => <FaqItem key={item.q} item={item} index={i} />)}
                         </ul>
                     </div>
                 </section>
