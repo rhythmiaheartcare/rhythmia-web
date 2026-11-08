@@ -91,7 +91,7 @@ function BioDialog({ person, onClose }) {
                     <X size={20} strokeWidth={2} aria-hidden="true" />
                 </button>
                 <div className="bio-head">
-                    <Portrait person={person} className="bio-portrait" />
+                    <Portrait person={person} className="bio-portrait" loading="eager" />
                     <div>
                         <h3 id="bio-dialog-name" className="bio-name">{person.name}</h3>
                         <p className="bio-title">{person.title}</p>

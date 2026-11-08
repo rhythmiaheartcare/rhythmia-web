@@ -20,6 +20,9 @@ html {
     scroll-behavior: smooth;
     /* Keeps anchored sections clear of the fixed header on native jumps. */
     scroll-padding-top: calc(var(--nav-h) + var(--space-4));
+    /* Always reserve the scrollbar's space, so locking scroll behind a pop-up
+       doesn't remove the scrollbar and shift the page sideways. */
+    scrollbar-gutter: stable;
 }
 
 body {
