@@ -4,23 +4,24 @@
    Names and titles are as supplied by the founders.
 
    TO ADD A PHOTO
-   Drop the image into  public/assets/photos/team/
-   then set  photo: '/assets/photos/team/<filename>'  on that person.
-   Anyone with  photo: null  renders an initials monogram instead, so the page
-   stays presentable until the headshots arrive.
+   Drop the image into  public/assets/photos/
+   then set  photo: '/assets/photos/<filename>'  on that person.
+   Anyone with  photo: null  shows an empty placeholder until the headshot
+   arrives.
 
    Portraits look best square (1:1), at least 600x600, cropped head-and-
    shoulders with the eyeline around the upper third.
 
-   `bio` is optional. People with a bio get an expanded profile card; everyone
-   else appears in the compact grid.
+   The About page shows everyone the same way (photo, name and role), in the
+   order set by `people` at the bottom of this file. Anyone with a `bio` gets a
+   "Read bio" link that opens the full biography in a pop-up.
    ========================================================================== */
 
 export const founders = [
     {
         name: 'Dr Mohamed Zuhair',
         title: 'Cofounder and Director',
-        credential: 'Cardiologist — Specialist in Electrophysiology',
+        credential: 'Cardiologist, Specialist in Electrophysiology',
         photo: '/assets/photos/Mohamed_Zuhair.png',
         bio: 'Dr Mohamed Zuhair is a senior cardiology registrar and PhD candidate at Imperial College London and the National Heart and Lung Institute, with a research focus on syncope and complex rhythm management. He holds MBBS, BSc, MRCP and PGCME qualifications and teaches cardiology to medical students at both UCL and Imperial College London. His interests include cardiac electrophysiology, catheter ablation, and neuromodulation for arrhythmias. His published work includes studies on complex rhythm management and percutaneous neuromodulation for vasovagal syncope.',
     },
@@ -46,7 +47,7 @@ export const advisors = [
         title: 'Medical Advisor',
         credential: 'Consultant Cardiologist & Electrophysiologist',
         affiliation: 'Imperial College Healthcare NHS Trust | Imperial College London',
-        photo: null,
+        photo: '/assets/photos/Boon_Lim.jpg',
         bio: 'Dr Boon Lim is a consultant cardiologist and electrophysiologist at Imperial College Healthcare NHS Trust, where he leads the nationally renowned Imperial Syncope Diagnostic Service at Hammersmith Hospital. He read medicine at Cambridge University on a prestigious scholarship, graduating with double first-class honours, and holds a PhD from Imperial College London in the autonomic mechanisms of atrial fibrillation, funded by the British Heart Foundation. A recognised expert in atrial fibrillation, arrhythmias and catheter ablation, Dr Lim has been named Top Doctor of the Year for Cardiology (2018, 2021) and is a recipient of the President’s Medal for Cardiology at the Royal Society of Medicine. He is also the author of Keeping Your Heart Healthy, published as part of the Penguin Life Experts series.',
     },
     {
@@ -54,7 +55,7 @@ export const advisors = [
         title: 'Medical Advisor',
         credential: 'Consultant Cardiologist & Electrophysiologist',
         affiliation: 'Imperial College Healthcare NHS Trust | Imperial College London',
-        photo: null,
+        photo: '/assets/photos/Daniel_Keene.jpg',
         bio: 'Dr Daniel Keene is a consultant cardiologist and electrophysiologist at the Royal Free London NHS Foundation Trust and Imperial College Healthcare NHS Trust. He graduated from the University of Manchester and was awarded both a National Institute for Health and Care Research academic clinical fellowship and a British Heart Foundation Clinical Research Training Fellowship to support his doctoral research into novel implantable cardiac device technologies. His clinical practice spans complex electrophysiology procedures including catheter ablation for a range of arrhythmias, alongside broader inpatient and outpatient general cardiology.',
     },
     {
@@ -70,12 +71,7 @@ export const advisors = [
     {
         name: 'Dr Hans Henrik Odland',
         title: 'Medical Advisor',
-        photo: null,
-    },
-    {
-        name: 'Dr Jacob Bergsland',
-        title: 'Medical Advisor',
-        photo: null,
+        photo: '/assets/photos/Hans_Henrik_Odland.jpg',
     },
 ]
 
@@ -90,20 +86,15 @@ export const team = [
         title: 'Customer Operations',
         photo: null,
     },
-    {
-        name: 'Erik Nakkerud',
-        title: 'Key Account Manager',
-        photo: null,
-    },
 ]
 
-/** Initials for the monogram fallback: "Dr Mohamed Zuhair" -> "MZ". */
-export function initials(name) {
-    return name
-        .replace(/^Dr\.?\s+/i, '')
-        .split(/\s+/)
-        .filter(Boolean)
-        .slice(0, 2)
-        .map((part) => part[0].toUpperCase())
-        .join('')
-}
+const byName = (name) => [...founders, ...advisors, ...team].find((p) => p.name === name)
+
+/** Everyone, in the order they appear on the About page. The named people come
+ * first; everyone else follows in the order listed above. */
+const leading = ['Dr Mohamed Zuhair', 'Dr Daniel Keene', 'Dr Phang Boon Lim', 'Dr Mohamed Albatat'].map(byName)
+
+export const people = [
+    ...leading,
+    ...[...founders, ...advisors, ...team].filter((p) => !leading.includes(p)),
+]

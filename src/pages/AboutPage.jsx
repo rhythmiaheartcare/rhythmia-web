@@ -1,11 +1,11 @@
-import { useLayoutEffect, useRef, useState } from 'react'
-import { motion } from 'framer-motion'
-import { ChevronDown } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { X } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import Portrait from '../components/Portrait'
 import CtaBand from '../components/CtaBand'
-import { founders, advisors, team } from '../data/people'
+import { people } from '../data/people'
 import { usePageMeta } from '../hooks/usePageMeta'
 
 const reveal = {
@@ -14,115 +14,96 @@ const reveal = {
 }
 
 const EASE = [0.22, 1, 0.36, 1]
-const PREVIEW_LINES = 2
 
-/** Expanded card — used for people who have a written bio. The biography
- * shows its first two lines; "Read more" opens the rest of this card only. */
-function ProfileCard({ person, index }) {
-    const [open, setOpen] = useState(false)
-    const [collapsed, setCollapsed] = useState(null)   // height of the preview, px
-    const [overflows, setOverflows] = useState(false)  // bio longer than the preview?
-    const bioRef = useRef(null)
-    const id = `bio-${person.name.replace(/\W+/g, '-').toLowerCase()}`
-
-    useLayoutEffect(() => {
-        const el = bioRef.current
-        if (!el) return
-        const measure = () => {
-            const lh = parseFloat(getComputedStyle(el).lineHeight)
-            const h = Math.round(lh * PREVIEW_LINES)
-            setCollapsed(h)
-            setOverflows(el.scrollHeight > h + 2)
-        }
-        measure()
-        const ro = new ResizeObserver(measure)
-        ro.observe(el)
-        return () => ro.disconnect()
-    }, [])
-
-    return (
-        <motion.li
-            className={`profile ${open ? 'is-open' : ''}`}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.6, delay: index * 0.08, ease: EASE }}
-        >
-            <Portrait person={person} className="portrait-lg" />
-            <div className="profile-body">
-                <h4 className="profile-name">{person.name}</h4>
-                <p className="profile-title">{person.title}</p>
-                {person.credential && <p className="profile-credential">{person.credential}</p>}
-                {person.affiliation && <p className="profile-affiliation">{person.affiliation}</p>}
-                <motion.div
-                    id={id}
-                    className="profile-bio-wrap"
-                    initial={false}
-                    animate={{ height: open || collapsed === null ? 'auto' : collapsed }}
-                    transition={{ duration: 0.4, ease: EASE }}
-                    style={{ overflow: 'hidden' }}
-                >
-                    <p ref={bioRef} className="profile-bio">{person.bio}</p>
-                </motion.div>
-                {overflows && (
-                    <button
-                        className="profile-more"
-                        onClick={() => setOpen((v) => !v)}
-                        aria-expanded={open}
-                        aria-controls={id}
-                    >
-                        {open ? 'Read less' : 'Read more'}
-                        <ChevronDown size={16} strokeWidth={2} aria-hidden="true" />
-                    </button>
-                )}
-            </div>
-        </motion.li>
+/** Portrait, name and role. People with a written bio open it in a pop-up. */
+function PersonCard({ person, index, onOpen }) {
+    const content = (
+        <>
+            <Portrait person={person} />
+            <h4 className="person-name">{person.name}</h4>
+            <p className="person-title">{person.title}</p>
+            {person.bio && <span className="person-more">Read bio</span>}
+        </>
     )
-}
 
-/** Compact card — name, title and portrait only. */
-function PersonCard({ person, index }) {
     return (
         <motion.li
             className="person"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.5, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.5, delay: index * 0.06, ease: EASE }}
         >
-            <Portrait person={person} />
-            <h4 className="person-name">{person.name}</h4>
-            <p className="person-title">{person.title}</p>
+            {person.bio ? (
+                <button
+                    type="button"
+                    className="person-button"
+                    onClick={(e) => onOpen(person, e.currentTarget, e.detail === 0)}
+                    aria-haspopup="dialog"
+                >
+                    {content}
+                </button>
+            ) : (
+                content
+            )}
         </motion.li>
     )
 }
 
-function Group({ label, people }) {
-    const profiled = people.filter((p) => p.bio)
-    const compact = people.filter((p) => !p.bio)
+/** Full biography in a pop-up. Closes on the button, the backdrop or Escape.
+ * Opened from the keyboard, it takes focus and hands it back to the card on
+ * close; opened with a mouse or tap it leaves focus alone, so no focus ring
+ * appears around the card afterwards. */
+function BioDialog({ person, onClose, takeFocus }) {
+    const closeRef = useRef(null)
+
+    useEffect(() => {
+        const onKey = (e) => e.key === 'Escape' && onClose()
+        const { overflow } = document.body.style
+        document.body.style.overflow = 'hidden'
+        document.addEventListener('keydown', onKey)
+        if (takeFocus) closeRef.current?.focus()
+        return () => {
+            document.body.style.overflow = overflow
+            document.removeEventListener('keydown', onKey)
+        }
+    }, [onClose, takeFocus])
 
     return (
-        <div className="people-group">
-            <h3 className="people-group-label">{label}</h3>
-            {profiled.length > 0 && (
-                /* Side by side on wide screens when there are two or three. */
-                <ul
-                    className={`profile-list ${profiled.length > 1 ? `is-columns cols-${Math.min(profiled.length, 3)}` : ''}`}
-                    style={{ '--profile-cols': Math.min(profiled.length, 3) }}
-                >
-                    {profiled.map((person, i) => (
-                        <ProfileCard key={person.name} person={person} index={i} />
-                    ))}
-                </ul>
-            )}
-            {compact.length > 0 && (
-                <ul className="person-grid">
-                    {compact.map((person, i) => (
-                        <PersonCard key={person.name} person={person} index={i} />
-                    ))}
-                </ul>
-            )}
-        </div>
+        <motion.div
+            className="bio-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={onClose}
+        >
+            <motion.div
+                className="bio-dialog"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="bio-dialog-name"
+                initial={{ opacity: 0, y: 32, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 24, scale: 0.98 }}
+                transition={{ duration: 0.4, ease: EASE }}
+                onClick={(e) => e.stopPropagation()}
+            >
+                <button ref={closeRef} type="button" className="bio-close" onClick={onClose} aria-label="Close">
+                    <X size={20} strokeWidth={2} aria-hidden="true" />
+                </button>
+                <div className="bio-head">
+                    <Portrait person={person} className="bio-portrait" loading="eager" />
+                    <div>
+                        <h3 id="bio-dialog-name" className="bio-name">{person.name}</h3>
+                        <p className="bio-title">{person.title}</p>
+                        {person.credential && <p className="bio-credential">{person.credential}</p>}
+                        {person.affiliation && <p className="bio-affiliation">{person.affiliation}</p>}
+                    </div>
+                </div>
+                <p className="bio-text">{person.bio}</p>
+            </motion.div>
+        </motion.div>
     )
 }
 
@@ -132,84 +113,66 @@ export default function AboutPage() {
         description: 'Founded by UK cardiologists specialising in heart rhythm, and guided by advisors from Imperial College Healthcare and the NHS. Meet the people behind Rhythmia Heart Care.',
         path: '/about',
     })
+    const [selected, setSelected] = useState(null)
+    const openerRef = useRef(null)
+    const openBio = (person, opener, byKeyboard) => {
+        openerRef.current = byKeyboard ? opener : null
+        if (!byKeyboard) opener.blur()
+        setSelected(person)
+    }
+    const closeBio = () => setSelected(null)
+
     return (
         <>
             <a className="skip-link" href="#main">Skip to content</a>
             <Navbar />
 
             <main id="main">
-                {/* Hero */}
+                {/* Hero and story */}
                 <section className="section about-hero">
-                    <div className="container">
-                        <motion.div
-                            variants={reveal}
-                            initial="hidden"
-                            animate="show"
-                            className="about-hero-copy"
-                        >
-                            <p className="eyebrow">About</p>
-                            <h1 className="about-hero-title">
-                                The Minds Behind Rhythmia
-                            </h1>
-                            <p className="lead">
-                                A team of cardiologists, scientists, and innovators united by a
-                                single mission &mdash; to support your heart with science-backed,
-                                physician-developed care.
-                            </p>
-                            <p className="prose about-mission">
-                                <strong>Built by Clinicians, Driven by Science.</strong> Rhythmia
-                                Heart Care was born inside the walls of one of the UK&rsquo;s leading
-                                cardiac centres. Our team brings together frontline clinical
-                                experience, deep cardiovascular research, and technology expertise to
-                                create heart supplements that truly reflect what the science says.
-                            </p>
-                        </motion.div>
-                    </div>
-                </section>
-
-                {/* Our story */}
-                <section className="section" id="our-story">
                     <div className="container">
                         <div className="grid-split">
                             <motion.div
+                                variants={reveal}
+                                initial="hidden"
+                                animate="show"
+                                className="about-hero-copy"
+                            >
+                                <p className="eyebrow">About</p>
+                                <h1 className="about-hero-title">
+                                    The Minds Behind Rhythmia
+                                </h1>
+                                <p className="lead">
+                                    Rhythmia Heart Care was started by cardiologists who treat heart
+                                    rhythm problems every day, at one of the UK&rsquo;s leading cardiac
+                                    centres.
+                                </p>
+                                <div className="prose about-story">
+                                    <p>
+                                        Our supplement brings together ingredients we often recommend to
+                                        our own patients, in one daily capsule. It&rsquo;s made for anyone
+                                        who wants to look after their heart rhythm as part of everyday
+                                        life.
+                                    </p>
+                                    <p>
+                                        Alongside the doctors, our team includes researchers and people
+                                        who work in data and technology. We only put in what the evidence
+                                        supports.
+                                    </p>
+                                </div>
+                            </motion.div>
+
+                            <motion.div
                                 className="media media-zoom story-media"
                                 initial={{ opacity: 0, scale: 0.97 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.8, ease: EASE }}
                             >
                                 <img
                                     src="/assets/photos/young-lifestyle-active.png"
                                     alt="Someone out walking, keeping active"
-                                    loading="lazy"
                                     decoding="async"
                                 />
-                            </motion.div>
-
-                            <motion.div
-                                variants={reveal}
-                                initial="hidden"
-                                whileInView="show"
-                                viewport={{ once: true, margin: '-80px' }}
-                            >
-                                <p className="eyebrow">Our story</p>
-                                <h2 className="section-heading">Our Story</h2>
-                                <div className="prose">
-                                    <p>
-                                        It began with a single heartbeat, a realized potential to save
-                                        lives not just through medicine, but through understanding the
-                                        delicate rhythm of the human heart.
-                                    </p>
-                                    <p>
-                                        The founders brought together a carefully selected blend of
-                                        ingredients they often recommend to their patients, with one
-                                        clear mission: to support everyday heart rhythm health.
-                                        It&rsquo;s designed for people living with arrhythmias, as well
-                                        as anyone who wants to take care of their heart&rsquo;s
-                                        electrical balance, providing gentle, daily support you can
-                                        rely on.
-                                    </p>
-                                </div>
                             </motion.div>
                         </div>
                     </div>
@@ -233,9 +196,11 @@ export default function AboutPage() {
                             </p>
                         </motion.div>
 
-                        <Group label="Founders" people={founders} />
-                        <Group label="Medical advisors" people={advisors} />
-                        <Group label="Team" people={team} />
+                        <ul className="person-grid">
+                            {people.map((person, i) => (
+                                <PersonCard key={person.name} person={person} index={i} onOpen={openBio} />
+                            ))}
+                        </ul>
                     </div>
                 </section>
 
@@ -246,6 +211,10 @@ export default function AboutPage() {
             </main>
 
             <Footer />
+
+            <AnimatePresence onExitComplete={() => openerRef.current?.focus()}>
+                {selected && <BioDialog key={selected.name} person={selected} onClose={closeBio} takeFocus={!!openerRef.current} />}
+            </AnimatePresence>
         </>
     )
 }

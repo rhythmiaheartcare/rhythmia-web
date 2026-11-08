@@ -38,7 +38,7 @@ export default function CtaBand({
                         <p className="cta-band-text">{text}</p>
                         <div className="cta-band-actions">
                             <Link to="/product" className="btn btn-primary btn-lg">
-                                Shop now — £24.99
+                                Shop now · £24.99
                             </Link>
                             {showSecondary && (
                                 <Link to={secondaryTo} className="btn btn-secondary btn-lg">
