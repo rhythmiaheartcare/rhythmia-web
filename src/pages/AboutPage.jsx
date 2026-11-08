@@ -38,7 +38,7 @@ function PersonCard({ person, index, onOpen }) {
                 <button
                     type="button"
                     className="person-button"
-                    onClick={(e) => onOpen(person, e.currentTarget)}
+                    onClick={(e) => onOpen(person, e.currentTarget, e.detail === 0)}
                     aria-haspopup="dialog"
                 >
                     {content}
@@ -50,9 +50,11 @@ function PersonCard({ person, index, onOpen }) {
     )
 }
 
-/** Full biography in a pop-up. Closes on the button, the backdrop or Escape,
- * and hands focus back to the card that opened it. */
-function BioDialog({ person, onClose }) {
+/** Full biography in a pop-up. Closes on the button, the backdrop or Escape.
+ * Opened from the keyboard, it takes focus and hands it back to the card on
+ * close; opened with a mouse or tap it leaves focus alone, so no focus ring
+ * appears around the card afterwards. */
+function BioDialog({ person, onClose, takeFocus }) {
     const closeRef = useRef(null)
 
     useEffect(() => {
@@ -60,12 +62,12 @@ function BioDialog({ person, onClose }) {
         const { overflow } = document.body.style
         document.body.style.overflow = 'hidden'
         document.addEventListener('keydown', onKey)
-        closeRef.current?.focus()
+        if (takeFocus) closeRef.current?.focus()
         return () => {
             document.body.style.overflow = overflow
             document.removeEventListener('keydown', onKey)
         }
-    }, [onClose])
+    }, [onClose, takeFocus])
 
     return (
         <motion.div
@@ -113,8 +115,9 @@ export default function AboutPage() {
     })
     const [selected, setSelected] = useState(null)
     const openerRef = useRef(null)
-    const openBio = (person, opener) => {
-        openerRef.current = opener
+    const openBio = (person, opener, byKeyboard) => {
+        openerRef.current = byKeyboard ? opener : null
+        if (!byKeyboard) opener.blur()
         setSelected(person)
     }
     const closeBio = () => setSelected(null)
@@ -210,7 +213,7 @@ export default function AboutPage() {
             <Footer />
 
             <AnimatePresence onExitComplete={() => openerRef.current?.focus()}>
-                {selected && <BioDialog key={selected.name} person={selected} onClose={closeBio} />}
+                {selected && <BioDialog key={selected.name} person={selected} onClose={closeBio} takeFocus={!!openerRef.current} />}
             </AnimatePresence>
         </>
     )

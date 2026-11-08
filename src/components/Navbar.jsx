@@ -36,6 +36,10 @@ export default function Navbar() {
     const location = useLocation()
     const burgerRef = useRef(null)
     const firstLinkRef = useRef(null)
+    // Whether the menu was last opened or closed from the keyboard. Focus is
+    // only moved for keyboard users; moving it after a tap or click makes the
+    // browser draw the red focus ring around the icon.
+    const byKeyboard = useRef(false)
 
     // The header's scrolled state is frozen while the menu is open. Locking
     // scroll zeroes window.scrollY on phones, and without the freeze that
@@ -74,8 +78,10 @@ export default function Navbar() {
         return () => window.removeEventListener('keydown', onKey)
     }, [menuOpen])
 
-    // Move focus into the menu when it opens and back to the control on close.
+    // Move focus into the menu when it opens and back to the control on close,
+    // for keyboard users only. This also keeps focus off the icon on page load.
     useEffect(() => {
+        if (!byKeyboard.current) return
         if (menuOpen) {
             const t = setTimeout(() => firstLinkRef.current?.focus(), 80)
             return () => clearTimeout(t)
@@ -125,7 +131,12 @@ export default function Navbar() {
                             <button
                                 ref={burgerRef}
                                 className={`burger ${menuOpen ? 'is-open' : ''}`}
-                                onClick={() => setMenuOpen((v) => !v)}
+                                onClick={(e) => {
+                                    // A keyboard press reports no click count (detail 0).
+                                    byKeyboard.current = e.detail === 0
+                                    if (!byKeyboard.current) e.currentTarget.blur()
+                                    setMenuOpen((v) => !v)
+                                }}
                                 aria-label={menuOpen ? 'Close menu' : 'Open menu'}
                                 aria-expanded={menuOpen}
                                 aria-controls="site-menu"
