@@ -15,6 +15,22 @@ const reveal = {
 
 const EASE = [0.22, 1, 0.36, 1]
 
+/* Bio pop-up motion. On phones it is a sheet that slides up from the bottom
+   (matching the CSS at the same breakpoint); elsewhere a short fade and lift.
+   Kept quick, and transform/opacity only, so it stays smooth on phones. */
+const SHEET_QUERY = '(max-width: 700px)'
+const SHEET_EASE = [0.32, 0.72, 0, 1]
+const sheetMotion = {
+    initial: { y: '100%' },
+    animate: { y: 0, transition: { duration: 0.32, ease: SHEET_EASE } },
+    exit: { y: '100%', transition: { duration: 0.22, ease: [0.4, 0, 1, 1] } },
+}
+const dialogMotion = {
+    initial: { opacity: 0, y: 16, scale: 0.98 },
+    animate: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.25, ease: EASE } },
+    exit: { opacity: 0, y: 8, scale: 0.98, transition: { duration: 0.15 } },
+}
+
 /** Portrait, name and role. People with a written bio open it in a pop-up. */
 function PersonCard({ person, index, onOpen }) {
     const content = (
@@ -56,6 +72,7 @@ function PersonCard({ person, index, onOpen }) {
  * appears around the card afterwards. */
 function BioDialog({ person, onClose, takeFocus }) {
     const closeRef = useRef(null)
+    const [motionProps] = useState(() => (window.matchMedia(SHEET_QUERY).matches ? sheetMotion : dialogMotion))
 
     useEffect(() => {
         const onKey = (e) => e.key === 'Escape' && onClose()
@@ -75,7 +92,7 @@ function BioDialog({ person, onClose, takeFocus }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.2 }}
             onClick={onClose}
         >
             <motion.div
@@ -83,10 +100,7 @@ function BioDialog({ person, onClose, takeFocus }) {
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="bio-dialog-name"
-                initial={{ opacity: 0, y: 32, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 24, scale: 0.98 }}
-                transition={{ duration: 0.4, ease: EASE }}
+                {...motionProps}
                 onClick={(e) => e.stopPropagation()}
             >
                 <button ref={closeRef} type="button" className="bio-close" onClick={onClose} aria-label="Close">
