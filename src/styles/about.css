@@ -102,8 +102,16 @@
     transition: transform 0.6s var(--ease-out);
 }
 
-.person-button:hover .portrait img {
-    transform: scale(1.04);
+/* Hover only where there is a real pointer: on phones :hover sticks after a
+   tap, which left the photo zoomed after the bio was closed. */
+@media (hover: hover) {
+    .person-button:hover .portrait img {
+        transform: scale(1.04);
+    }
+
+    .person-button:hover .person-more {
+        color: var(--accent-hover);
+    }
 }
 
 .person-more {
@@ -113,10 +121,6 @@
     font-weight: var(--weight-bold);
     color: var(--accent-text);
     border-bottom: 1px solid currentColor;
-}
-
-.person-button:hover .person-more {
-    color: var(--accent-hover);
 }
 
 /* --- Bio pop-up --- */

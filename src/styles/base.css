@@ -23,6 +23,9 @@ html {
     /* Always reserve the scrollbar's space, so locking scroll behind a pop-up
        doesn't remove the scrollbar and shift the page sideways. */
     scrollbar-gutter: stable;
+    /* No grey/blue flash over links and buttons when tapped on phones; every
+       control already has its own hover and focus styling. */
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
