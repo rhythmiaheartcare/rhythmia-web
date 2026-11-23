@@ -42,12 +42,13 @@ export const guarantee = {
 }
 
 /* Nutritional information per serving (2 capsules), as printed on the label.
-   NRV = Nutrient Reference Value. Taurine and CoQ10 have no NRV, and their
-   per-serving amounts are not on the label's table — PLACEHOLDERS below. */
+   NRV = Nutrient Reference Value. Taurine and CoQ10 have no NRV and are not in
+   the label's table; their amounts come from the manufacturer's specification
+   sheet (150 mg and 50 mg per capsule). */
 export const nutrition = [
     { name: 'Magnesium', form: 'as bisglycinate chelate', amount: '225 mg', nrv: '60%' },
-    { name: 'L-Taurine', form: null, amount: '[amount] mg', nrv: '—' },
-    { name: 'Coenzyme Q10', form: 'ubiquinone', amount: '[amount] mg', nrv: '—' },
+    { name: 'L-Taurine', form: null, amount: '300 mg', nrv: '—' },
+    { name: 'Coenzyme Q10', form: 'ubiquinone', amount: '100 mg', nrv: '—' },
     { name: 'Vitamin B1', form: 'thiamine', amount: '50 mg', nrv: '4546%' },
     { name: 'Vitamin B6', form: 'pyridoxine', amount: '30 mg', nrv: '2143%' },
     { name: 'Vitamin B12', form: 'methylcobalamin', amount: '250 µg', nrv: '10000%' },
