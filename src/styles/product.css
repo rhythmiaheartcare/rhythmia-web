@@ -755,6 +755,29 @@
     fill: var(--accent);
 }
 
+/* A partly filled star: the filled star sits over the empty one, cropped
+   to the fraction of the star the rating covers. */
+.star-slot {
+    position: relative;
+    display: inline-block;
+    flex: none;
+}
+
+.star-slot > .star {
+    display: block;
+}
+
+.star-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    overflow: hidden;
+}
+
+.star-fill > .star {
+    display: block;
+    max-width: none;
+}
+
 /* --- Write a review --- */
 .review-form {
     display: flex;

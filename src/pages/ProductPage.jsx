@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Check, ShieldCheck, Truck, RefreshCw, Star, ArrowRight } from 'lucide-react'
+import { Check, ShieldCheck, Truck, RefreshCw, ArrowRight } from 'lucide-react'
 
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import EvidenceStrip from '../components/EvidenceStrip'
-import ProductReviews from '../components/ProductReviews'
+import ProductReviews, { Stars } from '../components/ProductReviews'
 import Portrait from '../components/Portrait'
 import ProductGallery from '../components/ProductGallery'
 import { reviewService } from '../services/reviewService'
@@ -156,11 +156,7 @@ export default function ProductPage() {
 
                             {avg && (
                                 <a href="#reviews" className="pdp-rating">
-                                    <span className="stars" aria-hidden="true">
-                                        {[1, 2, 3, 4, 5].map((n) => (
-                                            <Star key={n} size={15} strokeWidth={1.5} className={avg >= n - 0.25 ? 'star is-filled' : 'star'} />
-                                        ))}
-                                    </span>
+                                    <Stars value={Math.round(avg * 10) / 10} size={15} label={false} />
                                     <span>{avg.toFixed(1)} · {reviews.length} {reviews.length === 1 ? 'review' : 'reviews'}</span>
                                 </a>
                             )}

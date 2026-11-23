@@ -18,13 +18,13 @@ export const ingredients = [
         why: "Magnesium is involved in over 300 enzymatic reactions and is essential for regulating blood pressure, cardiac contractility, and electrical excitability. Low magnesium is consistently linked to higher risks of atrial fibrillation, heart failure, and arrhythmias.",
         whyBisglycinate: "Magnesium bisglycinate is one of the most bioavailable and well-tolerated forms. Unlike cheaper magnesium oxide, it is efficiently absorbed and far less likely to cause gastrointestinal side effects \u2014 important for daily use.",
         keyFindings: [
-            { finding: "45% reduction in post-surgical atrial fibrillation", source: "Cochrane systematic review of randomised trials", url: "https://pubmed.ncbi.nlm.nih.gov/23440790/", chip: "PubMed" },
-            { finding: "22% lower heart failure risk per 100 mg/day increase", source: "Del Gobbo et al. \u2014 meta-analysis of prospective cohorts", url: "https://pubmed.ncbi.nlm.nih.gov/23719551/", chip: "PubMed" },
-            { finding: "50% higher AF risk in those with the lowest magnesium levels", source: "Framingham Heart Study (Khan et al., 2013) \u2014 3,530 participants", url: "https://pubmed.ncbi.nlm.nih.gov/23172839/", chip: "PubMed" },
-            { finding: "Improved endothelial function and exercise tolerance in CAD", source: "Shechter et al. (2000) \u2014 double-blind RCT, 50 patients", url: "https://pubmed.ncbi.nlm.nih.gov/11067788/", chip: "PubMed" },
-            { finding: "Lower heart failure and major cardiac event risk with long-term use", source: "Wu et al. (2025) \u2014 94,239 veterans", url: "https://pubmed.ncbi.nlm.nih.gov/40135571/", chip: "PubMed" },
+            { finding: "45% lower odds of atrial fibrillation after heart surgery", source: "Arsenault et al. (2013) \u2014 Cochrane review of 118 randomised trials, 17,364 patients", url: "https://pubmed.ncbi.nlm.nih.gov/23440790/", chip: "PubMed" },
+            { finding: "22% lower risk of ischaemic heart disease per 200 mg/day of dietary magnesium", source: "Del Gobbo et al. (2013) \u2014 meta-analysis of 16 cohort studies, 313,041 people", url: "https://pubmed.ncbi.nlm.nih.gov/23719551/", chip: "PubMed" },
+            { finding: "50% higher risk of atrial fibrillation in people with the lowest magnesium levels", source: "Khan et al. (2013) \u2014 Framingham Heart Study, 3,530 people", url: "https://pubmed.ncbi.nlm.nih.gov/23172839/", chip: "PubMed" },
+            { finding: "Better blood vessel function and exercise tolerance in coronary artery disease", source: "Shechter et al. (2000) \u2014 double-blind randomised trial, 50 patients", url: "https://pubmed.ncbi.nlm.nih.gov/11067788/", chip: "PubMed" },
+            { finding: "Lower risk of heart failure and major cardiac events with long-term use", source: "Cheng et al. (2025) \u2014 cohort study, 94,239 veterans with diabetes", url: "https://pubmed.ncbi.nlm.nih.gov/40135571/", chip: "PubMed" },
         ],
-        evidenceLevel: "Meta-analyses, large RCTs, prospective cohorts"
+        evidenceLevel: "Meta-analyses, randomised trials and cohort studies"
     },
     {
         name: "Coenzyme Q10 (CoQ10)",
@@ -34,13 +34,13 @@ export const ingredients = [
         color: "#e76f51",
         why: "CoQ10 is essential for producing ATP \u2014 the energy currency your heart cells need to beat. It is also a powerful antioxidant. Heart failure patients have been shown to have significantly reduced CoQ10 levels, and supplementation consistently improves cardiac function.",
         keyFindings: [
-            { finding: "43% reduction in major cardiac events and cardiovascular death", source: "Q-SYMBIO trial (Mortensen et al., 2014) \u2014 420 HF patients, 2 years", url: "https://pubmed.ncbi.nlm.nih.gov/25282031/", chip: "PubMed" },
-            { finding: "54% reduction in cardiovascular mortality", source: "KiSel-10 trial (Alehagen et al., 2013) \u2014 440 subjects, 5 years", url: "https://pubmed.ncbi.nlm.nih.gov/22626835/", chip: "PubMed" },
-            { finding: "Significant improvements in ejection fraction across 13 RCTs", source: "Fotino et al. (2013) \u2014 meta-analysis", url: "https://pubmed.ncbi.nlm.nih.gov/23221577/", chip: "PubMed" },
-            { finding: "Improved cardiac strain, NT-proBNP, blood pressure, and 6-min walk distance", source: "JCM 2025 \u2014 RCT of 120 HF patients", url: "https://pubmed.ncbi.nlm.nih.gov/40507436/", chip: "PubMed" },
-            { finding: "Reduced heart failure hospitalisations (73 vs 118, p<0.001)", source: "Italian multicentre trial \u2014 641 patients", url: "https://pubmed.ncbi.nlm.nih.gov/7752841/", chip: "PubMed" },
+            { finding: "Major cardiac events halved over 2 years (15% vs 26%)", source: "Mortensen et al. (2014) \u2014 Q-SYMBIO double-blind randomised trial, 420 heart failure patients", url: "https://pubmed.ncbi.nlm.nih.gov/25282031/", chip: "PubMed" },
+            { finding: "Cardiovascular deaths more than halved over 5 years when combined with selenium", source: "Alehagen et al. (2013) \u2014 KiSel-10 double-blind randomised trial, 443 older adults", url: "https://pubmed.ncbi.nlm.nih.gov/22626835/", chip: "PubMed" },
+            { finding: "3.7% average improvement in ejection fraction", source: "Fotino et al. (2013) \u2014 meta-analysis of 13 randomised trials", url: "https://pubmed.ncbi.nlm.nih.gov/23221577/", chip: "PubMed" },
+            { finding: "Better heart muscle function, NT-proBNP, blood pressure and walking distance", source: "Bodea et al. (2025) \u2014 randomised trial, 120 heart failure patients", url: "https://pubmed.ncbi.nlm.nih.gov/40507436/", chip: "PubMed" },
+            { finding: "Fewer hospital admissions for heart failure (73 vs 118 patients)", source: "Morisco et al. (1993) \u2014 double-blind randomised trial, 641 heart failure patients", url: "https://pubmed.ncbi.nlm.nih.gov/8241697/", chip: "PubMed" },
         ],
-        evidenceLevel: "Multicentre RCTs, meta-analyses of 13+ RCTs"
+        evidenceLevel: "Randomised trials and a meta-analysis"
     },
     {
         name: "L-Taurine",
@@ -50,13 +50,12 @@ export const ingredients = [
         color: "#2a9d8f",
         why: "Taurine makes up about 50% of the heart\u2019s free amino acid pool. It is critical for calcium handling, membrane stabilisation, and antioxidant defence. In Japan, taurine is a standard part of heart failure treatment. Deficiency causes cardiomyopathy in animal models.",
         keyFindings: [
-            { finding: "Significant reductions in blood pressure, improved LVEF & NYHA class", source: "Tzang et al. (2024) \u2014 meta-analysis of 20 RCTs", url: "https://pubmed.ncbi.nlm.nih.gov/39148075/", chip: "PubMed" },
-            { finding: "85% of peripartum cardiomyopathy patients improved NYHA class (vs 10% placebo)", source: "Zaki et al. (2021) \u2014 double-blind RCT, 40 ICU patients", url: "https://doi.org/10.4103/joacc.JOACC_36_20", chip: "DOI" },
-            { finding: "Increased exercise time, distance, and metabolic equivalents in HF", source: "Beyranvand et al. (2011) \u2014 placebo-controlled trial", url: "https://pubmed.ncbi.nlm.nih.gov/21334852/", chip: "PubMed" },
-            { finding: "Improved myocardial oxygen consumption and electrical activity", source: "Ahmadian et al. (2017) \u2014 double-blind RCT", url: "https://pubmed.ncbi.nlm.nih.gov/28118062/", chip: "PubMed" },
-            { finding: "Lowers blood pressure and improves vascular function in prehypertension", source: "Sun et al. (2016) \u2014 double-blind placebo-controlled trial", url: "https://pubmed.ncbi.nlm.nih.gov/26781281/", chip: "PubMed" },
+            { finding: "Lower blood pressure and heart rate, with better ejection fraction and heart failure class", source: "Tzang et al. (2024) \u2014 meta-analysis of 20 randomised trials, 808 people", url: "https://pubmed.ncbi.nlm.nih.gov/39148075/", chip: "PubMed" },
+            { finding: "85% of peripartum cardiomyopathy patients improved their heart failure class (vs 10% on placebo)", source: "Zaki et al. (2021) \u2014 double-blind randomised trial, 40 ICU patients", url: "https://doi.org/10.4103/joacc.JOACC_36_20", chip: "DOI" },
+            { finding: "Longer exercise time and distance in heart failure", source: "Beyranvand et al. (2011) \u2014 single-blind randomised trial, 29 heart failure patients", url: "https://pubmed.ncbi.nlm.nih.gov/21334852/", chip: "PubMed" },
+            { finding: "Lower blood pressure and better blood vessel function in prehypertension", source: "Sun et al. (2016) \u2014 double-blind randomised trial, 120 people", url: "https://pubmed.ncbi.nlm.nih.gov/26781281/", chip: "PubMed" },
         ],
-        evidenceLevel: "Meta-analysis of 20 RCTs, multiple placebo-controlled trials"
+        evidenceLevel: "A meta-analysis and randomised trials"
     },
     {
         name: "Thiamine (Vitamin B1)",
@@ -66,13 +65,12 @@ export const ingredients = [
         color: "#e9c46a",
         why: "Thiamine is a cofactor for key enzymes in cardiac energy metabolism. Deficiency is remarkably common in heart failure patients (21\u201398%) and directly impairs the heart\u2019s ability to produce energy. Severe deficiency causes a form of heart failure known as cardiovascular beriberi.",
         keyFindings: [
-            { finding: "3.28% net improvement in LVEF vs placebo (no heterogeneity, I\u00B2=0%)", source: "DiNicolantonio et al. (2013) \u2014 meta-analysis of double-blind RCTs", url: "https://pubmed.ncbi.nlm.nih.gov/23910704/", chip: "PubMed" },
-            { finding: "22% improvement in LVEF in thiamine-depleted CHF patients on diuretics", source: "Shimon et al. (1995) \u2014 landmark RCT, 30 patients", url: "https://pubmed.ncbi.nlm.nih.gov/7733128/", chip: "PubMed" },
-            { finding: "Significant LVEF improvement of 3.30% in stable HF on diuretics", source: "Schoenenberger et al. (2012) \u2014 crossover pilot RCT", url: "https://pubmed.ncbi.nlm.nih.gov/22057652/", chip: "PubMed" },
-            { finding: "Improved endothelial function across healthy and diabetic groups", source: "Arora et al. \u2014 clinical trial, 30 participants", url: "https://pubmed.ncbi.nlm.nih.gov/16741654/", chip: "PubMed" },
-            { finding: "Promising improvements in cardiac function, symptoms, and thiamine status", source: "Xu & Ji (2022) \u2014 systematic review of all HF RCTs", url: "https://pubmed.ncbi.nlm.nih.gov/35842069/", chip: "PubMed" },
+            { finding: "3.3% net improvement in ejection fraction compared with placebo", source: "DiNicolantonio et al. (2013) \u2014 meta-analysis of 2 double-blind randomised trials", url: "https://pubmed.ncbi.nlm.nih.gov/24357996/", chip: "PubMed" },
+            { finding: "22% rise in ejection fraction in heart failure patients on long-term diuretics", source: "Shimon et al. (1995) \u2014 double-blind randomised trial, 30 heart failure patients", url: "https://pubmed.ncbi.nlm.nih.gov/7733128/", chip: "PubMed" },
+            { finding: "Ejection fraction 3.9% higher than placebo after 28 days", source: "Schoenenberger et al. (2012) \u2014 double-blind crossover trial, 9 heart failure patients", url: "https://pubmed.ncbi.nlm.nih.gov/22057652/", chip: "PubMed" },
+            { finding: "Better blood vessel function in healthy people and people with diabetes", source: "Arora et al. (2006) \u2014 clinical study, 30 people", url: "https://pubmed.ncbi.nlm.nih.gov/16741654/", chip: "PubMed" },
         ],
-        evidenceLevel: "Meta-analyses of double-blind RCTs, systematic reviews"
+        evidenceLevel: "A meta-analysis and randomised trials"
     },
     {
         name: "Zinc",
@@ -82,13 +80,13 @@ export const ingredients = [
         color: "#457b9d",
         why: "Zinc modulates the sodium, calcium, and potassium ion channels essential for every heartbeat. It also influences beta-adrenergic receptors and has powerful antioxidant and membrane-stabilising properties. Low zinc is linked to arrhythmias, heart failure, and worse outcomes after heart attacks.",
         keyFindings: [
-            { finding: "Modulates Na\u207A, Ca\u00B2\u207A, K\u207A channels essential for cardiac rhythm", source: "Kokhabi et al. (2025) \u2014 comprehensive review", url: "https://pubmed.ncbi.nlm.nih.gov/39301907/", chip: "PubMed" },
-            { finding: "LVEF recovery from 27% to 42% with zinc/selenium repletion", source: "Frustaci et al. \u2014 18 cardiomyopathy patients", url: "https://pubmed.ncbi.nlm.nih.gov/22186680/", chip: "PubMed" },
-            { finding: "15.7\u00D7 higher heart failure risk post-MI with low zinc levels", source: "Suzuki et al. (2024) \u2014 243 MI patients", url: "https://pubmed.ncbi.nlm.nih.gov/38355442/", chip: "PubMed" },
-            { finding: "Prevented ventricular fibrillation in 83\u201391% of treated hearts", source: "Karagulova et al. \u2014 isolated heart studies", url: "https://pubmed.ncbi.nlm.nih.gov/17322024/", chip: "PubMed" },
-            { finding: "Higher zinc intake linked to better systolic/diastolic function in elderly", source: "Olechnowicz et al. (2023) \u2014 270 elderly individuals", url: "https://pubmed.ncbi.nlm.nih.gov/36829824/", chip: "PubMed" },
+            { finding: "Zinc controls the sodium, calcium and potassium channels that set heart rhythm", source: "Kokhabi et al. (2025) \u2014 review of the research", url: "https://pubmed.ncbi.nlm.nih.gov/39301907/", chip: "PubMed" },
+            { finding: "Heart size and function recovered after zinc and selenium were restored", source: "Frustaci et al. (2012) \u2014 clinical study, 18 cardiomyopathy patients", url: "https://pubmed.ncbi.nlm.nih.gov/22186680/", chip: "PubMed" },
+            { finding: "15.7 times higher risk of heart failure admission after a heart attack with low zinc", source: "Tanita et al. (2024) \u2014 cohort study, 243 heart attack patients", url: "https://pubmed.ncbi.nlm.nih.gov/38355442/", chip: "PubMed" },
+            { finding: "Arrhythmias more than halved and heart recovery improved after restricted blood flow", source: "Karagulova et al. (2007) \u2014 laboratory study in isolated hearts", url: "https://pubmed.ncbi.nlm.nih.gov/17322024/", chip: "PubMed" },
+            { finding: "Higher zinc intake linked to better heart function in older adults", source: "Szadkowska et al. (2023) \u2014 cross-sectional study, 251 older adults", url: "https://pubmed.ncbi.nlm.nih.gov/36829824/", chip: "PubMed" },
         ],
-        evidenceLevel: "Mechanistic reviews, clinical studies, observational cohorts"
+        evidenceLevel: "Reviews, clinical studies and cohort studies"
     },
     {
         name: "Vitamin B12",
@@ -98,23 +96,23 @@ export const ingredients = [
         color: "#8338ec",
         why: "Vitamin B12 is essential for the autonomic nerves that control your heart rate and rhythm. Deficiency causes measurable changes in heart rate variability \u2014 a key marker of cardiac health \u2014 and is associated with altered ECG patterns that can predispose to arrhythmias.",
         keyFindings: [
-            { finding: "B12 replacement fully normalised heart rate variability in deficient patients", source: "Aytemir et al. (2000) \u2014 power spectral analysis study", url: "https://pubmed.ncbi.nlm.nih.gov/10879381/", chip: "PubMed" },
-            { finding: "Improved cardiac sympathetic function in healthy elderly after 3 months", source: "Sucharita et al. (2012) \u2014 47 elderly subjects", url: "https://pubmed.ncbi.nlm.nih.gov/22226502/", chip: "PubMed" },
-            { finding: "Dose-response: higher B12 = lower autonomic neuropathy risk in diabetes", source: "Hansen et al. \u2014 469 type 2 diabetes patients", url: "https://pubmed.ncbi.nlm.nih.gov/27638143/", chip: "PubMed" },
-            { finding: "B12 deficiency linked to prolonged QTc and arrhythmogenic ECG markers", source: "Yilmaz et al. (2022) \u2014 214 healthy adults", url: "https://pubmed.ncbi.nlm.nih.gov/35485384/", chip: "PubMed" },
-            { finding: "B-vitamins including B12 protected cardiac autonomic function from pollution", source: "Zhong et al. (2017) \u2014 crossover pilot trial", url: "https://pubmed.ncbi.nlm.nih.gov/28367952/", chip: "PubMed" },
+            { finding: "B12 replacement restored normal heart rate variability in deficient patients", source: "Aytemir et al. (2000) \u2014 clinical study, 32 people", url: "https://pubmed.ncbi.nlm.nih.gov/10879381/", chip: "PubMed" },
+            { finding: "Better heart rate variability in older adults after 3 months of B12", source: "Sucharita et al. (2012) \u2014 supplementation study, 47 older adults", url: "https://pubmed.ncbi.nlm.nih.gov/22226502/", chip: "PubMed" },
+            { finding: "Higher B12 levels linked to lower risk of nerve damage affecting the heart in diabetes", source: "Hansen et al. (2017) \u2014 cross-sectional study, 469 type 2 diabetes patients", url: "https://pubmed.ncbi.nlm.nih.gov/27638143/", chip: "PubMed" },
+            { finding: "Low B12 linked to ECG changes that can predispose to arrhythmias", source: "Y\u0131lmaz et al. (2022) \u2014 cross-sectional study, 214 healthy adults", url: "https://pubmed.ncbi.nlm.nih.gov/35485384/", chip: "PubMed" },
+            { finding: "B vitamins including B12 protected heart rhythm control from air pollution", source: "Zhong et al. (2017) \u2014 single-blind crossover trial, 10 healthy adults", url: "https://pubmed.ncbi.nlm.nih.gov/28367952/", chip: "PubMed" },
         ],
-        evidenceLevel: "Clinical trials, prospective studies, crossover trials"
+        evidenceLevel: "Clinical studies and crossover trials"
     },
 ];
 
 export const summaryData = [
-    { ingredient: "Magnesium", role: "Electrical signalling", highlight: "45% reduction in post-surgical AF; 22% lower HF risk per 100mg/day", evidence: "Meta-analyses & large RCTs" },
-    { ingredient: "CoQ10", role: "Cellular energy", highlight: "43% reduction in major cardiac events; 54% lower CV mortality (with selenium)", evidence: "Multicentre RCTs" },
-    { ingredient: "L-Taurine", role: "Membrane stability", highlight: "Improved LVEF, BP, NYHA class across 20 RCTs; standard HF therapy in Japan", evidence: "Meta-analysis of 20 RCTs" },
-    { ingredient: "Thiamine (B1)", role: "Energy metabolism", highlight: "Up to 22% LVEF improvement in depleted patients; improved endothelial function", evidence: "Meta-analyses of RCTs" },
-    { ingredient: "Zinc", role: "Ion channel function", highlight: "Modulates Na\u207A/Ca\u00B2\u207A/K\u207A channels; LVEF recovery from 27% \u2192 42% with repletion", evidence: "Reviews & clinical studies" },
-    { ingredient: "Vitamin B12", role: "Autonomic nerves", highlight: "Normalised heart rate variability; dose-dependent autonomic protection", evidence: "Clinical & crossover trials" },
+    { ingredient: "Magnesium", role: "Electrical signalling", highlight: "45% lower odds of atrial fibrillation after heart surgery; 50% higher atrial fibrillation risk when magnesium is low", evidence: "Meta-analyses, randomised trials and cohort studies" },
+    { ingredient: "CoQ10", role: "Cellular energy", highlight: "Major cardiac events halved over 2 years; cardiovascular deaths more than halved with selenium", evidence: "Randomised trials and a meta-analysis" },
+    { ingredient: "L-Taurine", role: "Membrane stability", highlight: "Better ejection fraction and heart failure class across 20 trials; lower blood pressure in prehypertension", evidence: "A meta-analysis and randomised trials" },
+    { ingredient: "Thiamine (B1)", role: "Energy metabolism", highlight: "22% rise in ejection fraction in patients on diuretics; 3.3% net improvement compared with placebo", evidence: "A meta-analysis and randomised trials" },
+    { ingredient: "Zinc", role: "Ion channel function", highlight: "Controls the ion channels that set heart rhythm; low zinc linked to 15.7 times higher heart failure risk after a heart attack", evidence: "Reviews, clinical studies and cohort studies" },
+    { ingredient: "Vitamin B12", role: "Autonomic nerves", highlight: "Replacement restored normal heart rate variability; higher levels linked to healthier heart rhythm control", evidence: "Clinical studies and crossover trials" },
 ];
 
 /* Who the product is for. Shared by the Evidence and Product pages. */
