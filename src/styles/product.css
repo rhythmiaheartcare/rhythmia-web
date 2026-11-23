@@ -260,49 +260,6 @@
     max-width: 52ch;
 }
 
-/* --- Benefits — the four headline ingredients, a row above the panel --- */
-.pdp-benefits {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-5);
-    margin-bottom: clamp(2rem, 4vw, 3rem);
-}
-
-.pdp-benefits li {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-3);
-}
-
-.pdp-benefits li>span:last-child {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-}
-
-.pdp-benefits strong {
-    font-size: var(--text-sm);
-    font-weight: var(--weight-bold);
-    color: var(--fg);
-}
-
-.pdp-benefits span span {
-    font-size: var(--text-sm);
-    color: var(--fg-muted);
-}
-
-.pdp-check {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-    margin-top: 2px;
-    display: grid;
-    place-items: center;
-    border-radius: var(--radius-full);
-    background-color: var(--accent-tint);
-    color: var(--accent-text);
-}
-
 /* --- Purchase options --- */
 .pdp-options {
     display: grid;
@@ -423,10 +380,6 @@
 
     .pdp-details {
         max-width: none;
-    }
-
-    .pdp-benefits {
-        grid-template-columns: 1fr 1fr;
     }
 }
 
@@ -549,11 +502,6 @@
     color: var(--fg);
 }
 
-.nutrition td.muted {
-    font-weight: var(--weight-regular);
-    color: var(--fg-muted);
-}
-
 .nutrition-form {
     display: block;
     font-size: var(--text-xs);
@@ -562,12 +510,6 @@
     letter-spacing: var(--track-normal);
     color: var(--fg-subtle);
     margin-top: 2px;
-}
-
-.nutrition-note {
-    margin-top: var(--space-4);
-    font-size: var(--text-xs);
-    color: var(--fg-subtle);
 }
 
 .nutrition-side {

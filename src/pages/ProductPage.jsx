@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Check, ShieldCheck, Truck, RefreshCw, ArrowRight } from 'lucide-react'
+import { ShieldCheck, Truck, RefreshCw, ArrowRight } from 'lucide-react'
 
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
@@ -15,7 +15,6 @@ import { audiences } from '../data/evidence'
 import { founders } from '../data/people'
 import {
     product, pricing, delivery, guarantee, nutrition, directions, storage,
-    benefits,
 } from '../data/product'
 
 const EASE = [0.22, 1, 0.36, 1]
@@ -216,15 +215,6 @@ export default function ProductPage() {
                             <h2 className="section-heading">Every ingredient, and how much</h2>
                         </motion.div>
 
-                        <ul className="pdp-benefits">
-                            {benefits.map(({ key, desc }) => (
-                                <li key={key}>
-                                    <span className="pdp-check"><Check size={14} strokeWidth={3} /></span>
-                                    <span><strong>{key}</strong><span>{desc}</span></span>
-                                </li>
-                            ))}
-                        </ul>
-
                         <div className="nutrition-grid">
                             <div className="nutrition-panel">
                                 <table className="nutrition">
@@ -235,7 +225,6 @@ export default function ProductPage() {
                                                 Per serving
                                                 <span className="nutrition-form">{product.perDay} capsules</span>
                                             </th>
-                                            <th scope="col" className="num">% NRV*</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -246,12 +235,10 @@ export default function ProductPage() {
                                                     {row.form && <span className="nutrition-form">{row.form}</span>}
                                                 </th>
                                                 <td className="num">{row.amount}</td>
-                                                <td className="num muted">{row.nrv}</td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
-                                <p className="nutrition-note">*NRV = Nutrient Reference Value. &mdash; indicates no NRV has been established.</p>
                             </div>
 
                             <div className="nutrition-side">
