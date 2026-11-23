@@ -96,12 +96,19 @@
    -------------------------------------------------------------------------- */
 .cert-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: var(--space-5);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--space-4);
+}
+
+/* All five side by side on desktop; they wrap only when there isn't room. */
+@media (max-width: 1100px) {
+    .cert-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
 }
 
 .cert {
-    padding: var(--space-6);
+    padding: var(--space-5);
     background-color: var(--bg-raised);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);

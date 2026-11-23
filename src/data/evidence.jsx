@@ -106,15 +106,6 @@ export const ingredients = [
     },
 ];
 
-export const summaryData = [
-    { ingredient: "Magnesium", role: "Electrical signalling", highlight: "45% lower odds of atrial fibrillation after heart surgery; 50% higher atrial fibrillation risk when magnesium is low", evidence: "Meta-analyses, randomised trials and cohort studies" },
-    { ingredient: "CoQ10", role: "Cellular energy", highlight: "Major cardiac events halved over 2 years; cardiovascular deaths more than halved with selenium", evidence: "Randomised trials and a meta-analysis" },
-    { ingredient: "L-Taurine", role: "Membrane stability", highlight: "Better ejection fraction and heart failure class across 20 trials; lower blood pressure in prehypertension", evidence: "A meta-analysis and randomised trials" },
-    { ingredient: "Thiamine (B1)", role: "Energy metabolism", highlight: "22% rise in ejection fraction in patients on diuretics; 3.3% net improvement compared with placebo", evidence: "A meta-analysis and randomised trials" },
-    { ingredient: "Zinc", role: "Ion channel function", highlight: "Controls the ion channels that set heart rhythm; low zinc linked to 15.7 times higher heart failure risk after a heart attack", evidence: "Reviews, clinical studies and cohort studies" },
-    { ingredient: "Vitamin B12", role: "Autonomic nerves", highlight: "Replacement restored normal heart rate variability; higher levels linked to healthier heart rhythm control", evidence: "Clinical studies and crossover trials" },
-];
-
 /* Who the product is for. Shared by the Evidence and Product pages. */
 export const audiences = [
     {

@@ -71,7 +71,10 @@ export const advisors = [
     {
         name: 'Dr Hans Henrik Odland',
         title: 'Medical Advisor',
+        credential: 'Paediatric Cardiologist & Electrophysiologist',
+        affiliation: 'Oslo University Hospital, Rikshospitalet',
         photo: '/assets/photos/Hans_Henrik_Odland.jpg',
+        bio: 'Dr Hans Henrik Odland is a cardiologist at Oslo University Hospital, Rikshospitalet, specialising in paediatric cardiology and cardiac electrophysiology. He trained in Giessen, Germany, completed a fellowship at the Hospital for Sick Children (SickKids) in Toronto and holds a PhD from the University of Oslo. His clinical work spans catheter ablation and cardiac device implantation, and his research focuses on assessing heart function with ultrasound and on cardiac resynchronisation therapy. He is the founder of Pacertool, which develops a biofeedback system to guide the implantation of pacemakers and resynchronisation devices.',
     },
 ]
 
@@ -82,9 +85,11 @@ export const team = [
         photo: null,
     },
     {
-        name: 'Alexandra Stefanou',
+        name: 'Eleni Stefanou',
         title: 'Customer Operations',
+        credential: 'Content Strategist | Copywriter | Video Producer',
         photo: null,
+        bio: 'Eleni Stefanou is a content strategist, copywriter and video producer with more than 14 years of experience in digital media. She began her career at the British Film Institute, where she established its social media strategy and produced digital content, before joining The Guardian as social platforms editor, where she also taught the Guardian Masterclass on social media storytelling. She has since written for Hormonally, a platform dedicated to open, accessible education on hormonal health. Eleni studied at Goldsmiths, University of London.',
     },
 ]
 

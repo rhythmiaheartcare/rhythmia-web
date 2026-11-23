@@ -28,7 +28,7 @@ export default function ContactUs() {
     }
 
     return (
-        <section className="section" id="contact">
+        <section className="section" id="contact" data-surface="sunken">
             <div className="container">
                 <div className="contact-grid">
                     <motion.div
