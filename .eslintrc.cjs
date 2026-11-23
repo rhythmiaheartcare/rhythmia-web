@@ -11,6 +11,8 @@ module.exports = {
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   settings: { react: { version: '18.2' } },
   plugins: ['react-refresh'],
+  // Server code run by Vercel (Stripe webhook), not the browser.
+  overrides: [{ files: ['api/**/*.js'], env: { node: true, browser: false } }],
   rules: {
     'react/jsx-no-target-blank': 'warn',
     'react-refresh/only-export-components': [
