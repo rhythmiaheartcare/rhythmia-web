@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X } from 'lucide-react'
+import { X, ExternalLink } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import Portrait from '../components/Portrait'
@@ -116,6 +116,17 @@ function BioDialog({ person, onClose, takeFocus }) {
                     </div>
                 </div>
                 <p className="bio-text">{person.bio}</p>
+                {person.website && (
+                    <a
+                        className="bio-website"
+                        href={person.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {person.website.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}
+                        <ExternalLink size={14} strokeWidth={2} aria-hidden="true" />
+                    </a>
+                )}
             </motion.div>
         </motion.div>
     )

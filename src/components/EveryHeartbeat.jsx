@@ -27,10 +27,9 @@ export default function EveryHeartbeat() {
                                 signal steady depends on nutrients the heart can&rsquo;t do without.
                             </p>
                             <p>
-                                Rhythmia was created by cardiologists who wanted to bring every one
-                                of those evidence-based nutrients together in a single daily
-                                formula &ndash; to support every beat, for people living with heart
-                                disease and for anyone who wants to protect their heart.
+                                Rhythm disorders are common, affecting millions of people.
+                                Palpitations, the feeling of flutters or skipped beats, can affect
+                                people of all ages.
                             </p>
                         </div>
 
@@ -43,12 +42,14 @@ export default function EveryHeartbeat() {
 
                         <div className="prose">
                             <p>
-                                Rhythm disorders are common affecting millions of people. Palpitations,
-                                the feeling of flutters or skipped beats, can affect people of all ages.
-                            </p>
-                            <p>
                                 Palpitations and irregular heartbeats disrupt sleep, exercise, and work
                                 for a significant number of people who experience them.
+                            </p>
+                            <p>
+                                Rhythmia was created by cardiologists who wanted to bring every
+                                evidence-based nutrient for heart rhythm together in a single daily
+                                formula &ndash; to support every beat, for people living with heart
+                                disease and for anyone who wants to protect their heart.
                             </p>
                         </div>
                     </motion.div>
