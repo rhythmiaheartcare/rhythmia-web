@@ -113,11 +113,11 @@ export const audiences = [
         desc: 'Originally created for people living with heart disease, palpitations, arrhythmias, or heart failure. Provides targeted nutritional support alongside your medical treatment.',
     },
     {
-        title: 'Those on Heart Medications',
-        desc: 'Common cardiac medications such as diuretics can deplete key nutrients like thiamine and magnesium. Rhythmia helps replenish what your medications may remove.',
+        title: 'People with Palpitations',
+        desc: 'If you notice flutters, a racing heart or skipped beats, Rhythmia provides the nutrients your heart\u2019s electrical system relies on, to support a steady, regular rhythm.',
     },
     {
         title: 'Proactive Heart Health',
-        desc: 'Even without a diagnosis, supporting your heart with evidence-based nutrients is a smart long-term strategy — particularly with a family history of heart disease.',
+        desc: 'Even without a diagnosis, supporting your heart with evidence-based nutrients is a smart long-term strategy.',
     },
 ]
