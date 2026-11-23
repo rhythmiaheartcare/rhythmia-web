@@ -6,8 +6,8 @@
    TO ADD A PHOTO
    Drop the image into  public/assets/photos/
    then set  photo: '/assets/photos/<filename>'  on that person.
-   Anyone with  photo: null  shows an empty placeholder until the headshot
-   arrives.
+   Anyone with  photo: null  shows the Rhythmia heart mark until the
+   headshot arrives.
 
    Portraits look best square (1:1), at least 600x600, cropped head-and-
    shoulders with the eyeline around the upper third.

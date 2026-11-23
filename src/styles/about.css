@@ -52,13 +52,21 @@
     object-position: center top;
 }
 
-/* Empty placeholder for people whose headshot has not been supplied yet. */
+/* Placeholder for people whose headshot has not been supplied yet: the
+   Rhythmia heart mark, small and soft, on a light tile. */
 .portrait-empty {
     display: grid;
     place-items: center;
     background:
         linear-gradient(150deg, var(--bg-raised) 0%, var(--bg-inset) 100%);
     border: 1px solid var(--border);
+}
+
+.portrait .portrait-mark {
+    width: 34%;
+    height: auto;
+    object-fit: contain;
+    opacity: 0.35;
 }
 
 /* --- Person card (portrait, name, role) --- */
