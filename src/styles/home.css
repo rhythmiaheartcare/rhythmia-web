@@ -160,7 +160,8 @@
     opacity: 0.75;
     vector-effect: non-scaling-stroke;
     stroke-dasharray: 40 960;
-    animation: rhythm-sweep 6s linear infinite;
+    /* Three beats per sweep: 2.4s is 75 beats a minute, a resting heart rate. */
+    animation: rhythm-sweep 2.4s linear infinite;
 }
 
 @keyframes rhythm-sweep {
