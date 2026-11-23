@@ -32,7 +32,8 @@
    -------------------------------------------------------------------------- */
 .badge-row {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    /* Six badges: 6 across here, 3 x 2 on tablets, 2 x 3 on phones. */
+    grid-template-columns: repeat(6, 1fr);
     gap: var(--space-4);
 }
 

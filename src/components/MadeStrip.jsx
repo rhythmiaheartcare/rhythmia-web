@@ -1,23 +1,9 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
-import {
-    ClinicallyIcon,
-    VeganIcon,
-    GMPIcon,
-    UKMapIcon,
-    BunnyIcon,
-} from './BadgeIcons'
+import { badges } from '../data/badges'
 
-const badges = [
-    { label: 'Clinically Formulated', sub: 'Developed by experts', icon: <ClinicallyIcon /> },
-    { label: '100% Vegan', sub: 'Plant-based capsules', icon: <VeganIcon /> },
-    { label: 'GMP Certified', sub: 'Independently verified', icon: <GMPIcon /> },
-    { label: 'Made in UK', sub: 'British manufacturing', icon: <UKMapIcon /> },
-    { label: 'No Animal Testing', sub: 'Cruelty free', icon: <BunnyIcon /> },
-]
-
-/** How it's made, in brief: the five marks of quality and a link to the page. */
+/** How it's made, in brief: the marks of quality and a link to the page. */
 export default function MadeStrip() {
     return (
         <section className="section" id="how-its-made" data-surface="sunken">

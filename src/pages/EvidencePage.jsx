@@ -5,13 +5,7 @@ import { ChevronDown, ExternalLink } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import CtaBand from '../components/CtaBand'
-import {
-    ClinicallyIcon,
-    VeganIcon,
-    GMPIcon,
-    UKMapIcon,
-    BunnyIcon,
-} from '../components/BadgeIcons'
+import { badges } from '../data/badges'
 import { ingredients, summaryData, audiences } from '../data/evidence'
 import { usePageMeta } from '../hooks/usePageMeta'
 
@@ -21,13 +15,6 @@ const stats = [
     ['265k+', 'Patients in Research'],
 ]
 
-const badges = [
-    { label: 'Clinically Formulated', sub: 'Developed by experts', icon: <ClinicallyIcon /> },
-    { label: '100% Vegan', sub: 'Plant-based capsules', icon: <VeganIcon /> },
-    { label: 'GMP Certified', sub: 'Independently verified', icon: <GMPIcon /> },
-    { label: 'Made in UK', sub: 'British manufacturing', icon: <UKMapIcon /> },
-    { label: 'No Animal Testing', sub: 'Cruelty free', icon: <BunnyIcon /> },
-]
 
 const reveal = {
     hidden: { opacity: 0, y: 24 },
