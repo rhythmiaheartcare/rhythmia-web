@@ -22,7 +22,7 @@ export const founders = [
         name: 'Dr Mohamed Zuhair',
         title: 'Cofounder and Director',
         credential: 'Cardiologist, Specialist in Electrophysiology',
-        photo: '/assets/photos/Mohamed_Zuhair.png',
+        photo: '/assets/photos/Mohamed_Zuhair.jpg',
         bio: 'Dr Mohamed Zuhair is a senior cardiology registrar and PhD candidate at Imperial College London and the National Heart and Lung Institute, with a research focus on syncope and complex rhythm management. He holds MBBS, BSc, MRCP and PGCME qualifications and teaches cardiology to medical students at both UCL and Imperial College London. His interests include cardiac electrophysiology, catheter ablation, and neuromodulation for arrhythmias. His published work includes studies on complex rhythm management and percutaneous neuromodulation for vasovagal syncope.',
     },
     {
@@ -61,12 +61,12 @@ export const advisors = [
     {
         name: 'Dr Tiffany Ng',
         title: 'Medical Advisor',
-        photo: null,
+        photo: '/assets/photos/Tiffany_Ng.jpg',
     },
     {
         name: 'Dr Afnan Zuhair',
         title: 'Medical Advisor',
-        photo: null,
+        photo: '/assets/photos/Afnan_Zuhair.jpg',
     },
     {
         name: 'Dr Hans Henrik Odland',
@@ -88,7 +88,7 @@ export const team = [
         name: 'Eleni Stefanou',
         title: 'Customer Operations',
         credential: 'Content Strategist | Copywriter | Video Producer',
-        photo: null,
+        photo: '/assets/photos/Eleni_Stefanou.jpg',
         bio: 'Eleni Stefanou is a content strategist, copywriter and video producer with more than 14 years of experience in digital media. She began her career at the British Film Institute, where she established its social media strategy and produced digital content, before joining The Guardian as social platforms editor, where she also taught the Guardian Masterclass on social media storytelling. She has since written for Hormonally, a platform dedicated to open, accessible education on hormonal health. Eleni studied at Goldsmiths, University of London.',
     },
 ]
