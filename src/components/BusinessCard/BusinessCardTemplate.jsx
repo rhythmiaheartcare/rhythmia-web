@@ -1,115 +1,144 @@
-
+import { Mail, Globe } from 'lucide-react';
+import { ClinicallyIcon, VeganIcon, UKMapIcon } from '../BadgeIcons';
 import './BusinessCard.css';
 
+/* v2 thank-you card, packed with orders. Built from the website's own pieces
+   so it reads as the same brand: the oxblood Clash heading, the ECG trace from
+   "Every heartbeat counts", the ingredient cards' tinted icon tiles, a raised
+   white tile for the QR and the trust badges from "Crafted with Precision &
+   Purity". The back stays sparse on text: email, website, QR. Any field left
+   blank is simply not printed. */
 export const defaultCardData = {
     front: {
-        tagline: "Empowering Your Heart Health"
+        heading: "Thank you for choosing Rhythmia",
+        message: "Created by UK cardiologists to support your heart’s natural rhythm. We’re glad to be part of your day."
     },
     back: {
-        name: "Dr. Mohamed Zuhair",
-        title: "Chief Medical Officer",
-        email: "mohamed@rhythmiaheartcare.com",
-        phone: "+44 7894 883492",
-        website: "www.rhythmiaheartcare.com",
-        address: "71-75 Shelton Street, Covent Garden, London, WC2H 9JQ",
-        qrLabel: "Scan to Visit"
+        heading: "We’re here for you",
+        email: "admin@rhythmiaheartcare.com",
+        website: "rhythmiaheartcare.com",
+        qrLabel: "Scan to visit"
     }
 };
 
+/* One PQRST complex per beat, same geometry as components/RhythmLine.jsx. */
+function beatPath(beats, beatW = 240, mid = 60) {
+    const s = ['M 0 ' + mid];
+    for (let i = 0; i < beats; i++) {
+        const x = i * beatW;
+        s.push(
+            `H ${x + 30}`, 'q 10 -12 20 0',
+            `H ${x + 76}`,
+            `L ${x + 84} ${mid + 10}`,
+            `L ${x + 92} ${mid - 44}`,
+            `L ${x + 102} ${mid + 26}`,
+            `L ${x + 110} ${mid}`,
+            `H ${x + 140}`, 'q 16 -18 32 0',
+            `H ${x + beatW}`
+        );
+    }
+    return s.join(' ');
+}
+
+// Same marks and wording as the site's badge row (MadeStrip / Evidence page).
+// Three, not four, so the labels can print at a legible 6pt.
+const BADGES = [
+    { label: 'Clinically formulated', icon: <ClinicallyIcon /> },
+    { label: '100% vegan', icon: <VeganIcon /> },
+    { label: 'Made in the UK', icon: <UKMapIcon /> },
+];
+
+const VIEW_W = 960;
+const TRACE = beatPath(5);
+// Third beat on its own (x 480–720), drawn over the faint trace.
+const PULSE = 'M 500 60 H 510 q 10 -12 20 0 H 556 L 564 70 L 572 16 L 582 86 L 590 60 H 620 q 16 -18 32 0 H 690';
+// Shift so the third beat's spike (x 572) sits at the card's centre line.
+const CENTRE_SHIFT = VIEW_W / 2 - 572;
+
+function CardRhythm() {
+    // The whole trace faint, with the centre beat picked out in brand red —
+    // the printed equivalent of the site's travelling pulse.
+    return (
+        <svg className="bc-rhythm" viewBox={`0 0 ${VIEW_W} 120`} preserveAspectRatio="none" aria-hidden="true">
+            <g transform={`translate(${CENTRE_SHIFT} 0)`}>
+                <path d={TRACE} className="bc-rhythm-track" />
+                <path d={PULSE} className="bc-rhythm-pulse" />
+            </g>
+        </svg>
+    );
+}
+
 export default function BusinessCardTemplate({ data = defaultCardData }) {
-    const d = data;
+    const f = data.front || {};
+    const b = data.back || {};
 
-    // Contact Icons
-    const PhoneIcon = () => (
-        <svg viewBox="0 0 24 24" className="detail-icon">
-            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
-        </svg>
-    );
-
-    const EmailIcon = () => (
-        <svg viewBox="0 0 24 24" className="detail-icon">
-            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-        </svg>
-    );
-
-    const WebIcon = () => (
-        <svg viewBox="0 0 24 24" className="detail-icon">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-        </svg>
-    );
-
-    const PinIcon = () => (
-        <svg viewBox="0 0 24 24" className="detail-icon" style={{ transform: 'scale(1.5) translateX(1px) translateY(-1px)' }}>
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-        </svg>
-    );
+    const contacts = [
+        { key: 'email', label: 'Email', value: b.email, Icon: Mail },
+        { key: 'web', label: 'Website', value: b.website, Icon: Globe },
+    ].filter(c => c.value);
 
     return (
         <div className="business-card-root">
             <div className="card-wrapper">
 
-                {/* FRONT OF CARD */}
-                <div className="card-side card-front">
-                    <div className="bg-pattern"></div>
-                    <div className="glow"></div>
+                {/* THANK-YOU SIDE */}
+                <div className="card-side bc-front">
                     <img
-                        src="/assets/logo/Rhythmia_Care_Logo_Workmark_Red_Heart_White_Copy_RGB.svg"
+                        src="/assets/logo/Rhythmia_Care_Logo_Workmark_Red_Heart_Black_Copy_RGB.svg"
                         alt="Rhythmia Heart Care"
-                        className="logo"
+                        className="bc-logo"
                     />
-                    {d.front.tagline && <div className="tagline">{d.front.tagline}</div>}
+
+                    <div className="bc-note">
+                        {f.heading && <div className="bc-heading">{f.heading}</div>}
+                        {f.message && <p className="bc-message">{f.message}</p>}
+                    </div>
+
+                    <CardRhythm />
                 </div>
 
-                {/* BACK OF CARD */}
-                <div className="card-side card-back">
-                    <div className="bg-pattern"></div>
+                {/* CONTACT + QR SIDE */}
+                <div className="card-side bc-back">
+                    <div className="bc-main">
+                        <div className="bc-info">
+                            {b.heading && <div className="bc-back-heading">{b.heading}</div>}
 
-                    <div className="info-col">
-                        <div className="title-block">
-                            <div className="name">{d.back.name}</div>
-                            <div className="role">{d.back.title}</div>
+                            {contacts.length > 0 && (
+                                <ul className="bc-contacts">
+                                    {contacts.map(({ key, label, value, Icon }) => (
+                                        <li className="bc-contact" key={key}>
+                                            <span className="bc-contact-icon" aria-hidden="true">
+                                                <Icon strokeWidth={2} />
+                                            </span>
+                                            <span className="bc-contact-text">
+                                                <span className="visually-hidden">{label}: </span>
+                                                {value}
+                                            </span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                         </div>
 
-                        <div className="contact-details">
-                            {d.back.email && (
-                                <div className="detail-row">
-                                    <EmailIcon />
-                                    <span>{d.back.email}</span>
-                                </div>
-                            )}
-                            {d.back.phone && (
-                                <div className="detail-row">
-                                    <PhoneIcon />
-                                    <span>{d.back.phone}</span>
-                                </div>
-                            )}
-                            {d.back.website && (
-                                <div className="detail-row">
-                                    <WebIcon />
-                                    <span>{d.back.website}</span>
-                                </div>
-                            )}
-                            {d.back.address && (
-                                <div className="detail-row">
-                                    <PinIcon />
-                                    <span>{d.back.address}</span>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-
-                    <div className="qr-col">
-                        <div className="qr-code">
-                            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-                                <img src="/assets/qr_code.svg" alt="Scan QR" style={{ width: '100%', height: '100%', display: 'block' }} />
-                                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '25%', height: '25%', backgroundColor: 'transparent', padding: '2px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                    <img src="/assets/logo/Rhythmia_Care_Logo_Heart_Red_RGB.svg" alt="Logo" style={{ width: '100%', height: 'auto' }} />
-                                </div>
+                        <div className="bc-qr-col">
+                            <div className="bc-qr-tile">
+                                <img src="/assets/qr_code.svg" alt="QR code to rhythmiaheartcare.com" className="bc-qr" />
+                                <span className="bc-qr-mark">
+                                    <img src="/assets/logo/Rhythmia_Care_Logo_Heart_Red_RGB.svg" alt="" />
+                                </span>
                             </div>
+                            {b.qrLabel && <div className="bc-qr-label">{b.qrLabel}</div>}
                         </div>
-                        {d.back.qrLabel && <div className="qr-label">{d.back.qrLabel}</div>}
                     </div>
 
+                    <ul className="bc-badges">
+                        {BADGES.map(({ label, icon }) => (
+                            <li className="bc-badge" key={label}>
+                                <span className="bc-badge-mark" aria-hidden="true">{icon}</span>
+                                <span className="bc-badge-label">{label}</span>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </div>
         </div>
