@@ -16,14 +16,20 @@ doing so.
 ## Workflow — follow this every session
 
 1. **Never commit directly to `main` or to the default branch.** Start every task on a
-   new branch from the latest default branch (the branch checked out when the
-   session started) and don't switch to any other existing branch. Name it short
-   and clear.
+   new branch from the latest default branch on GitHub. It can change, so look it
+   up each time rather than assuming it's the branch the session started on:
+
+   ```bash
+   git fetch origin && git remote set-head origin --auto
+   git switch -c <new-branch-name> origin/HEAD
+   ```
+
+   Don't switch to any other existing branch. Name it short and clear.
 2. Make the change. Before committing, run `npm run lint` and `npm run build` and make sure it passes.
 3. Before committing, check the branch still exists on GitHub:
    `git ls-remote --heads origin "$(git branch --show-current)"`. If it prints
-   nothing and you've pushed before, the work was merged: fetch, create a new branch
-   from the latest default branch, and continue there. Don't mention this to the user.
+   nothing and you've pushed before, the work was merged: create a new branch from the
+   latest default branch exactly as in step 1, and continue there. Don't mention this to the user.
 4. Commit with a clear, plain-English message describing what changed on the site.
 5. Push the branch.
 6. **After every push, give the user their preview link.** Vercel builds every
