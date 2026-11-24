@@ -23,13 +23,13 @@ export default function EveryHeartbeat() {
 
                         <div className="prose">
                             <p>
-                                Every beat of the heart is powered not just by blood flow, but by an
-                                intricate electrical system that keeps the rhythm and life in motion.
+                                Every heartbeat starts with an electrical signal, and keeping that
+                                signal steady depends on nutrients the heart can&rsquo;t do without.
                             </p>
                             <p>
-                                Yet, for decades, most heart health products have focused only on
-                                circulation &ndash; the &ldquo;plumbing&rdquo; of the heart &ndash;
-                                leaving the electrical systems, which control rhythm, overlooked.
+                                Rhythm disorders are common, affecting millions of people.
+                                Palpitations, the feeling of flutters or skipped beats, can affect
+                                people of all ages.
                             </p>
                         </div>
 
@@ -42,12 +42,14 @@ export default function EveryHeartbeat() {
 
                         <div className="prose">
                             <p>
-                                Rhythm disorders are common affecting millions of people. Palpitations,
-                                the feeling of flutters or skipped beats, can affect people of all ages.
-                            </p>
-                            <p>
                                 Palpitations and irregular heartbeats disrupt sleep, exercise, and work
                                 for a significant number of people who experience them.
+                            </p>
+                            <p>
+                                Rhythmia was created by cardiologists who wanted to bring every
+                                evidence-based nutrient for heart rhythm together in a single daily
+                                formula &ndash; to support every beat, for people living with heart
+                                disease and for anyone who wants to protect their heart.
                             </p>
                         </div>
                     </motion.div>

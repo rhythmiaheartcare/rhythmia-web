@@ -58,11 +58,3 @@ export const nutrition = [
 export const directions = 'Take 2 capsules daily with water. Do not exceed the recommended daily dose.'
 
 export const storage = 'Keep in a cool, dry place below 25 °C, away from direct sunlight and moisture.'
-
-/* The four headline benefits shown beside the price. */
-export const benefits = [
-    { key: 'Magnesium Bisglycinate', desc: 'Regulates electrical signalling' },
-    { key: 'L-Taurine', desc: 'Supports cardiac membrane stability' },
-    { key: 'Coenzyme Q10', desc: 'Promotes mitochondrial function' },
-    { key: 'Vitamin B Complex + Zinc', desc: 'Metabolic & neurological support' },
-]

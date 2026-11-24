@@ -6,7 +6,8 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import CtaBand from '../components/CtaBand'
 import { badges } from '../data/badges'
-import { ingredients, summaryData, audiences } from '../data/evidence'
+import { ingredients, audiences } from '../data/evidence'
+import { nutrition } from '../data/product'
 import { usePageMeta } from '../hooks/usePageMeta'
 
 const stats = [
@@ -178,7 +179,7 @@ export default function EvidencePage() {
                             ))}
                         </ul>
 
-                        {/* Summary table */}
+                        {/* Full ingredient list, with amounts per daily serving */}
                         <div className="summary">
                             <button
                                 className="summary-toggle"
@@ -187,9 +188,9 @@ export default function EvidencePage() {
                                 aria-controls="summary-table"
                             >
                                 <span>
-                                    <span className="summary-toggle-title">At-a-Glance Summary Table</span>
+                                    <span className="summary-toggle-title">Ingredients &amp; Amounts</span>
                                     <span className="summary-toggle-sub">
-                                        All six ingredients, their roles, and top-line findings
+                                        Every ingredient and how much is in each daily serving
                                     </span>
                                 </span>
                                 <span className={`ingredient-chevron ${showTable ? 'is-open' : ''}`} aria-hidden="true">
@@ -212,25 +213,32 @@ export default function EvidencePage() {
                                             forcing the page to scroll sideways. */}
                                         <div className="summary-scroll">
                                             <table className="summary-table">
+                                                <caption className="summary-caption">
+                                                    Per daily serving of 2 capsules
+                                                </caption>
                                                 <thead>
                                                     <tr>
                                                         <th>Ingredient</th>
-                                                        <th>Cardiac Role</th>
-                                                        <th>Key Headline Finding</th>
-                                                        <th>Evidence Level</th>
+                                                        <th>Form</th>
+                                                        <th>Amount</th>
+                                                        <th>% NRV*</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {summaryData.map((row) => (
-                                                        <tr key={row.ingredient}>
-                                                            <td className="summary-name">{row.ingredient}</td>
-                                                            <td>{row.role}</td>
-                                                            <td className="summary-highlight">{row.highlight}</td>
-                                                            <td className="summary-level">{row.evidence}</td>
+                                                    {nutrition.map((row) => (
+                                                        <tr key={row.name}>
+                                                            <td className="summary-name">{row.name}</td>
+                                                            <td>{row.form || '—'}</td>
+                                                            <td className="summary-amount">{row.amount}</td>
+                                                            <td className="summary-level">{row.nrv}</td>
                                                         </tr>
                                                     ))}
                                                 </tbody>
                                             </table>
+                                            <p className="summary-note">
+                                                *NRV = Nutrient Reference Value. Taurine and CoQ10 have no
+                                                NRV. Capsule shell: hydroxypropyl methylcellulose (plant-based).
+                                            </p>
                                         </div>
                                     </motion.div>
                                 )}

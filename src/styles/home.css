@@ -76,7 +76,11 @@
     grid-template-columns: 0.92fr 1.08fr;
     gap: clamp(1.5rem, 4vw, 3rem);
     align-items: center;
-    min-height: 100svh;
+    /* Never shorter than the 16:9 banner itself (768/1376 = 55.8vw). In a short,
+       wide window a 100svh hero cropped the photo from the top and pushed the
+       jar's lid up behind the logo and menu; this way the whole jar always
+       sits below the header, and the hero simply runs a little past the fold. */
+    min-height: max(100svh, 55.8vw);
     padding-top: calc(var(--announcement-h) + var(--nav-h) + clamp(0.5rem, 2vw, 1.5rem));
     padding-bottom: clamp(2rem, 5vw, 3.5rem);
 }
@@ -160,7 +164,8 @@
     opacity: 0.75;
     vector-effect: non-scaling-stroke;
     stroke-dasharray: 40 960;
-    animation: rhythm-sweep 6s linear infinite;
+    /* Three beats per sweep: 2.4s is 75 beats a minute, a resting heart rate. */
+    animation: rhythm-sweep 2.4s linear infinite;
 }
 
 @keyframes rhythm-sweep {

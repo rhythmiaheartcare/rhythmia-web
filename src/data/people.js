@@ -22,8 +22,8 @@ export const founders = [
         name: 'Dr Mohamed Zuhair',
         title: 'Cofounder and Director',
         credential: 'Cardiologist, Specialist in Electrophysiology',
-        photo: '/assets/photos/Mohamed_Zuhair.png',
-        bio: 'Dr Mohamed Zuhair is a senior cardiology registrar and PhD candidate at Imperial College London and the National Heart and Lung Institute, with a research focus on syncope and complex rhythm management. He holds MBBS, BSc, MRCP and PGCME qualifications and teaches cardiology to medical students at both UCL and Imperial College London. His interests include cardiac electrophysiology, catheter ablation, and neuromodulation for arrhythmias. His published work includes studies on complex rhythm management and percutaneous neuromodulation for vasovagal syncope.',
+        photo: '/assets/photos/Mohamed_Zuhair.jpg',
+        bio: 'Dr Mohamed Zuhair is a senior electrophysiology fellow at Imperial College Healthcare NHS Trust and a Clinical Research Fellow at the National Heart and Lung Institute, Imperial College London, where he is completing a PhD in reflex syncope and cardioneuroablation. He helps run the Syncope and Cardioneuroablation Service at Hammersmith Hospital, a national referral centre for fainting and autonomic disorders, and specialises in heart rhythm disorders, catheter ablation and cardiac devices. His research into why people faint, and how the nervous system can be targeted to prevent it, won a European Society of Cardiology Young Investigator Award in Arrhythmias, Pacing and Electrophysiology in 2026, as well as a Best of the Best Abstracts award from the British Cardiovascular Society. He has published on catheter ablation and neuromodulation for vasovagal syncope and atrial fibrillation. He holds MBBS, BSc, MRCP and PGCME qualifications and teaches cardiology to medical students at UCL and Imperial College London.',
     },
     {
         name: 'Dr Mohamed Albatat',
@@ -48,30 +48,35 @@ export const advisors = [
         credential: 'Consultant Cardiologist & Electrophysiologist',
         affiliation: 'Imperial College Healthcare NHS Trust | Imperial College London',
         photo: '/assets/photos/Boon_Lim.jpg',
-        bio: 'Dr Boon Lim is a consultant cardiologist and electrophysiologist at Imperial College Healthcare NHS Trust, where he leads the nationally renowned Imperial Syncope Diagnostic Service at Hammersmith Hospital. He read medicine at Cambridge University on a prestigious scholarship, graduating with double first-class honours, and holds a PhD from Imperial College London in the autonomic mechanisms of atrial fibrillation, funded by the British Heart Foundation. A recognised expert in atrial fibrillation, arrhythmias and catheter ablation, Dr Lim has been named Top Doctor of the Year for Cardiology (2018, 2021) and is a recipient of the President’s Medal for Cardiology at the Royal Society of Medicine. He is also the author of Keeping Your Heart Healthy, published as part of the Penguin Life Experts series.',
+        website: 'https://drboonlim.co.uk/',
+        bio: 'Dr Boon Lim is one of the UK’s leading heart rhythm specialists: a consultant cardiologist and electrophysiologist at Imperial College Healthcare NHS Trust and Imperial College London, and clinical lead of the nationally renowned Imperial Syncope Diagnostic Service at Hammersmith Hospital. He read medicine at Cambridge University, graduating with a double first-class honours degree, and earned his PhD at Imperial College London researching the autonomic mechanisms of atrial fibrillation, funded by the British Heart Foundation. He has performed more than 2,500 atrial fibrillation ablations and published over 100 peer-reviewed papers, and is a recognised authority on atrial fibrillation, arrhythmias, fainting and catheter ablation. He was voted Top Doctor of the Year for Cardiology by his peers in 2018 and 2021, and received the President’s Medal for Cardiology from the Royal Society of Medicine. He is the author of Keeping Your Heart Healthy, part of the Penguin Life Experts series: an accessible guide to looking after your heart, from blood pressure and cholesterol to chest pain and fainting.',
     },
     {
         name: 'Dr Daniel Keene',
         title: 'Medical Advisor',
         credential: 'Consultant Cardiologist & Electrophysiologist',
-        affiliation: 'Imperial College Healthcare NHS Trust | Imperial College London',
+        affiliation: 'Royal Free London NHS Foundation Trust | Imperial College London',
         photo: '/assets/photos/Daniel_Keene.jpg',
-        bio: 'Dr Daniel Keene is a consultant cardiologist and electrophysiologist at the Royal Free London NHS Foundation Trust and Imperial College Healthcare NHS Trust. He graduated from the University of Manchester and was awarded both a National Institute for Health and Care Research academic clinical fellowship and a British Heart Foundation Clinical Research Training Fellowship to support his doctoral research into novel implantable cardiac device technologies. His clinical practice spans complex electrophysiology procedures including catheter ablation for a range of arrhythmias, alongside broader inpatient and outpatient general cardiology.',
+        website: 'https://www.drdanielkeene.co.uk/',
+        bio: 'Dr Daniel Keene is a consultant cardiologist and electrophysiologist, an internationally renowned expert and key opinion leader in implantable cardiac devices, and the lead for electrophysiology and cardiac devices at the Royal Free London NHS Foundation Trust. He is also Clinical Senior Lecturer in Cardiac Electrophysiology and Devices at the National Heart and Lung Institute, Imperial College London, and treats patients at Imperial College Healthcare NHS Trust. After graduating from the University of Manchester with commendations, he was awarded a National Institute for Health and Care Research Academic Clinical Fellowship at Imperial and a highly competitive British Heart Foundation Clinical Research Training Fellowship, completing a PhD on novel implantable cardiac device technologies. He performs complex catheter ablation across the full range of heart rhythm disorders and specialises in advanced pacing, including conduction system pacing and pacing for heart failure. His research spans pacing for slow heart rhythms and heart failure, and the mechanisms and treatment of syncope. He is a member of the British Cardiovascular Society and the British Heart Rhythm Society.',
     },
     {
         name: 'Dr Tiffany Ng',
         title: 'Medical Advisor',
-        photo: null,
+        photo: '/assets/photos/Tiffany_Ng.jpg',
     },
     {
         name: 'Dr Afnan Zuhair',
         title: 'Medical Advisor',
-        photo: null,
+        photo: '/assets/photos/Afnan_Zuhair.jpg',
     },
     {
         name: 'Dr Hans Henrik Odland',
         title: 'Medical Advisor',
+        credential: 'Paediatric Cardiologist & Electrophysiologist',
+        affiliation: 'Oslo University Hospital, Rikshospitalet',
         photo: '/assets/photos/Hans_Henrik_Odland.jpg',
+        bio: 'Dr Hans Henrik Odland is a cardiologist at Oslo University Hospital, Rikshospitalet, specialising in paediatric cardiology and cardiac electrophysiology. He trained in Giessen, Germany, completed a fellowship at the Hospital for Sick Children (SickKids) in Toronto and holds a PhD from the University of Oslo. His clinical work spans catheter ablation and cardiac device implantation, and his research focuses on assessing heart function with ultrasound and on cardiac resynchronisation therapy. He is the founder of Pacertool, which develops a biofeedback system to guide the implantation of pacemakers and resynchronisation devices.',
     },
 ]
 
@@ -82,9 +87,11 @@ export const team = [
         photo: null,
     },
     {
-        name: 'Alexandra Stefanou',
+        name: 'Eleni Stefanou',
         title: 'Customer Operations',
-        photo: null,
+        credential: 'Content Strategist | Copywriter | Video Producer',
+        photo: '/assets/photos/Eleni_Stefanou.jpg',
+        bio: 'Eleni Stefanou is a content strategist, copywriter and video producer with more than 14 years of experience in digital media. She began her career at the British Film Institute, where she established its social media strategy and produced digital content, before joining The Guardian as social platforms editor, where she also taught the Guardian Masterclass on social media storytelling. She has since written for Hormonally, a platform dedicated to open, accessible education on hormonal health. Eleni studied at Goldsmiths, University of London.',
     },
 ]
 

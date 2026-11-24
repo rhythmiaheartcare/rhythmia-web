@@ -47,7 +47,7 @@ export default function Header() {
                         </motion.p>
 
                         <motion.h1 className="hero-title" variants={rise} initial="hidden" animate="show" custom={1}>
-                            Daily support for your heart&rsquo;s electrical rhythm
+                            Supporting every heartbeat
                         </motion.h1>
 
                         <motion.div className="hero-actions" variants={rise} initial="hidden" animate="show" custom={2}>

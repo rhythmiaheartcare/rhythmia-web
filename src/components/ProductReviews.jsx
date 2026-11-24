@@ -4,18 +4,29 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 import { reviewService } from '../services/reviewService'
 
-function Stars({ value, size = 16 }) {
+/* Five stars, each filled by however much of it the rating covers:
+   4.7 fills four stars and 70% of the fifth. */
+export function Stars({ value, size = 16, label = true }) {
     return (
-        <span className="stars" aria-label={`${value} out of 5`}>
-            {[1, 2, 3, 4, 5].map((star) => (
-                <Star
-                    key={star}
-                    size={size}
-                    strokeWidth={1.5}
-                    className={value >= star ? 'star is-filled' : 'star'}
-                    aria-hidden="true"
-                />
-            ))}
+        <span
+            className="stars"
+            role={label ? 'img' : undefined}
+            aria-label={label ? `${value} out of 5` : undefined}
+            aria-hidden={label ? undefined : 'true'}
+        >
+            {[1, 2, 3, 4, 5].map((star) => {
+                const fill = Math.max(0, Math.min(1, value - (star - 1)))
+                return (
+                    <span className="star-slot" key={star} style={{ width: size, height: size }}>
+                        <Star size={size} strokeWidth={1.5} className="star" aria-hidden="true" />
+                        {fill > 0 && (
+                            <span className="star-fill" style={{ width: `${fill * 100}%` }}>
+                                <Star size={size} strokeWidth={1.5} className="star is-filled" aria-hidden="true" />
+                            </span>
+                        )}
+                    </span>
+                )
+            })}
         </span>
     )
 }

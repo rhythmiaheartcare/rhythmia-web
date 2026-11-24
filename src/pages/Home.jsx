@@ -22,16 +22,16 @@ export default function Home() {
 
             <Header />
 
-            {/* Every page has a section here that leads to it: the product, the
-                evidence, how it's made, who we are; then why rhythm matters and
+            {/* Every page has a section here that leads to it: the product and
+                why rhythm matters, the evidence, how it's made, who we are; then
                 the contact form. */}
             <main id="main">
                 <Reassurance />
                 <Product />
+                <EveryHeartbeat />
                 <EvidenceStrip />
                 <MadeStrip />
                 <WhoWeAre />
-                <EveryHeartbeat />
                 <ContactUs />
             </main>
 
