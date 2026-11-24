@@ -1,0 +1,262 @@
+/* =============================================================================
+   About page
+   ========================================================================== */
+
+.about-hero {
+    padding-top: calc(var(--announcement-h) + var(--nav-h) + clamp(2.5rem, 6vw, 5rem));
+    padding-bottom: clamp(2rem, 5vw, 3.5rem);
+    background:
+        radial-gradient(70% 60% at 10% 0%, rgba(213, 15, 15, 0.05) 0%, transparent 60%),
+        var(--bg);
+}
+
+.about-hero-copy {
+    max-width: 46rem;
+}
+
+/* The story, beneath the lead. */
+.about-story {
+    margin-top: var(--space-6);
+    max-width: 62ch;
+}
+
+.about-hero-title {
+    font-size: var(--text-5xl);
+    color: var(--fg);
+    margin-bottom: var(--space-6);
+    max-width: 18ch;
+}
+
+/* -----------------------------------------------------------------------------
+   People
+   -------------------------------------------------------------------------- */
+.people-head {
+    max-width: 44rem;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+/* Portrait */
+.portrait {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background-color: var(--bg-inset);
+    flex-shrink: 0;
+}
+
+.portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+/* Placeholder for people whose headshot has not been supplied yet: the
+   Rhythmia heart mark, small and soft, on a light tile. */
+.portrait-empty {
+    display: grid;
+    place-items: center;
+    background:
+        linear-gradient(150deg, var(--bg-raised) 0%, var(--bg-inset) 100%);
+    border: 1px solid var(--border);
+}
+
+.portrait .portrait-mark {
+    width: 34%;
+    height: auto;
+    object-fit: contain;
+    opacity: 0.35;
+}
+
+/* --- Person card (portrait, name, role) --- */
+.person-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--space-6);
+}
+
+.person-name {
+    margin-top: var(--space-4);
+    font-family: var(--font-text);
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--track-normal);
+    color: var(--fg);
+    line-height: var(--leading-snug);
+}
+
+.person-title {
+    margin-top: var(--space-1);
+    font-size: var(--text-sm);
+    color: var(--fg-muted);
+}
+
+/* Cards with a bio open it in a pop-up. The whole card is the button. */
+.person-button {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    border-radius: var(--radius-lg);
+}
+
+.person-button .portrait img {
+    transition: transform 0.6s var(--ease-out);
+}
+
+/* Hover only where there is a real pointer: on phones :hover sticks after a
+   tap, which left the photo zoomed after the bio was closed. */
+@media (hover: hover) {
+    .person-button:hover .portrait img {
+        transform: scale(1.04);
+    }
+
+    .person-button:hover .person-more {
+        color: var(--accent-hover);
+    }
+}
+
+.person-more {
+    display: inline-block;
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--accent-text);
+    border-bottom: 1px solid currentColor;
+}
+
+/* --- Bio pop-up --- */
+.bio-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: grid;
+    place-items: center;
+    padding: var(--space-6);
+    background: rgba(20, 10, 12, 0.55);
+    backdrop-filter: blur(4px);
+}
+
+.bio-dialog {
+    position: relative;
+    width: 100%;
+    max-width: 44rem;
+    max-height: calc(100dvh - 3rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    background: var(--bg-raised);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+}
+
+.bio-close {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    background: var(--bg);
+    color: var(--fg);
+    cursor: pointer;
+}
+
+.bio-close:hover {
+    background: var(--bg-inset);
+}
+
+.bio-head {
+    display: grid;
+    grid-template-columns: 140px minmax(0, 1fr);
+    gap: var(--space-6);
+    align-items: center;
+    padding-right: var(--space-10);
+}
+
+.bio-name {
+    font-size: var(--text-2xl);
+    color: var(--fg-heading);
+    line-height: var(--leading-snug);
+}
+
+.bio-title {
+    margin-top: var(--space-1);
+    font-weight: var(--weight-bold);
+    color: var(--accent-text);
+}
+
+.bio-credential,
+.bio-affiliation {
+    margin-top: var(--space-1);
+    font-size: var(--text-sm);
+    color: var(--fg-muted);
+}
+
+.bio-text {
+    margin-top: var(--space-6);
+    color: var(--fg);
+    line-height: var(--leading-relaxed);
+}
+
+/* The person's own site, under their bio. */
+.bio-website {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-5);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--accent-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.bio-website:hover {
+    text-decoration-thickness: 2px;
+}
+
+@media (max-width: 700px) {
+    .person-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+
+    /* Phones: the pop-up rises as a sheet from the bottom of the screen. */
+    /* No blur behind the sheet on phones: re-blurring the whole page on
+       every animation frame is what made the pop-up feel laggy there. */
+    .bio-backdrop {
+        place-items: end stretch;
+        padding: 0;
+        background: rgba(20, 10, 12, 0.6);
+        backdrop-filter: none;
+    }
+
+    .bio-dialog {
+        max-height: 88dvh;
+        border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    }
+
+    .bio-head {
+        grid-template-columns: 96px minmax(0, 1fr);
+        gap: var(--space-4);
+        align-items: start;
+    }
+
+    .bio-name {
+        font-size: var(--text-xl);
+    }
+}
+
+/* The photo sits against the right edge of the container on wide screens. */
+.about-hero .story-media {
+    margin-left: auto;
+}

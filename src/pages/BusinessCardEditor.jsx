@@ -12,7 +12,7 @@ export default function BusinessCardEditor() {
         updateField,
         zoomState,
         actions
-    } = useEditorState('rhythmia_business_card_data', defaultCardData, 2.0, 320);
+    } = useEditorState('rhythmia_business_card_v7', defaultCardData, 2.0, 320);
 
     useEffect(() => {
         document.title = "Rhythmia Heart Care Card";
@@ -30,25 +30,18 @@ export default function BusinessCardEditor() {
 
     if (!isLoaded) return null;
 
-    // Helper for business card nested updates if needed, though useEditorState updateField handles dot notation
-    // The original BusinessCardEditor used updateField(section, field, value)
-    // My hook uses updateField(path, value). So I need to adapt the calls.
-    // updateField('front.tagline', v)
-
     const sidebarContent = (
         <>
-            <EditorSection title="Front Side">
-                <EditorInput label="Tagline" value={data.front.tagline} onChange={v => updateField('front.tagline', v)} />
+            <EditorSection title="Thank-you side">
+                <EditorInput label="Heading" value={data.front.heading} onChange={v => updateField('front.heading', v)} />
+                <EditorInput label="Message" textarea value={data.front.message} onChange={v => updateField('front.message', v)} />
             </EditorSection>
 
-            <EditorSection title="Back Side (Contact)">
-                <EditorInput label="Full Name" value={data.back.name} onChange={v => updateField('back.name', v)} />
-                <EditorInput label="Job Title" value={data.back.title} onChange={v => updateField('back.title', v)} />
+            <EditorSection title="Contact side (leave a field blank to hide it)">
+                <EditorInput label="Heading" value={data.back.heading} onChange={v => updateField('back.heading', v)} />
                 <EditorInput label="Email" value={data.back.email} onChange={v => updateField('back.email', v)} />
-                <EditorInput label="Phone" value={data.back.phone} onChange={v => updateField('back.phone', v)} />
                 <EditorInput label="Website" value={data.back.website} onChange={v => updateField('back.website', v)} />
-                <EditorInput label="Address" value={data.back.address} onChange={v => updateField('back.address', v)} />
-                <EditorInput label="QR Label" value={data.back.qrLabel} onChange={v => updateField('back.qrLabel', v)} />
+                <EditorInput label="QR label" value={data.back.qrLabel} onChange={v => updateField('back.qrLabel', v)} />
             </EditorSection>
         </>
     );

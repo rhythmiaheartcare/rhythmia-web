@@ -1,37 +1,41 @@
-import { useEffect } from 'react'
-
 import Header from '../components/Header'
-import WhoWeAre from '../components/WhoWeAre'
-import OurStory from '../components/OurStory'
-import EveryHeartbeat from '../components/EveryHeartbeat'
+import Reassurance from '../components/Reassurance'
 import Product from '../components/Product'
+import EvidenceStrip from '../components/EvidenceStrip'
+import MadeStrip from '../components/MadeStrip'
+import WhoWeAre from '../components/WhoWeAre'
+import EveryHeartbeat from '../components/EveryHeartbeat'
 import ContactUs from '../components/ContactUs'
 import Footer from '../components/Footer'
-import { useLocation } from 'react-router-dom'
+import { usePageMeta } from '../hooks/usePageMeta'
 
 export default function Home() {
-    // Scroll to top or specific section if navigated back
-    const { hash } = useLocation();
-
-    useEffect(() => {
-        if (hash) {
-            const element = document.querySelector(hash);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-    }, [hash]);
+    usePageMeta({
+        title: null,
+        description: 'Welcome to the official website of Rhythmia Heart Care, the ultimate formulation to support heart rhythm health and tackle arrhythmias naturally.',
+        path: '/',
+    })
 
     return (
-        <main>
+        <>
+            <a className="skip-link" href="#main">Skip to content</a>
+
             <Header />
-            <Product />
-            <WhoWeAre />
-            <EveryHeartbeat />
-            <OurStory />
-            <ContactUs />
+
+            {/* Every page has a section here that leads to it: the product and
+                why rhythm matters, the evidence, how it's made, who we are; then
+                the contact form. */}
+            <main id="main">
+                <Reassurance />
+                <Product />
+                <EveryHeartbeat />
+                <EvidenceStrip />
+                <MadeStrip />
+                <WhoWeAre />
+                <ContactUs />
+            </main>
 
             <Footer />
-        </main>
+        </>
     )
 }

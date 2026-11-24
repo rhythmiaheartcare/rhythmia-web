@@ -1,76 +1,64 @@
-
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
 
+const reveal = {
+    hidden: { opacity: 0, y: 24 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+}
+
+/** "We're Rhythmia HeartCare" — the About page's opening, with a link to the rest. */
 export default function WhoWeAre() {
     return (
-        <section className="info-section light-section" id="who-we-are">
-            {/* Decor */}
-            <div className="pattern-bg" style={{ backgroundImage: 'url(/assets/pattern/Rhythmia_Care_Pattern_Red.svg)' }}></div>
-
-            <div className="container relative z-10">
-                <div className="split-layout">
+        <section className="section" id="who-we-are">
+            <div className="container">
+                <div className="grid-split">
                     <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.8 }}
-                        className="split-text"
+                        variants={reveal}
+                        initial="hidden"
+                        whileInView="show"
+                        viewport={{ once: true, margin: '-80px' }}
                     >
-                        <h2 className="section-title text-secondary">We’re Rhythmia HeartCare</h2>
-                        <div className="divider bg-secondary" style={{ width: '100px' }}></div>
-                        <p className="section-text text-dark">
-                            Founded by UK cardiologists, we deliver trusted, clinically informed support for the heart’s electrical rhythm.
-                        </p>
-                        <p className="section-text text-dark mt-4">
-                            More than a capsule, it’s a commitment: to empower patients with arrhythmias, to give confidence to those wanting to look after their heart rhythm.
-                        </p>
-                        <p className="section-text text-dark mt-4">
-                            Proper heart health is about caring for your heart’s natural rhythm.
-                        </p>
+                        <p className="eyebrow">Who we are</p>
+                        <h2 className="section-heading">We&rsquo;re Rhythmia HeartCare</h2>
+                        <div className="prose">
+                            <p>
+                                Founded by UK cardiologists, we deliver trusted, clinically
+                                informed support for the heart&rsquo;s electrical rhythm.
+                            </p>
+                            <p>
+                                More than a capsule, it&rsquo;s a commitment: to empower
+                                patients with arrhythmias, to give confidence to those wanting
+                                to look after their heart rhythm.
+                            </p>
+                            <p>
+                                Proper heart health is about caring for your heart&rsquo;s
+                                natural rhythm.
+                            </p>
+                        </div>
+                        <Link to="/about" className="btn btn-secondary section-link">
+                            More about us
+                            <ArrowRight size={18} strokeWidth={2} />
+                        </Link>
                     </motion.div>
 
-                    <div className="relative">
-                        {/* Main Image */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8 }}
-                            className="split-image-wrapper"
-                            style={{ height: '400px', transform: 'rotate(-2deg)', width: '90%' }}
-                        >
-                            <img
-                                src="/assets/photos/getty-images-3UDtdrn3qsQ-unsplash.jpg"
-                                alt="Medical Professionals"
-                                className="split-image"
-                                loading="lazy"
-                            />
-                        </motion.div>
-                        {/* Secondary Image Overlap */}
-                        <motion.div
-                            initial={{ opacity: 0, x: 50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
-                            className="split-image-wrapper absolute"
-                            style={{
-                                height: '250px',
-                                width: '60%',
-                                bottom: '-40px',
-                                right: '-20px',
-                                border: '4px solid white',
-                                transform: 'rotate(5deg)',
-                                zIndex: 2
-                            }}
-                        >
-                            <img
-                                src="/assets/photos/young-lab-researcher.png"
-                                alt="Lab Research"
-                                className="split-image"
-                                loading="lazy"
-                            />
-                        </motion.div>
-                    </div>
+                    {/* PLACEHOLDER: replace with a photograph of the cardiologists behind
+                        Rhythmia (Zuhair, Keene, Boon Lim). Drop the file into
+                        public/assets/photos/ and swap the src below. */}
+                    <motion.div
+                        className="media media-zoom"
+                        initial={{ opacity: 0, scale: 0.97 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                        <img
+                            src="/assets/photos/getty-images-3UDtdrn3qsQ-unsplash.jpg"
+                            alt="Cardiologists reviewing heart rhythm data"
+                            loading="lazy"
+                            decoding="async"
+                        />
+                    </motion.div>
                 </div>
             </div>
         </section>
