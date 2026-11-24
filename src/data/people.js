@@ -60,12 +60,12 @@ export const advisors = [
     },
     {
         name: 'Dr Tiffany Ng',
-        title: 'Medical Advisor',
+        title: 'Women’s Cardiovascular Health',
         photo: null,
     },
     {
         name: 'Dr Afnan Zuhair',
-        title: 'Medical Advisor',
+        title: 'Pregnancy & Women’s Health',
         photo: null,
     },
     {
