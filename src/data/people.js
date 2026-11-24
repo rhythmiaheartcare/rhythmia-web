@@ -62,12 +62,12 @@ export const advisors = [
     },
     {
         name: 'Dr Tiffany Ng',
-        title: 'Medical Advisor',
+        title: 'Women’s Cardiovascular Health',
         photo: '/assets/photos/Tiffany_Ng.jpg',
     },
     {
         name: 'Dr Afnan Zuhair',
-        title: 'Medical Advisor',
+        title: 'Pregnancy & Women’s Health',
         photo: '/assets/photos/Afnan_Zuhair.jpg',
     },
     {
@@ -84,7 +84,7 @@ export const team = [
     {
         name: 'Saja Labib',
         title: 'Head of Marketing',
-        photo: null,
+        photo: '/assets/photos/Saja_Labib.jpg',
     },
     {
         name: 'Eleni Stefanou',
