@@ -79,7 +79,7 @@ export const team = [
     {
         name: 'Saja Labib',
         title: 'Head of Marketing',
-        photo: null,
+        photo: '/assets/photos/Saja_Labib.jpg',
     },
     {
         name: 'Alexandra Stefanou',
