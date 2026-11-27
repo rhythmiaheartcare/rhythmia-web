@@ -17,6 +17,7 @@ const Cancel = lazy(() => import('./pages/Cancel'))
 const ApproveReview = lazy(() => import('./pages/ApproveReview'))
 const BookletEditor = lazy(() => import('./pages/BookletEditor'))
 const BusinessCardEditor = lazy(() => import('./pages/BusinessCardEditor'))
+const ThankYouCardEditor = lazy(() => import('./pages/ThankYouCardEditor'))
 const LeafletEditor = lazy(() => import('./pages/LeafletEditor'))
 const CduEditor = lazy(() => import('./pages/CduEditor'))
 
@@ -45,6 +46,7 @@ export default function App() {
                     <Route path="/approve-review" element={<ApproveReview />} />
                     <Route path="/booklet-editor" element={<BookletEditor />} />
                     <Route path="/business-card-editor" element={<BusinessCardEditor />} />
+                    <Route path="/thank-you-card-editor" element={<ThankYouCardEditor />} />
                     <Route path="/leaflet-editor" element={<LeafletEditor />} />
                     <Route path="/stand-editor" element={<CduEditor />} />
                 </Routes>
