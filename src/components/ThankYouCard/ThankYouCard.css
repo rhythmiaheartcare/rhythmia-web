@@ -47,6 +47,13 @@
     padding: 20px;
 }
 
+@media (max-width: 767px) {
+    .thank-you-card-root .tyc-stack {
+        padding: 6px 4px 16px;
+        gap: 20px;
+    }
+}
+
 .thank-you-card-root .tyc-item {
     display: flex;
     flex-direction: column;
@@ -100,6 +107,43 @@
 }
 
 /* =============================================================================
+   SUBTLE HEART PATTERN WATERMARK — Official Brand Vector Pattern (Light-on-Light)
+   ========================================================================== */
+.thank-you-card-root .tyc-pattern {
+    position: absolute;
+    background-image: url('/assets/pattern/Rhythmia_Care_Pattern_Red.svg');
+    background-repeat: no-repeat;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Front: delicate diagonal cascade sweeping across the open right/upper-right area
+   into the 3mm bleed, softly masked off before the jar so zero overlap touches the bottle */
+.thank-you-card-root .tyc-pattern-front {
+    top: calc(-1 * var(--tyc-bleed));
+    right: calc(-1 * var(--tyc-bleed));
+    bottom: calc(-1 * var(--tyc-bleed));
+    left: 0;
+    z-index: 2;
+    background-size: 92mm auto;
+    background-position: 108% 18%;
+    opacity: 0.085;
+    -webkit-mask-image: linear-gradient(108deg, transparent 42%, rgba(0, 0, 0, 0.45) 60%, #000 84%);
+    mask-image: linear-gradient(108deg, transparent 42%, rgba(0, 0, 0, 0.45) 60%, #000 84%);
+}
+
+/* Back: graceful edge-to-edge diagonal watermark behind the offer & QR tile */
+.thank-you-card-root .tyc-pattern-back {
+    inset: 0;
+    z-index: 1;
+    background-size: 102mm auto;
+    background-position: 56% 52%;
+    opacity: 0.075;
+    -webkit-mask-image: radial-gradient(ellipse 92% 92% at 50% 50%, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.85) 62%, #000 100%);
+    mask-image: radial-gradient(ellipse 92% 92% at 50% 50%, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.85) 62%, #000 100%);
+}
+
+/* =============================================================================
    FRONT — 4K Tilted Studio Jar + Official Wordmark + Heading + Lead II ECG
    ========================================================================== */
 .thank-you-card-root .tyc-jar-photo {
@@ -112,13 +156,14 @@
     object-position: left center;
     pointer-events: none;
     user-select: none;
+    z-index: 1;
 }
 
 .thank-you-card-root .tyc-front-right {
     position: relative;
     z-index: 4;
     margin-left: 38.2mm;
-    padding: 10.8mm 3.4mm 0 0;
+    padding: 9.2mm 3.4mm 0 0;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -131,7 +176,7 @@
 }
 
 .thank-you-card-root .tyc-heading {
-    margin-top: 3.6mm;
+    margin-top: 3.4mm;
     font-family: var(--tyc-display);
     font-size: 15.8pt;
     font-weight: 600;
@@ -140,6 +185,16 @@
     word-spacing: 0.08em;
     color: var(--tyc-oxblood);
     white-space: pre-line;
+}
+
+.thank-you-card-root .tyc-subline {
+    margin-top: 2.0mm;
+    font-family: var(--tyc-body);
+    font-size: 6.8pt;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.005em;
+    color: var(--tyc-muted);
 }
 
 /* ECG trace runs from right of jar base cleanly through the right 3mm bleed */
@@ -163,6 +218,8 @@
    BACK — 15% Off Offer + Personal Code + Curved-Eye Circular-Heart QR
    ========================================================================== */
 .thank-you-card-root .tyc-back-inner {
+    position: relative;
+    z-index: 3;
     width: 100%;
     height: 100%;
     padding: 0 6.2mm;

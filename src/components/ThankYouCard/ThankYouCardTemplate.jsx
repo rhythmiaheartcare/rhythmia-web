@@ -76,6 +76,8 @@ export default function ThankYouCardTemplate({ data = defaultThankYouCardData })
                                 alt="Rhythmia Heart Care amber glass bottle"
                             />
 
+                            {p.showPattern && <div className="tyc-pattern tyc-pattern-front" aria-hidden="true" />}
+
                             <div className="tyc-front-right">
                                 <img
                                     className="tyc-logo"
@@ -83,6 +85,7 @@ export default function ThankYouCardTemplate({ data = defaultThankYouCardData })
                                     alt="Rhythmia Heart Care"
                                 />
                                 {f.heading && <div className="tyc-heading">{f.heading}</div>}
+                                {f.subline && <div className="tyc-subline">{f.subline}</div>}
                             </div>
 
                             {f.showEcg && <ThankYouEcg />}
@@ -101,6 +104,7 @@ export default function ThankYouCardTemplate({ data = defaultThankYouCardData })
                 <div className="tyc-item">
                     <div className="tyc-sheet-label no-print">Back &middot; {sizeLabel}</div>
                     <div className="tyc-sheet">
+                        {p.showPattern && <div className="tyc-pattern tyc-pattern-back" aria-hidden="true" />}
                         <div className="tyc-trim">
                             <div className="tyc-back-inner">
                                 <div className="tyc-back-left">

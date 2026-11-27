@@ -69,16 +69,24 @@ export function useEditorState(storageKey, defaultData, initialZoom = 1.0, fitWi
 
     // Actions
     const handleFit = useCallback(() => {
-        // Attempt to find the preview wrapper width, default to window width minus sidebar
+        const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
         const wrapper = document.getElementById('editor-preview-wrapper');
-        const availableWidth = wrapper ? wrapper.clientWidth : (window.innerWidth - 400);
-        // Add some padding/margin roughly
-        const padding = 120; // 60px padding * 2
-        const safeWidth = availableWidth - padding;
+        const scaler = document.getElementById('editor-preview-scaler');
+        const availableWidth = wrapper ? wrapper.clientWidth : (isMobile ? window.innerWidth : window.innerWidth - 400);
+        const contentWidth = scaler && scaler.scrollWidth > 0 ? scaler.scrollWidth : fitWidthRatio;
+        const padding = isMobile ? 24 : 120;
+        const safeWidth = Math.max(availableWidth - padding, 120);
 
-        const fitScale = Math.min(Math.max(safeWidth / fitWidthRatio, 0.4), 1.5);
+        const fitScale = Math.min(Math.max(safeWidth / contentWidth, 0.1), 1.5);
         setZoom(fitScale);
     }, [fitWidthRatio]);
+
+    // Re-fit smoothly on phone/tablet orientation change
+    useEffect(() => {
+        const onOrientation = () => setTimeout(() => handleFit(), 120);
+        window.addEventListener('orientationchange', onOrientation);
+        return () => window.removeEventListener('orientationchange', onOrientation);
+    }, [handleFit]);
 
     const handlePrint = () => {
         window.print();

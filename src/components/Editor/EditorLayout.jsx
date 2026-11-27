@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import './Editor.css';
 import { ZoomControls, EditorActions } from './EditorComponents';
 
@@ -25,14 +25,53 @@ export default function EditorLayout({
     onReset,
     zoomState
 }) {
-    const [showSidebar, setShowSidebar] = useState(true);
+    const [showSidebar, setShowSidebar] = useState(() =>
+        typeof window !== 'undefined' ? window.innerWidth >= 768 : true
+    );
     const { zoom, setZoom, handleFit } = zoomState;
+    const scalerRef = useRef(null);
+    const hasFittedRef = useRef(false);
+    const [contentSize, setContentSize] = useState({ width: 0, height: 0 });
+
+    /* Track the unscaled preview size so the outer zoom box matches the exact
+       visual dimensions — keeping scaled previews dead-centred on phones and
+       preventing horizontal clipping or empty scroll space below. */
+    useEffect(() => {
+        const el = scalerRef.current;
+        if (!el) return;
+
+        const measure = () => {
+            const width = el.scrollWidth;
+            const height = el.scrollHeight;
+            setContentSize(prev =>
+                prev.width === width && prev.height === height ? prev : { width, height }
+            );
+            if (!hasFittedRef.current && width > 0) {
+                hasFittedRef.current = true;
+                handleFit();
+            }
+        };
+
+        measure();
+        const ro = new ResizeObserver(measure);
+        ro.observe(el);
+        return () => ro.disconnect();
+    }, [handleFit]);
 
     const handleZoomIn = () => setZoom(prev => Math.min(prev + 0.1, 3.0));
-    const handleZoomOut = () => setZoom(prev => Math.max(prev - 0.1, 0.4));
+    const handleZoomOut = () => setZoom(prev => Math.max(prev - 0.1, 0.15));
 
     return (
         <div className="rhythmia-editor-layout">
+
+            {/* MOBILE BACKDROP (CSS hides on desktop >= 768px) */}
+            {showSidebar && (
+                <div
+                    className="rhythmia-editor-backdrop no-print"
+                    onClick={() => setShowSidebar(false)}
+                    aria-hidden="true"
+                />
+            )}
 
             {/* SIDEBAR */}
             <div className={`rhythmia-editor-sidebar ${!showSidebar ? 'collapsed' : ''} no-print`}>
@@ -73,17 +112,11 @@ export default function EditorLayout({
                 {!showSidebar && (
                     <button
                         onClick={() => setShowSidebar(true)}
-                        className="rhythmia-control-btn no-print"
-                        style={{
-                            position: 'fixed',
-                            top: '20px',
-                            left: '20px',
-                            zIndex: 200,
-                            background: '#333'
-                        }}
-                        title="Show Sidebar"
+                        className="rhythmia-sidebar-open-btn no-print"
+                        title="Open Editor"
                     >
-                        »
+                        <span aria-hidden="true">»</span>
+                        <span>Edit</span>
                     </button>
                 )}
 
@@ -97,8 +130,21 @@ export default function EditorLayout({
 
                 {/* Content Scaler */}
                 <div className="rhythmia-editor-preview-content">
-                    <div className="rhythmia-editor-preview-scaler" style={{ transform: `scale(${zoom})` }}>
-                        {previewContent}
+                    <div
+                        className="rhythmia-editor-zoom-box"
+                        style={contentSize.width ? {
+                            width: `${contentSize.width * zoom}px`,
+                            height: `${contentSize.height * zoom}px`,
+                        } : undefined}
+                    >
+                        <div
+                            ref={scalerRef}
+                            id="editor-preview-scaler"
+                            className="rhythmia-editor-preview-scaler"
+                            style={{ transform: `scale(${zoom})` }}
+                        >
+                            {previewContent}
+                        </div>
                     </div>
                 </div>
             </div>

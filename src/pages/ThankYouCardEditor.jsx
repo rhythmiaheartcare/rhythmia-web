@@ -13,10 +13,11 @@ export default function ThankYouCardEditor() {
         updateField,
         zoomState,
         actions,
-    } = useEditorState('rhythmia_thank_you_card_v3', defaultThankYouCardData, 1.8, 360);
+    } = useEditorState('rhythmia_thank_you_card_v4', defaultThankYouCardData, 1.8, 360);
 
     const includeBleed = data.print?.includeBleed ?? true;
     const showGuides = data.print?.showGuides ?? true;
+    const showPattern = data.print?.showPattern ?? true;
     const showEcg = data.front?.showEcg ?? true;
 
     useEffect(() => {
@@ -69,6 +70,18 @@ export default function ThankYouCardEditor() {
 
                 <label className="tyc-toggle-row">
                     <span className="tyc-toggle-text">
+                        <span className="tyc-toggle-title">Subtle heart pattern</span>
+                        <span className="tyc-toggle-desc">Soft brand watermark on both sides</span>
+                    </span>
+                    <input
+                        type="checkbox"
+                        checked={showPattern}
+                        onChange={e => updateField('print.showPattern', e.target.checked)}
+                    />
+                </label>
+
+                <label className="tyc-toggle-row">
+                    <span className="tyc-toggle-text">
                         <span className="tyc-toggle-title">Show trim &amp; safe guides</span>
                         <span className="tyc-toggle-desc">Preview only — hidden when saving PDF</span>
                     </span>
@@ -93,6 +106,11 @@ export default function ThankYouCardEditor() {
                     rows={2}
                     value={data.front?.heading}
                     onChange={v => updateField('front.heading', v)}
+                />
+                <EditorInput
+                    label="Subline (leave blank to hide)"
+                    value={data.front?.subline}
+                    onChange={v => updateField('front.subline', v)}
                 />
                 <label className="tyc-toggle-row">
                     <span className="tyc-toggle-text">
