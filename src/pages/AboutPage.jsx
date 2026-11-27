@@ -163,7 +163,6 @@ export default function AboutPage() {
                                 animate="show"
                                 className="about-hero-copy"
                             >
-                                <p className="eyebrow">About</p>
                                 <h1 className="about-hero-title">
                                     The Minds Behind Rhythmia
                                 </h1>
@@ -213,7 +212,6 @@ export default function AboutPage() {
                             whileInView="show"
                             viewport={{ once: true, margin: '-80px' }}
                         >
-                            <p className="eyebrow">Our people</p>
                             <h2 className="section-heading">The people behind it</h2>
                             <p className="lead">
                                 Cardiologists, researchers and operators who between them have spent

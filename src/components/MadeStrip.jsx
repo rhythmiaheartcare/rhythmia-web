@@ -16,7 +16,6 @@ export default function MadeStrip() {
                     transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 >
                     <div>
-                        <p className="eyebrow">How it&rsquo;s made</p>
                         <h2 className="section-heading">Crafted with Precision &amp; Purity</h2>
                         <p className="lead">
                             We have partnered with industry leaders to bring you unparalleled quality.

@@ -22,7 +22,6 @@ export default function EvidenceStrip() {
                     transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 >
                     <div>
-                        <p className="eyebrow">The evidence</p>
                         <h2 className="section-heading">Evidence Behind Every Ingredient</h2>
                         <p className="lead">
                             The science behind every ingredient in Rhythmia Heart Care &mdash;

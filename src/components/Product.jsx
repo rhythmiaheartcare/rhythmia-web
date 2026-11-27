@@ -42,7 +42,6 @@ export default function Product() {
                     viewport={{ once: true, margin: '-80px' }}
                     transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 >
-                    <p className="eyebrow">The formulation</p>
                     <h2 className="section-heading section-heading-center">
                         The all-in-one cardiac supplement
                     </h2>

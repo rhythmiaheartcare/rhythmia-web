@@ -85,7 +85,6 @@ export default function ManufacturingPage() {
                 <section className="section made-hero">
                     <div className="container">
                         <motion.div variants={reveal} initial="hidden" animate="show" className="made-hero-copy">
-                            <p className="eyebrow">How it&rsquo;s made</p>
                             <h1 className="made-hero-title">Crafted with Precision &amp; Purity</h1>
                             <p className="lead">
                                 We have partnered with industry leaders to bring you unparalleled quality.
@@ -119,7 +118,6 @@ export default function ManufacturingPage() {
                             viewport={{ once: true, margin: '-80px' }}
                             className="made-section-head"
                         >
-                            <p className="eyebrow">Certifications</p>
                             <h2 className="section-heading">Independently Verified Standards</h2>
                         </motion.div>
 
@@ -152,7 +150,6 @@ export default function ManufacturingPage() {
                             viewport={{ once: true, margin: '-80px' }}
                             className="made-section-head"
                         >
-                            <p className="eyebrow">The process</p>
                             <h2 className="section-heading">From raw material to finished capsule</h2>
                         </motion.div>
 

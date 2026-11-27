@@ -130,7 +130,6 @@ export default function EvidencePage() {
                 <section className="section evidence-hero">
                     <div className="container">
                         <motion.div variants={reveal} initial="hidden" animate="show" className="evidence-hero-copy">
-                            <p className="eyebrow">The evidence</p>
                             <h1 className="evidence-hero-title">Understanding Your Heart Supplement</h1>
                             <p className="lead">
                                 The science behind every ingredient in Rhythmia Heart Care &mdash;
@@ -165,7 +164,6 @@ export default function EvidencePage() {
                             viewport={{ once: true, margin: '-80px' }}
                             className="evidence-head"
                         >
-                            <p className="eyebrow">The Ingredients</p>
                             <h2 className="section-heading">Evidence Behind Every Ingredient</h2>
                             <p className="lead">
                                 Tap any ingredient to explore the peer-reviewed research supporting
@@ -257,7 +255,6 @@ export default function EvidencePage() {
                             viewport={{ once: true, margin: '-80px' }}
                             className="evidence-head"
                         >
-                            <p className="eyebrow">Who Is Rhythmia For?</p>
                             <h2 className="section-heading">Designed for Patients. Suitable for Everyone.</h2>
                         </motion.div>
 

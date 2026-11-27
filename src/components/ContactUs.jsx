@@ -37,7 +37,6 @@ export default function ContactUs() {
                         viewport={{ once: true, margin: '-80px' }}
                         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                     >
-                        <p className="eyebrow">Contact</p>
                         <h2 className="section-heading">Get in Touch</h2>
                         <p className="lead">
                             Have a question about Rhythmia? We&rsquo;re here to help you understand how
