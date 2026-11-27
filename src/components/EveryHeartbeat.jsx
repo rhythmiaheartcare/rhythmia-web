@@ -18,7 +18,6 @@ export default function EveryHeartbeat() {
                         whileInView="show"
                         viewport={{ once: true, margin: '-80px' }}
                     >
-                        <p className="eyebrow">Why rhythm matters</p>
                         <h2 className="section-heading">Every Heartbeat Counts</h2>
 
                         <div className="prose">

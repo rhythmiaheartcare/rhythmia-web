@@ -19,7 +19,6 @@ export default function WhoWeAre() {
                         whileInView="show"
                         viewport={{ once: true, margin: '-80px' }}
                     >
-                        <p className="eyebrow">Who we are</p>
                         <h2 className="section-heading">We&rsquo;re Rhythmia HeartCare</h2>
                         <div className="prose">
                             <p>

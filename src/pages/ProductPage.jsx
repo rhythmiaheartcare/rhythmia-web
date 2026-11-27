@@ -211,7 +211,6 @@ export default function ProductPage() {
                 <section className="section" id="whats-inside" data-surface="sunken">
                     <div className="container">
                         <motion.div className="pdp-head" variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
-                            <p className="eyebrow">What&rsquo;s inside</p>
                             <h2 className="section-heading">Every ingredient, and how much</h2>
                         </motion.div>
 
@@ -266,7 +265,6 @@ export default function ProductPage() {
                 <section className="section">
                     <div className="container">
                         <motion.div className="pdp-head" variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
-                            <p className="eyebrow">Who it&rsquo;s for</p>
                             <h2 className="section-heading">Designed for patients, suitable for everyone</h2>
                         </motion.div>
                         <ul className="audience-grid">
@@ -291,7 +289,6 @@ export default function ProductPage() {
                 <section className="section" id="reviews">
                     <div className="container">
                         <motion.div className="pdp-head" variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
-                            <p className="eyebrow">Reviews</p>
                             <h2 className="section-heading">From people taking it</h2>
                         </motion.div>
                         <ProductReviews reviews={reviews} loading={reviewsLoading} />
@@ -304,7 +301,6 @@ export default function ProductPage() {
                         <motion.div className="founder-card" variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}>
                             <Portrait person={founder} className="founder-portrait" />
                             <div>
-                                <p className="eyebrow">Created by cardiologists</p>
                                 <h2 className="founder-title">Formulated by the doctors who treat rhythm disorders</h2>
                                 <p className="founder-text">
                                     {founder.name}, {founder.title.toLowerCase()}, is a cardiologist specialising in
